@@ -31,7 +31,7 @@ public class RoundPanel extends JPanel {
         
         //fondo de color
         g2.setColor(getBackground());
-        g2.fillRoundRect(+4, +4, getWidth()-8, getHeight()-8, radius, radius);
+        g2.fillRoundRect(+2, +2, getWidth()-4, getHeight()-4, radius, radius);
     
         g2.dispose();
     }

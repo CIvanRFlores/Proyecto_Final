@@ -1,4 +1,4 @@
-package views;
+  package views;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -25,6 +25,7 @@ public class AuthView {
 	public AuthView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
 		imageIcon = new ImageIcon("src/images/elManglarLogo.png"); //icono de la ventana
+		frame.setBackground(Color.pink);
 		frame.setIconImage(imageIcon.getImage());
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //cerrar ventana si se presiona la X
@@ -37,22 +38,16 @@ public class AuthView {
 	
 	public void login() {
 		
+		//importar el método que permite utilizar fuentes personalizadas
 		boldCustomFont();
 		regularCustomFont();
-		
-		/**PANEL DE FONDO**/
-		JPanel backgroundPnl = new JPanel();
-		backgroundPnl.setBackground(Color.white);
-		backgroundPnl.setLayout(new BorderLayout());
-		frame.setContentPane(backgroundPnl); //colocar como contenido del frame al panel de fondo
 	
-		
 		/**IMAGEN LATERAL IZQUIERDA DE DECORACIÓN**/
 		JPanel imagePnl = new JPanel();
+		imagePnl.setBackground(Color.white);
 		imagePnl.setBorder(BorderFactory.createEmptyBorder(60, 60, 60, 30)); 
 		imagePnl.setLayout(new BorderLayout());
-		imagePnl.setOpaque(false); //tiene fondo o no
-		backgroundPnl.add(imagePnl, BorderLayout.WEST);
+		frame.add(imagePnl, BorderLayout.WEST);
 		
 		//icono de fondo 
 		image = new ImageIcon("src/images/mangroveImage.png").getImage().getScaledInstance(500, 1000, Image.SCALE_SMOOTH);
@@ -66,7 +61,7 @@ public class AuthView {
 		sidePnl.setBackground(Color.white);
 		sidePnl.setBorder(BorderFactory.createEmptyBorder(60, 30, 60, 60)); 
 		sidePnl.setLayout(new GridLayout(6, 1, 0, 25));
-		backgroundPnl.add(sidePnl, BorderLayout.CENTER );
+		frame.add(sidePnl, BorderLayout.CENTER );
 		
 		JLabel welcomeLbl = new JLabel("Bienvenido");
 		welcomeLbl.setFont(new Font("Caladea Bold", Font.BOLD, 50));
@@ -87,13 +82,13 @@ public class AuthView {
 		/**PANEL CON JTEXTFIELD DE NOMBRE DE USUARIO**/
 		RoundPanel usernamePnl = new RoundPanel(30);  
 		usernamePnl.setBackground(Color.white);
-		usernamePnl.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40)); //borde invisible para centrar elementos que el panel contenga 
 		usernamePnl.setForeground(Color.decode("#8A5627")); //color del borde
-		usernamePnl.setLayout(new BorderLayout(10, 0));
+		usernamePnl.setLayout(new BorderLayout(15, 0));
 		sidePnl.add(usernamePnl);
 		
 		//texto que alude al valor del campo de texto
 		JLabel usernameLbl = new JLabel("Nombre de usuario");
+		usernameLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); //borde invisible para centrar elementos
 		usernameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 18));
 		usernameLbl.setForeground(Color.decode("#999999")); //color de letra
 		usernameLbl.setHorizontalAlignment(JLabel.CENTER); //centrar etiqueta
@@ -104,6 +99,7 @@ public class AuthView {
 		image = new ImageIcon("src/images/users.png").getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel usersIconLbl = new JLabel(imageIcon);
+		usersIconLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); //borde invisible para centrar elementos
 		usernamePnl.add(usersIconLbl, BorderLayout.WEST);
 		
 		//textfield
@@ -117,14 +113,14 @@ public class AuthView {
 		
 		/**PANEL CON JTEXTFIELD DE CONTRASEÑA DE USUARIO**/
 		RoundPanel passwordPnl = new RoundPanel(30); 
-		passwordPnl.setBackground(Color.white);
-		passwordPnl.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40)); //borde invisible para centrar elementos que el panel contenga 
+		passwordPnl.setBackground(Color.white); 
 		passwordPnl.setForeground(Color.decode("#8A5627")); //color del borde
-		passwordPnl.setLayout(new BorderLayout(10, 0));
+		passwordPnl.setLayout(new BorderLayout(15, 0));
 		sidePnl.add(passwordPnl);
 		
 		//texto que alude al valor del campo de texto
 		JLabel passwordLbl = new JLabel("Contraseña");
+		passwordLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); //borde invisible para centrar elementos
 		passwordLbl.setFont(new Font("Caladea Bold", Font.BOLD, 18));
 		passwordLbl.setForeground(Color.decode("#999999")); //color de letra
 		passwordLbl.setHorizontalAlignment(JLabel.CENTER); //centrar etiqueta
@@ -135,6 +131,7 @@ public class AuthView {
 		image = new ImageIcon("src/images/key.png").getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel keyIconLbl = new JLabel(imageIcon);
+		keyIconLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); //borde invisible para centrar elementos
 		passwordPnl.add(keyIconLbl, BorderLayout.WEST);
 	
 		//panel con el campo para escribir la contraseña y el botón para mostrarla/ocultarla

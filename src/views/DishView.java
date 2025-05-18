@@ -5,17 +5,26 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import controllers.AuthController;
+import controllers.DishController;
 import customClasses.RoundButton;
 import customClasses.RoundPanel;
 
 public class DishView {
 
 	public JFrame frame;
+	public JPanel buttonPnl;
+	public JLabel restaurantNameLbl;
+	public RoundButton foodBttn, orderBttn, clientBttn, inventoryBttn, returnBttn;
+	public JPanel dishesPnl;
+	public JPanel mainPnl;
 	public Image image;
 	public ImageIcon imageIcon;
+	public String message;
+	public String currentWindow;
 	public int relativeXSize;
 	public int relativeYSize;
-	AuthController ac;
+	public AuthController ac;
+	public DishController dc;
 	
 	
 	public DishView(String title, int frameWidth, int frameHeight) {
@@ -29,96 +38,150 @@ public class DishView {
 		frame.setResizable(true); //redimensionar la ventana
 		frame.setMinimumSize(new Dimension(350, 350));
 		frame.setTitle(title); //colocar título a la ventana
-	}
-	
-	public void dishes() {
-		/**PANEL DE FONDO**/
-		JPanel backgroundPnl = new JPanel();
-		backgroundPnl.setBackground(Color.white);
-		backgroundPnl.setLayout(new BorderLayout());
-		frame.setContentPane(backgroundPnl); //colocar como contenido del frame al panel de fondo
-		
 		
 		/**BOTONES LATERALES DE NAVEGACIÓN**/
-		JPanel buttonPnl = new JPanel();
+		buttonPnl = new JPanel();
 		buttonPnl.setBackground(Color.decode("#DEFFDB"));
 		buttonPnl.setLayout(new GridLayout(6, 1, 0, 10));
-		backgroundPnl.add(buttonPnl, BorderLayout.WEST);
+		frame.add(buttonPnl, BorderLayout.WEST);
 		
 		//nombre del restaurante 
 		image = new ImageIcon("src/images/elManglarName.png").getImage().getScaledInstance(200, 40, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		JLabel restaurantNameLbl = new JLabel(imageIcon);
+		restaurantNameLbl = new JLabel(imageIcon);
 		buttonPnl.add(restaurantNameLbl);
 		
 		//botón de platillos
 		image = new ImageIcon("src/images/food.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton foodBttn = new RoundButton(imageIcon, 30); //botón
-		foodBttn.setBackground(Color.decode("#3C7E3A"));
+		foodBttn = new RoundButton(imageIcon, 30); //botón
+		foodBttn.setBackground(Color.decode("#244E23"));
 		foodBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		foodBttn.setForeground(Color.white);
 		foodBttn.setText("Platillos");
 		buttonPnl.add(foodBttn);
 		
+		
 		//botón de órdenes
 		image = new ImageIcon("src/images/order.png").getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton orderbttn = new RoundButton(imageIcon, 30); //botón
-		orderbttn.setBackground(Color.decode("#244E23"));
-		orderbttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		orderbttn.setForeground(Color.white);
-		orderbttn.setText("Órdenes");
-		buttonPnl.add(orderbttn);
+		orderBttn = new RoundButton(imageIcon, 30); //botón
+		orderBttn.setBackground(Color.decode("#3C7E3A"));
+		orderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
+		orderBttn.setForeground(Color.white);
+		orderBttn.setText("Órdenes");
+		buttonPnl.add(orderBttn);
+		
+		//efecto hover del botón órdenes
+		orderBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				orderBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	orderBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});
+		
 		
 		//botón de clientes
 		image = new ImageIcon("src/images/client.png").getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton clientBttn = new RoundButton(imageIcon, 30); //botón
+		clientBttn = new RoundButton(imageIcon, 30); //botón
 		clientBttn.setBackground(Color.decode("#244E23"));
 		clientBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		clientBttn.setForeground(Color.white);
 		clientBttn.setText("Clientes");
 		buttonPnl.add(clientBttn);
 		
+		//efecto hover del botón clientes
+		clientBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				clientBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	clientBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});
+		
+		
 		//botón de inventario
 		image = new ImageIcon("src/images/inventory.png").getImage().getScaledInstance(30, 28, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton inventoryBttn = new RoundButton(imageIcon, 30); //botón
+		inventoryBttn = new RoundButton(imageIcon, 30); //botón
 		inventoryBttn.setBackground(Color.decode("#244E23"));
 		inventoryBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		inventoryBttn.setForeground(Color.white);
 		inventoryBttn.setText("Inventario");
 		buttonPnl.add(inventoryBttn);
 		
+		//efecto hover del botón inventario
+		inventoryBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				inventoryBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	inventoryBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});
+		
+		
 		//botón de volver
 		image = new ImageIcon("src/images/return.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton returnBttn = new RoundButton(imageIcon, 30); //botón
+		returnBttn = new RoundButton(imageIcon, 30); //botón
 		returnBttn.setBackground(Color.decode("#244E23"));
 		returnBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		returnBttn.setForeground(Color.white);
 		returnBttn.setText("Volver");
 		buttonPnl.add(returnBttn);
 		
+		//volver a la ventana anterior de acorde a la ventana actual
 		returnBttn.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de login
-				ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); //crear controlador de login y asignar parámetros a la ventana
-				ac.login(); //llamar al método que crea y muestra la ventana de login
+				switch(currentWindow) { 
+					case "dishes":
+						frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de login
+						ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); //crear controlador de login y asignar parámetros a la ventana
+						ac.login(); //llamar al método que crea y muestra la ventana de login
+					break;
+					
+					case "newDish":
+						frame.remove(mainPnl);
+						dishes();
+					break;
+				}
+				frame.repaint();
+				frame.revalidate();
 			}
 			
 		});
 		
+		//efecto hover del botón volver
+		returnBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				returnBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	returnBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});
+	}
+	
+	public void dishes() {
+		currentWindow = "dishes"; //indicar la ventana actual en la que se encuentra el usuario
 		
 		/**PANEL PRINCIPAL/CENTRAL*/
-		JPanel mainPnl = new JPanel();
+		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
-		mainPnl.setBorder(BorderFactory.createEmptyBorder(60, 60, 60, 30)); 
+		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
 		mainPnl.setLayout(new BorderLayout());
-		backgroundPnl.add(mainPnl, BorderLayout.CENTER);
+		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		
 		/**CABECERA*/
@@ -132,26 +195,26 @@ public class DishView {
 		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
 		dishesLbl.setForeground(Color.decode("#244E23")); //color de letra
 		dishesLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
-		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta
+		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
 		headerPnl.add(dishesLbl);
 		
 		//panel de barra de búsqueda y botones
 		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 3, 30, 0));
+		actionPnl.setLayout(new FlowLayout(0, 30, 0));
 		actionPnl.setOpaque(false); //tiene fondo o no
 		headerPnl.add(actionPnl);
 		
 		//barra de búsqueda
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
-		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); //borde invisible para centrar elementos que el panel contenga 
+		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //borde invisible para centrar elementos que el panel contenga 
 		searchBarPnl.setForeground(Color.decode("#244E23")); //color del borde
-		searchBarPnl.setLayout(new BorderLayout(10, 0));
+		searchBarPnl.setLayout(new BorderLayout(15, 0));
 		searchBarPnl.setPreferredSize(new Dimension(414, 30));
 		actionPnl.add(searchBarPnl);
 		
 		//imagen de lupa 
-		image = new ImageIcon("src/images/magnifyingGlass.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		image = new ImageIcon("src/images/magnifyingGlass.png").getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
@@ -172,15 +235,230 @@ public class DishView {
 		searchBttn.setText("Buscar");
 		actionPnl.add(searchBttn);
 		
-		//botón de barra de búsqueda
+		//efecto hover de botón de barra de búsqueda
+		searchBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				searchBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	searchBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});
+				
+		
+		//botón de añadir nuevo platillo
 		RoundButton addBttn = new RoundButton(30);
-		addBttn.setBackground(Color.decode("#244E23"));
+		addBttn.setBackground(Color.decode("#3C7E3A"));
 		addBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		addBttn.setForeground(Color.white);
 		addBttn.setText("Nuevo");
-		actionPnl.add(addBttn);
+		actionPnl.add(addBttn); 
+
+		addBttn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] options1 = {"Platillo","Bebida"};
+				int type = 0;
+				
+				image = new ImageIcon("src/images/questionMark.png").getImage().getScaledInstance(45, 85, Image.SCALE_SMOOTH); //imagen
+				imageIcon = new ImageIcon(image);
+				
+				message = "¿Desea crear un platillo o bebida?";
+				type = 
+					JOptionPane.showOptionDialog(null, message,"Alimentos y bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options1, null); //ventana emergente
+				
+				frame.remove(mainPnl);
+				if(type==0) {
+					newDish("platillo");
+				}else {
+					newDish("bebida");
+				}
+				frame.repaint();
+				frame.revalidate();
+			}
+			
+		});
+		
+		
+		//efecto hover de botón de añadir nuevo platillo
+		addBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				addBttn.setBackground(Color.decode("#4DA14B"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	addBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+		});
+		
+		
+		/**PANEL DONDE SE MUESTRAN LOS PLATILLOS EXISTENTES*/
+		CardLayout cardLayout = new CardLayout(); //crear layout de tipo CardLayout 
+		JPanel dishesPnl = new JPanel();
+		dishesPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0)); //borde invisible para centrar elementos que el panel contenga 
+		dishesPnl.setLayout(cardLayout);	
+		dishesPnl.setOpaque(false); //tiene fondo o no
+		mainPnl.add(dishesPnl, BorderLayout.CENTER);
+		
+		//paneles individuales o páginas de platillos
+		JPanel page1 = new JPanel();
+		page1.setBackground(Color.pink);
+		
+		JPanel page2 = new JPanel();
+		page2.setBackground(Color.yellow);
+		
+		JPanel page3 = new JPanel();
+		page3.setBackground(Color.red);
+		
+		dishesPnl.add(page1, "página 1");	
+		dishesPnl.add(page2, "página 2");	
+		dishesPnl.add(page3, "página 3");	
+		
+		
+		/**PIE DE PÁGINA CON BOTONES PARA NAVEGAR ENTRE PÁGINAS DE PLATILLOS*/
+		JPanel footerPnl = new JPanel();
+		footerPnl.setLayout(new FlowLayout());	
+		footerPnl.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		footerPnl.setOpaque(false); //tiene fondo o no
+		mainPnl.add(footerPnl, BorderLayout.SOUTH);
+		
+		//etiqueta de página
+		JLabel pageLbl = new JLabel("Página");
+		pageLbl.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		pageLbl.setForeground(Color.decode("#244E23")); //color de letra
+		pageLbl.setHorizontalAlignment(JLabel.CENTER); //alinear etiqueta a la izquierda
+		pageLbl.setHorizontalAlignment(SwingConstants.CENTER); //centrar texto de la etiqueta 
+		footerPnl.add(pageLbl);
+		
+		//botón de página 1
+		RoundButton page1Bttn = new RoundButton(30);
+		page1Bttn.setBackground(Color.decode("#244E23"));
+		page1Bttn.setFont(new Font("Caladea Bold", Font.BOLD, 15));
+		page1Bttn.setForeground(Color.white);
+		page1Bttn.setText("1");
+		footerPnl.add(page1Bttn);
+
+		page1Bttn.addActionListener(new ActionListener() {
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(dishesPnl, "página 1");
+			}
+			
+		});
+		
+		//botón de página 2
+		RoundButton page2Bttn = new RoundButton(30);
+		page2Bttn.setBackground(Color.decode("#244E23"));
+		page2Bttn.setFont(new Font("Caladea Bold", Font.BOLD, 15));
+		page2Bttn.setForeground(Color.white);
+		page2Bttn.setText("2");
+		footerPnl.add(page2Bttn);
+		
+		page2Bttn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(dishesPnl, "página 2");
+			}
+			
+		});
+		
+		//botón de página 3
+		RoundButton page3Bttn = new RoundButton(30);
+		page3Bttn.setBackground(Color.decode("#244E23"));
+		page3Bttn.setFont(new Font("Caladea Bold", Font.BOLD, 15));
+		page3Bttn.setForeground(Color.white);
+		page3Bttn.setText("3");
+		footerPnl.add(page3Bttn);
+		
+		page3Bttn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cardLayout.show(dishesPnl, "página 3");
+			}
+			
+		});
+		
 		
 		frame.setVisible(true);
+	}
+	
+	public void newDish(String tipo) {
+		currentWindow = "newDish"; //indicar la ventana actual en la que se encuentra el usuario
+		
+		/**PANEL PRINCIPAL/CENTRAL*/
+		mainPnl = new JPanel();
+		mainPnl.setBackground(Color.white);
+		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
+		mainPnl.setLayout(new BorderLayout());
+		frame.add(mainPnl, BorderLayout.CENTER);
+		
+		
+		/**CABECERA*/
+		JPanel headerPnl = new JPanel();
+		headerPnl.setLayout(new FlowLayout(0, 30, 0));
+		headerPnl.setOpaque(false); //tiene fondo o no
+		mainPnl.add(headerPnl, BorderLayout.NORTH);
+		
+		//título que alude a la ventana actual
+		JLabel dishesLbl = new JLabel("Nuevo " + tipo);
+		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
+		dishesLbl.setForeground(Color.decode("#244E23")); //color de letra
+		dishesLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
+		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
+		headerPnl.add(dishesLbl);
+				
+		//botón de barra de búsqueda
+		RoundButton cancelBttn = new RoundButton(30);
+		cancelBttn.setBackground(Color.decode("#EF2D2D"));
+		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		cancelBttn.setForeground(Color.white);
+		cancelBttn.setText("Cancelar");
+		headerPnl.add(cancelBttn);
+		
+		//efecto hover de botón de barra de búsqueda
+		cancelBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				cancelBttn.setBackground(Color.decode("#ED5C5C"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
+		    }
+		});
+				
+		
+		//botón de añadir nuevo platillo
+		RoundButton saveBttn = new RoundButton(30);
+		saveBttn.setBackground(Color.decode("#767AEC"));
+		saveBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		saveBttn.setForeground(Color.white);
+		saveBttn.setText("Guardar");
+		saveBttn.setEnabled(false);;
+		headerPnl.add(saveBttn); 
+		
+		//botón de añadir nuevo platillo
+		RoundButton nextBttn = new RoundButton(30);
+		nextBttn.setBackground(Color.decode("#244E23"));
+		nextBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		nextBttn.setForeground(Color.white);
+		nextBttn.setText("Siguiente");
+		headerPnl.add(nextBttn); 
+		
+		//efecto hover de botón de añadir nuevo platillo
+		nextBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				nextBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	nextBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});
 	}
 	
 }
