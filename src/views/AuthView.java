@@ -11,6 +11,7 @@ import javax.swing.*;
 import controllers.DishController;
 import customClasses.RoundButton;
 import customClasses.RoundPanel;
+import models.AuthModel;
 
 public class AuthView {
 
@@ -21,6 +22,7 @@ public class AuthView {
 	public int relativeXSize;
 	public int relativeYSize;
 	DishController dc;
+	
 	
 	public AuthView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
@@ -228,8 +230,9 @@ public class AuthView {
 				String message;
 				//validar si los dos campos han sido completados
 				if(flag1 && flag2) {
+					AuthModel am = new AuthModel();
 					//cuando ambos campos coinciden con los datos de la cuenta del usuario
-					if(username.equals("u") && passTxt.equals("c") ) {
+					if(am.login(username, passTxt)) {	//el metodo recibe parametros de usuario y contraseña
 						image = new ImageIcon("src/images/checkCircle.png").getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); //imagen
 	       				imageIcon = new ImageIcon(image);
 	       				
