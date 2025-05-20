@@ -10,8 +10,8 @@ public class RoundPanel extends JPanel {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 7129786242148060747L;
-	private int radius;
+	public static final long serialVersionUID = 7129786242148060747L;
+	public int radius;
 
     public RoundPanel(int radius) {
         this.radius = radius; //radio de las esquinas

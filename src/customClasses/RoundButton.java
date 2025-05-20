@@ -11,11 +11,11 @@ public class RoundButton extends JButton {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1499719972644048438L;
-	private int radius;
-	private ImageIcon imageIcon;
+	public static final long serialVersionUID = 1499719972644048438L;
+	public int radius;
+	public ImageIcon imageIcon;
 	
-	public RoundButton(ImageIcon imageIcon, int radius) { //si se asigna un icono al botón
+	public RoundButton(int radius, ImageIcon imageIcon) { //si se asigna un icono al botón
 		this.imageIcon = imageIcon;
 		this.radius = radius; //radio de las esquinas
 		setOpaque(false); //hacer que el botón real no se muestre
