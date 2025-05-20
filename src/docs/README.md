@@ -18,7 +18,8 @@ Se realizó la maqueta del diseño del sistema de administración en código y c
 Se creó la navegación entre ventanas existentes utilizando botones y lases para manejar tarjetas de platillos y ordenes fueron implementadas.
 Además, el sistema se conectó a una base de datos remota para así realizar la autenticación de inicio de sesión con éxito.
 
-
+Usuario: jonasoto |
+Contraseña: 1234
 
 
 
