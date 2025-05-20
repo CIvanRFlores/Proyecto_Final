@@ -5,14 +5,13 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import controllers.AuthController;
-import controllers.ClientController;
-import controllers.InventoryController;
+import controllers.DishController;
 import controllers.OrderController;
-import customClasses.DishCard;
+import controllers.InventoryController;
 import customClasses.RoundButton;
 import customClasses.RoundPanel;
 
-public class DishView {
+public class ClientView {
 
 	public JFrame frame;
 	public JPanel buttonPnl;
@@ -26,12 +25,12 @@ public class DishView {
 	public int relativeXSize;
 	public int relativeYSize;
 	public AuthController ac;
+	public DishController dc;
 	public OrderController oc;
-	public ClientController cc;
 	public InventoryController ic;
 	
 	
-	public DishView(String title, int frameWidth, int frameHeight) {
+	public ClientView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
 		imageIcon = new ImageIcon("src/images/elManglarLogo.png"); //icono de la ventana
 		frame.setIconImage(imageIcon.getImage());
@@ -59,11 +58,34 @@ public class DishView {
 		image = new ImageIcon("src/images/food.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		foodBttn = new RoundButton(30, imageIcon); //botón
-		foodBttn.setBackground(Color.decode("#3C7E3A"));
+		foodBttn.setBackground(Color.decode("#244E23"));
 		foodBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		foodBttn.setForeground(Color.white);
 		foodBttn.setText("Platillos");
 		buttonPnl.add(foodBttn);
+		
+		//ir a platillos
+		foodBttn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de platillos
+				dc = new DishController("Platillos", frame.getWidth(), frame.getHeight()); //crear controlador de platillos y asignar parámetros a la ventana
+				dc.dishes(); //llamar al método que crea y muestra la ventana de platillos
+			}
+			
+		});
+		
+		//efecto hover del botón platillos
+		foodBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				foodBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	foodBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});
 		
 		
 		//botón de órdenes
@@ -78,12 +100,14 @@ public class DishView {
 		
 		//ir a ordenes
 		orderBttn.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de ordenes
 				oc = new OrderController("Ordenes", frame.getWidth(), frame.getHeight()); //crear controlador de ordenes y asignar parámetros a la ventana
 				oc.orders(); //llamar al método que crea y muestra la ventana de ordenes
 			}
+			
 		});
 		
 		//efecto hover del botón órdenes
@@ -102,32 +126,11 @@ public class DishView {
 		image = new ImageIcon("src/images/client.png").getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		clientBttn = new RoundButton(30, imageIcon); //botón
-		clientBttn.setBackground(Color.decode("#244E23"));
+		clientBttn.setBackground(Color.decode("#3C7E3A"));
 		clientBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		clientBttn.setForeground(Color.white);
 		clientBttn.setText("Clientes");
 		buttonPnl.add(clientBttn);
-		
-		//ir a clientes
-		clientBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de clientes
-				cc = new ClientController("Clientes", frame.getWidth(), frame.getHeight()); //crear controlador de clientes y asignar parámetros a la ventana
-				cc.clients(); //llamar al método que crea y muestra la ventana de clientes
-			}
-		});
-		
-		//efecto hover del botón clientes
-		clientBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				clientBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	clientBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
 		
 		
 		//botón de inventario
@@ -177,25 +180,25 @@ public class DishView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				switch(currentWindow) { 
-					case "dishes":
+					case "clients":
 						frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de login
 						ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); //crear controlador de login y asignar parámetros a la ventana
 						ac.login(); //llamar al método que crea y muestra la ventana de login
 					break;
-					
-					case "newDish":
+				
+					case "newClient":
 						frame.remove(mainPnl);
-						dishes();
+						clients();
 					break;
 					
-					case "dishPage":
+					case "editClient":
 						frame.remove(mainPnl);
-						dishes();
+						clients();
 					break;
 					
-					case "editDish":
+					case "clientHistory":
 						frame.remove(mainPnl);
-						dishPage();
+						clients();
 					break;
 				}
 				
@@ -207,7 +210,7 @@ public class DishView {
 		//efecto hover del botón volver
 		returnBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
-				if(currentWindow.equals("dishes")) {
+				if(currentWindow.equals("clients")) {
 					returnBttn.setBackground(Color.decode("#ED5C5C"));
 				}else {
 					returnBttn.setBackground(Color.decode("#3C7E3A"));
@@ -215,7 +218,7 @@ public class DishView {
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	if(currentWindow.equals("dishes")) {
+		    	if(currentWindow.equals("clients")) {
 					returnBttn.setBackground(Color.decode("#EF2D2D"));
 				}else {
 					returnBttn.setBackground(Color.decode("#244E23"));
@@ -224,9 +227,8 @@ public class DishView {
 		});
 	}
 	
-	
-	public void dishes() {
-		currentWindow = "dishes"; //indicar la ventana actual en la que se encuentra el usuario
+	public void clients() {
+		currentWindow = "clients"; //indicar la ventana actual en la que se encuentra el usuario
 		returnBttn.setBackground(Color.decode("#EF2D2D")); //cambiar aspecto del botón
 		returnBttn.setText("Salir");
 		
@@ -237,7 +239,6 @@ public class DishView {
 		mainPnl.setLayout(new BorderLayout());
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
-		
 		/**CABECERA*/
 		JPanel headerPnl = new JPanel();
 		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
@@ -245,12 +246,12 @@ public class DishView {
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
 		//título que alude a la ventana actual
-		JLabel dishesLbl = new JLabel("Platillos");
-		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
-		dishesLbl.setForeground(Color.decode("#244E23")); //color de letra
-		dishesLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
-		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
-		headerPnl.add(dishesLbl);
+		JLabel clientsLbl = new JLabel("Clientes");
+		clientsLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
+		clientsLbl.setForeground(Color.decode("#244E23")); //color de letra
+		clientsLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
+		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
+		headerPnl.add(clientsLbl);
 		
 		//panel de barra de búsqueda y botones
 		JPanel actionPnl = new JPanel();
@@ -264,7 +265,7 @@ public class DishView {
 		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //borde invisible para centrar elementos que el panel contenga 
 		searchBarPnl.setForeground(Color.decode("#244E23")); //color del borde
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
-		searchBarPnl.setPreferredSize(new Dimension(414, 30));
+		searchBarPnl.setPreferredSize(new Dimension(300, 30));
 		actionPnl.add(searchBarPnl);
 		
 		//imagen de lupa 
@@ -300,164 +301,95 @@ public class DishView {
 		    }
 		});
 				
-		
-		//botón de añadir nuevo platillo
-		RoundButton addBttn = new RoundButton(30);
-		addBttn.setBackground(Color.decode("#3C7E3A"));
-		addBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		addBttn.setForeground(Color.white);
-		addBttn.setText("Nuevo");
-		actionPnl.add(addBttn); 
+		//botón de añadir nuevo cliente
+		RoundButton newClient = new RoundButton(30);
+		newClient.setBackground(Color.decode("#2EA623"));
+		newClient.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		newClient.setForeground(Color.white);
+		newClient.setText("Añadir nuevo cliente");
+		actionPnl.add(newClient); 
 
-		//ir a nuevo platillo
-		addBttn.addActionListener(new ActionListener() {
+		//ir a ordenes en curso
+		newClient.addActionListener(new ActionListener() {
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*Object[] options1 = {"Platillo","Bebida"};
-				
-				image = new ImageIcon("src/images/questionMark.png").getImage().getScaledInstance(45, 85, Image.SCALE_SMOOTH); //imagen
-				imageIcon = new ImageIcon(image);
-				
-				message = "¿Desea crear un platillo o bebida?";
-				JOptionPane.showOptionDialog(null, message,"Alimentos y bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options1, null); //ventana emergente
-				*/
 				frame.remove(mainPnl);
-				newDish();
+				newClient();
 				frame.repaint();
 				frame.revalidate();
 			}
+			
 		});
 		
-		//efecto hover de botón de añadir nuevo platillo
-		addBttn.addMouseListener(new MouseAdapter() {
+		//efecto hover de botón de añadir nueva órden según el estilo actual del botón 
+		newClient.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
-				addBttn.setBackground(Color.decode("#4DA14B"));
+				newClient.setBackground(Color.decode("#39C82C"));
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	addBttn.setBackground(Color.decode("#3C7E3A"));
+		    	newClient.setBackground(Color.decode("#2EA623"));
 		    }
 		});
 		
+		/**PANEL DONDE SE MUESTRAN LOS CLIENTES EXISTENTES*/
+		JPanel clientsPnl = new JPanel();
+		clientsPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0)); //borde invisible para centrar elementos que el panel contenga 
+		clientsPnl.setLayout(new FlowLayout());	
+		clientsPnl.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		clientsPnl.setOpaque(false); //tiene fondo o no
+		mainPnl.add(clientsPnl, BorderLayout.CENTER);
 		
-		/**PANEL DONDE SE MUESTRAN LOS PLATILLOS EXISTENTES*/
-		CardLayout cardLayout = new CardLayout(); //crear layout de tipo CardLayout 
-		JPanel dishesPnl = new JPanel();
-		dishesPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0)); //borde invisible para centrar elementos que el panel contenga 
-		dishesPnl.setLayout(cardLayout);	
-		dishesPnl.setOpaque(false); //tiene fondo o no
-		mainPnl.add(dishesPnl, BorderLayout.CENTER);
+		//botón de añadir editar cliente
+		RoundButton editBttn = new RoundButton(30);
+		editBttn.setBackground(Color.decode("#C07A00"));
+		editBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		editBttn.setForeground(Color.white);
+		editBttn.setText("Editar");
+		clientsPnl.add(editBttn); 
 		
-		//paneles individuales o páginas de platillos
-		JPanel page1 = new JPanel();
-		page1.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 30));
-		page1.setBackground(Color.white);
-		
-		//tarjeta del platillo
-		DishCard dishCard = new DishCard(30, "src/images/shrimps.png", "<html>Camarones<br>(sin cabeza)<html>");
-		RoundPanel dish = dishCard.createCard();
-		page1.add(dish);
-		
-		//ir a página de platillo
-		dish.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
+		//ir a editar
+		editBttn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				frame.remove(mainPnl);
-				dishPage();
+				editClient();
 				frame.repaint();
 				frame.revalidate();
 			}
+			
 		});
 		
-		//efecto hover del componente 2 (etiqueta) de la tarjeta del platillo
-		dish.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				dish.getComponent(1).setForeground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	dish.getComponent(1).setForeground(Color.decode("#244E23"));
-		    }
+		
+		//botón de historial del cliente
+		RoundButton historyBttn = new RoundButton(30);
+		historyBttn.setBackground(Color.decode("#2EA623"));
+		historyBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		historyBttn.setForeground(Color.white);
+		historyBttn.setText("Historial");
+		clientsPnl.add(historyBttn);
+		
+		//ir a historial del cliente
+		historyBttn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(mainPnl);
+				clientHistory();
+				frame.repaint();
+				frame.revalidate();
+			}
+			
 		});
 	
-		
-		JPanel page2 = new JPanel();
-		page2.setBackground(Color.white);
-		
-		JPanel page3 = new JPanel();
-		page3.setBackground(Color.white);
-		
-		dishesPnl.add(page1, "página 1"); //añadir tarjetas
-		dishesPnl.add(page2, "página 2");	
-		dishesPnl.add(page3, "página 3");	
-		
-		
-		/**PIE DE PÁGINA CON BOTONES PARA NAVEGAR ENTRE PÁGINAS DE PLATILLOS*/
-		JPanel footerPnl = new JPanel();
-		footerPnl.setLayout(new FlowLayout());	
-		footerPnl.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		footerPnl.setOpaque(false); //tiene fondo o no
-		mainPnl.add(footerPnl, BorderLayout.SOUTH);
-		
-		//etiqueta de página
-		JLabel pageLbl = new JLabel("Página");
-		pageLbl.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		pageLbl.setForeground(Color.decode("#244E23")); //color de letra
-		pageLbl.setHorizontalAlignment(JLabel.CENTER); //alinear etiqueta a la izquierda
-		pageLbl.setHorizontalAlignment(SwingConstants.CENTER); //centrar texto de la etiqueta 
-		footerPnl.add(pageLbl);
-		
-		//botón de página 1
-		RoundButton page1Bttn = new RoundButton(30);
-		page1Bttn.setBackground(Color.decode("#244E23"));
-		page1Bttn.setFont(new Font("Caladea Bold", Font.BOLD, 15));
-		page1Bttn.setForeground(Color.white);
-		page1Bttn.setText("1");
-		footerPnl.add(page1Bttn);
-
-		page1Bttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(dishesPnl, "página 1");
-			}
-		});
-		
-		//botón de página 2
-		RoundButton page2Bttn = new RoundButton(30);
-		page2Bttn.setBackground(Color.decode("#244E23"));
-		page2Bttn.setFont(new Font("Caladea Bold", Font.BOLD, 15));
-		page2Bttn.setForeground(Color.white);
-		page2Bttn.setText("2");
-		footerPnl.add(page2Bttn);
-		
-		page2Bttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(dishesPnl, "página 2");
-			}
-		});
-		
-		//botón de página 3
-		RoundButton page3Bttn = new RoundButton(30);
-		page3Bttn.setBackground(Color.decode("#244E23"));
-		page3Bttn.setFont(new Font("Caladea Bold", Font.BOLD, 15));
-		page3Bttn.setForeground(Color.white);
-		page3Bttn.setText("3");
-		footerPnl.add(page3Bttn);
-		
-		page3Bttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				cardLayout.show(dishesPnl, "página 3");
-			}
-		});
-		
-		
 		frame.setVisible(true);
 	}
 	
 	
-	public void newDish() {
-		currentWindow = "newDish"; //indicar la ventana actual en la que se encuentra el usuario
+	public void newClient() {
+		currentWindow = "newClient"; //indicar la ventana actual en la que se encuentra el usuario
 		returnBttn.setBackground(Color.decode("#244E23")); //cambiar aspecto del botón
 		returnBttn.setText("Volver");
 		
@@ -468,22 +400,21 @@ public class DishView {
 		mainPnl.setLayout(new BorderLayout());
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
-		
 		/**CABECERA*/
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new FlowLayout(0, 30, 0));
+		headerPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
 		headerPnl.setOpaque(false); //tiene fondo o no
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
 		//título que alude a la ventana actual
-		JLabel dishesLbl = new JLabel("Nuevo platillo");
-		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
-		dishesLbl.setForeground(Color.decode("#244E23")); //color de letra
-		dishesLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
-		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
-		headerPnl.add(dishesLbl);
+		JLabel clientsLbl = new JLabel("Añadir cliente");
+		clientsLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
+		clientsLbl.setForeground(Color.decode("#244E23")); //color de letra
+		clientsLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
+		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
+		headerPnl.add(clientsLbl);
 				
-		//botón de cancelar
+		//botón de barra de búsqueda
 		RoundButton cancelBttn = new RoundButton(30);
 		cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -491,207 +422,12 @@ public class DishView {
 		cancelBttn.setText("Cancelar");
 		headerPnl.add(cancelBttn);
 		
-		//cancelar acción
-		cancelBttn.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
+		//ir a clientes
+		cancelBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				frame.remove(mainPnl);
-				dishes();
-				frame.repaint();
-				frame.revalidate();
-			}
-		});
-		
-		//efecto hover de botón de cancelar
-		cancelBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				cancelBttn.setBackground(Color.decode("#ED5C5C"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
-		    }
-		});
-				
-		
-		//botón de añadir guardar
-		RoundButton saveBttn = new RoundButton(30);
-		saveBttn.setBackground(Color.decode("#767AEC"));
-		saveBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		saveBttn.setForeground(Color.white);
-		saveBttn.setText("Guardar");
-		saveBttn.setEnabled(false);;
-		headerPnl.add(saveBttn); 
-		
-		//botón de continuar
-		RoundButton nextBttn = new RoundButton(30);
-		nextBttn.setBackground(Color.decode("#244E23"));
-		nextBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		nextBttn.setForeground(Color.white);
-		nextBttn.setText("Siguiente");
-		headerPnl.add(nextBttn); 
-		
-		//efecto hover de botón de continuar
-		nextBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				nextBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	nextBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
-	}
-	
-	
-	public void dishPage() {
-		currentWindow = "dishPage"; //indicar la ventana actual en la que se encuentra el usuario
-		returnBttn.setBackground(Color.decode("#244E23")); //cambiar aspecto del botón
-		returnBttn.setText("Volver");
-		
-		/**PANEL PRINCIPAL/CENTRAL*/
-		mainPnl = new JPanel();
-		mainPnl.setBackground(Color.white);
-		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
-		mainPnl.setLayout(new BorderLayout());
-		frame.add(mainPnl, BorderLayout.CENTER);
-		
-		
-		/**CABECERA*/
-		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new FlowLayout(0, 30, 0));
-		headerPnl.setOpaque(false); //tiene fondo o no
-		mainPnl.add(headerPnl, BorderLayout.NORTH);
-		
-		//título que alude a la ventana actual
-		JLabel dishesLbl = new JLabel("Platillo");
-		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
-		dishesLbl.setForeground(Color.decode("#244E23")); //color de letra
-		dishesLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
-		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
-		headerPnl.add(dishesLbl);
-				
-		//botón de borrar 
-		RoundButton deleteBttn = new RoundButton(30);
-		deleteBttn.setBackground(Color.decode("#EF2D2D"));
-		deleteBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		deleteBttn.setForeground(Color.white);
-		deleteBttn.setText("Eliminar");
-		headerPnl.add(deleteBttn);
-		
-		//borrar platillo
-		deleteBttn.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
-				frame.remove(mainPnl);
-				dishes();
-				frame.repaint();
-				frame.revalidate();
-			}
-		});
-		
-		//efecto hover de botón de borrar
-		deleteBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				deleteBttn.setBackground(Color.decode("#ED5C5C"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	deleteBttn.setBackground(Color.decode("#EF2D2D"));
-		    }
-		});
-				
-		
-		//botón de editar
-		RoundButton editBttn = new RoundButton(30);
-		editBttn.setBackground(Color.decode("#2EA623"));
-		editBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		editBttn.setForeground(Color.white);
-		editBttn.setText("Editar");
-		editBttn.setEnabled(false);
-		headerPnl.add(editBttn); 
-		
-		//ir a página de editar
-		editBttn.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
-				frame.remove(mainPnl);
-				editDish();
-				frame.repaint();
-				frame.revalidate();
-			}
-		});
-		
-		//efecto hover de botón de editar
-		editBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				editBttn.setBackground(Color.decode("#39C82C"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	editBttn.setBackground(Color.decode("#2EA623"));
-		    }
-		});
-				
-		
-		//botón de descargar
-		RoundButton downloadBttn = new RoundButton(30);
-		downloadBttn.setBackground(Color.decode("#367181"));
-		downloadBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		downloadBttn.setForeground(Color.white);
-		downloadBttn.setText("Descargar");
-		headerPnl.add(downloadBttn); 
-		
-		//efecto hover de botón de descargar
-		downloadBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				downloadBttn.setBackground(Color.decode("#264F59"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	downloadBttn.setBackground(Color.decode("#367181"));
-		    }
-		});
-	}
-	
-	
-	public void editDish() {
-		currentWindow = "editDish"; //indicar la ventana actual en la que se encuentra el usuario
-		returnBttn.setBackground(Color.decode("#244E23")); //cambiar aspecto del botón
-		returnBttn.setText("Volver");
-		
-		/**PANEL PRINCIPAL/CENTRAL*/
-		mainPnl = new JPanel();
-		mainPnl.setBackground(Color.white);
-		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
-		mainPnl.setLayout(new BorderLayout());
-		frame.add(mainPnl, BorderLayout.CENTER);
-		
-		
-		/**CABECERA*/
-		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new FlowLayout(0, 30, 0));
-		headerPnl.setOpaque(false); //tiene fondo o no
-		mainPnl.add(headerPnl, BorderLayout.NORTH);
-		
-		//título que alude a la ventana actual
-		JLabel dishesLbl = new JLabel("Editar platillo");
-		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
-		dishesLbl.setForeground(Color.decode("#244E23")); //color de letra
-		dishesLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
-		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
-		headerPnl.add(dishesLbl);
-				
-		//botón de cancelar
-		RoundButton cancelBttn = new RoundButton(30);
-		cancelBttn.setBackground(Color.decode("#EF2D2D"));
-		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		cancelBttn.setForeground(Color.white);
-		cancelBttn.setText("Cancelar");
-		headerPnl.add(cancelBttn);
-		
-		//cancelar acción
-		cancelBttn.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
-				frame.remove(mainPnl);
-				dishPage();
+				clients();
 				frame.repaint();
 				frame.revalidate();
 			}
@@ -707,7 +443,98 @@ public class DishView {
 		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		    }
 		});
+				
 		
+		//botón de añadir nuevo cliente
+		RoundButton newClient = new RoundButton(30);
+		newClient.setBackground(Color.decode("#2EA623"));
+		newClient.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		newClient.setForeground(Color.white);
+		newClient.setText("Añadir");
+		headerPnl.add(newClient); 
+
+		//ir a clientes
+		newClient.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(mainPnl);
+				clients();
+				frame.repaint();
+				frame.revalidate();
+			}
+		});
+		
+		//efecto hover de botón de añadir nuevo cliente
+		newClient.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				newClient.setBackground(Color.decode("#39C82C"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	newClient.setBackground(Color.decode("#2EA623"));
+		    }
+		});
+	
+		frame.setVisible(true);
+	}
+	
+	
+	public void editClient() {
+		currentWindow = "editClient"; //indicar la ventana actual en la que se encuentra el usuario
+		returnBttn.setBackground(Color.decode("#244E23")); //cambiar aspecto del botón
+		returnBttn.setText("Volver");
+		
+		/**PANEL PRINCIPAL/CENTRAL*/
+		mainPnl = new JPanel();
+		mainPnl.setBackground(Color.white);
+		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
+		mainPnl.setLayout(new BorderLayout());
+		frame.add(mainPnl, BorderLayout.CENTER);
+		
+		/**CABECERA*/
+		JPanel headerPnl = new JPanel();
+		headerPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		headerPnl.setOpaque(false); //tiene fondo o no
+		mainPnl.add(headerPnl, BorderLayout.NORTH);
+		
+		//título que alude a la ventana actual
+		JLabel clientsLbl = new JLabel("Editar cliente");
+		clientsLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
+		clientsLbl.setForeground(Color.decode("#244E23")); //color de letra
+		clientsLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
+		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
+		headerPnl.add(clientsLbl);
+				
+		//botón de barra de búsqueda
+		RoundButton cancelBttn = new RoundButton(30);
+		cancelBttn.setBackground(Color.decode("#EF2D2D"));
+		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		cancelBttn.setForeground(Color.white);
+		cancelBttn.setText("Cancelar");
+		headerPnl.add(cancelBttn);
+		
+		//ir a clientes
+		cancelBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(mainPnl);
+				clients();
+				frame.repaint();
+				frame.revalidate();
+			}
+		});
+		
+		//efecto hover de botón de barra de búsqueda
+		cancelBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				cancelBttn.setBackground(Color.decode("#ED5C5C"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
+		    }
+		});
+				
 		
 		//botón de guardar
 		RoundButton saveBttn = new RoundButton(30);
@@ -716,8 +543,19 @@ public class DishView {
 		saveBttn.setForeground(Color.white);
 		saveBttn.setText("Guardar");
 		headerPnl.add(saveBttn); 
+
+		//ir a clientes
+		saveBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(mainPnl);
+				clients();
+				frame.repaint();
+				frame.revalidate();
+			}
+		});
 		
-		//efecto hover de botón de descargar
+		//efecto hover de botón de guardar
 		saveBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				saveBttn.setBackground(Color.decode("#767AEC"));
@@ -727,6 +565,67 @@ public class DishView {
 		    	saveBttn.setBackground(Color.decode("#555BF6"));
 		    }
 		});
+	
+		frame.setVisible(true);
 	}
 	
+	
+	public void clientHistory() {
+		currentWindow = "clientHistory"; //indicar la ventana actual en la que se encuentra el usuario
+		returnBttn.setBackground(Color.decode("#244E23")); //cambiar aspecto del botón
+		returnBttn.setText("Volver");
+		
+		/**PANEL PRINCIPAL/CENTRAL*/
+		mainPnl = new JPanel();
+		mainPnl.setBackground(Color.white);
+		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
+		mainPnl.setLayout(new BorderLayout());
+		frame.add(mainPnl, BorderLayout.CENTER);
+		
+		/**CABECERA*/
+		JPanel headerPnl = new JPanel();
+		headerPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		headerPnl.setOpaque(false); //tiene fondo o no
+		mainPnl.add(headerPnl, BorderLayout.NORTH);
+		
+		//título que alude a la ventana actual
+		JLabel clientsLbl = new JLabel("Consultar historial de compras");
+		clientsLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
+		clientsLbl.setForeground(Color.decode("#244E23")); //color de letra
+		clientsLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
+		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
+		headerPnl.add(clientsLbl);
+				
+		//botón de descargar historial
+		RoundButton downloadBttn = new RoundButton(30);
+		downloadBttn.setBackground(Color.decode("#367181"));
+		downloadBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		downloadBttn.setForeground(Color.white);
+		downloadBttn.setText("Descargar");
+		headerPnl.add(downloadBttn); 
+
+		//ir a clientes
+		downloadBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(mainPnl);
+				clients();
+				frame.repaint();
+				frame.revalidate();
+			}
+		});
+		
+		//efecto hover de botón de descargar historial
+		downloadBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				downloadBttn.setBackground(Color.decode("#264F59"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	downloadBttn.setBackground(Color.decode("#367181"));
+		    }
+		});
+	
+		frame.setVisible(true);
+	}
 }

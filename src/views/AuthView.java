@@ -217,13 +217,13 @@ public class AuthView {
 				
 				//campo de usuario 
 				String username = usernameTxtFld.getText();
-				if(!usernameTxtFld.getText().equals("")) { //si se encuentra vacío
+				if(!usernameTxtFld.getText().equals("")) { //si no se encuentra vacío
 					flag1 = true;
 				}
 				
 				//campo de contraseña 
 				String passTxt = new String(passwordFld.getPassword());
-				if(!passTxt.equals("")) { //si se encuentra vacía 
+				if(!passTxt.equals("")) { //si no se encuentra vacía 
 					flag2 = true;
 				}
 				
