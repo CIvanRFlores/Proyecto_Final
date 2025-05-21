@@ -1,25 +1,51 @@
-# Proyecto_Final
-Proyecto final - Restaurante | Programación III
+# 🍤 Proyecto Final - Restaurante de Mariscos
+Programación III
 
-Este proyecto consiste en el diseño de una aplicación para la gestión de un restaurante de mariscos, el cual será desarrollado posteriormente en el lenguaje
-de programación Java. 
+# Descripción General
+Este proyecto tiene como objetivo el diseño y desarrollo de una aplicacion para la gestión integral de un restaurante de mariscos, utilizando el lenguaje de programación Java. El sistema permitirá administrar funcionalidades clave del restaurante, tales como la visualización del menú, la toma de pedidos, la administracion de inventario y la gestión de clientes.
 
+# 🖌️ Primera Etapa: Diseño de Interfaz (Prototipado en Figma)
+Durante esta fase inicial, se elaboró un prototipo interactivo utilizando Figma, con el propósito de planificar y estructurar visualmente la aplicación antes de su desarrollo.
 
-En esta primera etapa:
-se presenta el diseño de la interfaz gráfica utilizando la herramienta Figma, con el objetivo de visualizar y 
-planificar la estructura del sistema antes de su implementación. El diseño incluye las principales pantallas y funcionalidades necesarias para el 
-funcionamiento del restaurante, como el menú de productos, la toma de pedidos, la administración de mesas y la gestión de usuarios. Este prototipo servirá 
-como guía visual y funcional para el desarrollo del software, asegurando una experiencia de usuario intuitiva y coherente. Con esta base sólida en diseño, el 
-proyecto busca facilitar una transición eficiente hacia la etapa de programación y asegurar un producto final funcional y estéticamente agradable.
+Funcionalidades diseñadas:
 
+Menú de productos (platillos y bebidas)
 
-En la segunda etapa de entrega: 
-Se realizó la maqueta del diseño del sistema de administración en código y clases para crear botones y paneles de esquinas redondeadas fueron creadas e implementadas.
-Se creó la navegación entre ventanas existentes utilizando botones y lases para manejar tarjetas de platillos y ordenes fueron implementadas.
-Además, el sistema se conectó a una base de datos remota para así realizar la autenticación de inicio de sesión con éxito.
+Toma de pedidos
 
-Usuario: jonasoto |
-Contraseña: 1234
+Administración de inventario
 
+Gestión de usuarios (login y control de acceso)
 
+Gestion de clientes
 
+Flujo de navegación entre pantallas
+
+Este prototipo actúa como una guía visual y funcional para la implementación en código, asegurando una interfaz coherente, moderna y amigable para el usuario final.
+
+# 💻 Segunda Etapa: Implementación en Java
+En esta fase se comenzó la construcción funcional de la aplicación con Java, replicando fielmente el diseño prototipado.
+
+Características implementadas:
+
+Maquetación visual del sistema de administración con componentes personalizados como botones y paneles con esquinas redondeadas.
+
+Navegación fluida entre ventanas mediante eventos de botón.
+
+Gestión de tarjetas visuales para representar platillos y órdenes.
+
+Conexión a una base de datos remota para manejar la autenticación de inicio de sesión de usuarios.
+
+Este avance marca una transición efectiva del diseño al desarrollo, enfocándose en una arquitectura funcional y visualmente atractiva.
+
+# 📌 Tecnologías Utilizadas
+
+Lenguaje de programación: Java
+
+IDE: Eclipse
+
+Diseño UI/UX: Figma
+
+Base de datos: MySQL (remota)
+
+Librerías y herramientas adicionales: Swing, JDBC
