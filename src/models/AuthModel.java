@@ -12,7 +12,8 @@ public class AuthModel {
 	}
 	
 	public boolean login(String name, String password) {	//clase para iniciar secion con base de datos
-		
+	
+	//query que guarda el comando para la base de datos
 	 String query = "select * from Employee where name = ? and password = ?";
 	 Connection conn = null;
 	 PreparedStatement ps = null;
@@ -25,7 +26,7 @@ public class AuthModel {
 		 ps.setString(1, name);
 		 ps.setString(2, password);
 		 
-		 //vetificar query en consola (inesesario)
+		 //imprime query en consola (inesesario)
 		 System.out.println(ps);
 		 
 		 //almacena los resultados de busqueda

@@ -49,3 +49,17 @@ Diseño UI/UX: Figma
 Base de datos: MySQL (remota)
 
 Librerías y herramientas adicionales: Swing, JDBC
+
+# Ingresar a Login / Base de datos
+
+Login//
+Usuario: jonasoto
+Contraseña: 1234
+
+BD//
+Nombre Base de datos: freedb_Restaurante_El_Manglar
+Host Base de datos: sql.freedb.tech
+Puerto: 3306
+Usuario: freedb_civanrflores
+Contraseña: Pm6kE#W!3sQyK5s
+
