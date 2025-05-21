@@ -32,7 +32,7 @@ public class ClientView {
 	
 	public ClientView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
-		imageIcon = new ImageIcon("src/images/elManglarLogo.png"); //icono de la ventana
+		imageIcon = new ImageIcon("/images/elManglarLogo.png"); //icono de la ventana
 		frame.setIconImage(imageIcon.getImage());
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //cerrar ventana si se presiona la X
@@ -49,7 +49,7 @@ public class ClientView {
 		frame.add(buttonPnl, BorderLayout.WEST);
 		
 		//nombre del restaurante 
-		image = new ImageIcon("src/images/elManglarName.png").getImage().getScaledInstance(200, 40, Image.SCALE_SMOOTH);
+		image = new ImageIcon(ClientView.class.getResource("/images/elManglarName.png")).getImage().getScaledInstance(200, 40, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		restaurantNameLbl = new JLabel(imageIcon);
 		buttonPnl.add(restaurantNameLbl);
@@ -89,7 +89,7 @@ public class ClientView {
 		
 		
 		//botón de órdenes
-		image = new ImageIcon("src/images/order.png").getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
+		image = new ImageIcon(ClientView.class.getResource("/images/order.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		orderBttn = new RoundButton(30, imageIcon); //botón
 		orderBttn.setBackground(Color.decode("#3C7E3A"));
@@ -123,7 +123,7 @@ public class ClientView {
 		
 		
 		//botón de clientes
-		image = new ImageIcon("src/images/client.png").getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
+		image = new ImageIcon(ClientView.class.getResource("/images/client.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		clientBttn = new RoundButton(30, imageIcon); //botón
 		clientBttn.setBackground(Color.decode("#3C7E3A"));
@@ -134,7 +134,7 @@ public class ClientView {
 		
 		
 		//botón de inventario
-		image = new ImageIcon("src/images/inventory.png").getImage().getScaledInstance(30, 28, Image.SCALE_SMOOTH);
+		image = new ImageIcon(ClientView.class.getResource("/images/inventory.png")).getImage().getScaledInstance(30, 28, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		inventoryBttn = new RoundButton(30, imageIcon); //botón
 		inventoryBttn.setBackground(Color.decode("#244E23"));
@@ -166,7 +166,7 @@ public class ClientView {
 		
 		
 		//botón de salir
-		image = new ImageIcon("src/images/return.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		image = new ImageIcon(ClientView.class.getResource("/images/return.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		returnBttn = new RoundButton(30, imageIcon); //botón
 		returnBttn.setBackground(Color.decode("#EF2D2D"));
@@ -269,7 +269,7 @@ public class ClientView {
 		actionPnl.add(searchBarPnl);
 		
 		//imagen de lupa 
-		image = new ImageIcon("src/images/magnifyingGlass.png").getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		image = new ImageIcon(ClientView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);

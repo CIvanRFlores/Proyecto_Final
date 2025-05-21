@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
@@ -26,7 +27,7 @@ public class AuthView {
 	
 	public AuthView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
-		imageIcon = new ImageIcon("src/images/elManglarLogo.png"); //icono de la ventana
+		imageIcon = new ImageIcon(AuthView.class.getResource("/images/elManglarLogo.png")); //icono de la ventana
 		frame.setBackground(Color.pink);
 		frame.setIconImage(imageIcon.getImage());
 		
@@ -52,7 +53,7 @@ public class AuthView {
 		frame.add(imagePnl, BorderLayout.WEST);
 		
 		//icono de fondo 
-		image = new ImageIcon("src/images/mangroveImage.png").getImage().getScaledInstance(500, 1000, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/mangroveImage.png")).getImage().getScaledInstance(500, 1000, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel backgroundDeco = new JLabel(imageIcon);
 		imagePnl.add(backgroundDeco, BorderLayout.CENTER);
@@ -75,7 +76,7 @@ public class AuthView {
 		
 		/**IMAGEN DEL LOGO CON TEXTO**/
 		//imagen de logo 
-		image = new ImageIcon("src/images/elManglarLogoText.png").getImage().getScaledInstance(72, 86, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(72, 86, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		sidePnl.add(logoTextLbl);
@@ -98,7 +99,7 @@ public class AuthView {
 		usernamePnl.add(usernameLbl, BorderLayout.NORTH);
 		
 		//icono de usuario
-		image = new ImageIcon("src/images/users.png").getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/users.png")).getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel usersIconLbl = new JLabel(imageIcon);
 		usersIconLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); //borde invisible para centrar elementos
@@ -130,7 +131,7 @@ public class AuthView {
 		passwordPnl.add(passwordLbl, BorderLayout.NORTH);
 		
 		//icono de llave 
-		image = new ImageIcon("src/images/key.png").getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/key.png")).getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel keyIconLbl = new JLabel(imageIcon);
 		keyIconLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); //borde invisible para centrar elementos
@@ -152,7 +153,7 @@ public class AuthView {
 		jPssWrdFldPnl.add(passwordFld, BorderLayout.CENTER);
 		
 		//icono de ojo 
-		image = new ImageIcon("src/images/eyeOff.png").getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JButton seeBttn = new JButton();
 		seeBttn.setIcon(imageIcon);
@@ -172,7 +173,7 @@ public class AuthView {
 				if(passwordVisible) {
 					passwordFld.setEchoChar((char)0); //representar los caracteres de la contraseña con letras 'ABCdario'	
 					passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.012))); //fuente, tipo y tamaño
-					image = new ImageIcon("src/images/eye.png").getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+					image = new ImageIcon(AuthView.class.getResource("/images/eye.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
 					imageIcon = new ImageIcon(image);
 					seeBttn.setIcon(imageIcon);
 					passwordVisible = false;
@@ -180,7 +181,7 @@ public class AuthView {
 					//ocultar contraseña
 					passwordFld.setEchoChar('*'); //representar los caracteres de la contraseña con asteriscos '*'				
 					passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014))); //fuente, tipo y tamaño
-					image = new ImageIcon("src/images/eyeOff.png").getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+					image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
 					imageIcon = new ImageIcon(image);
 					seeBttn.setIcon(imageIcon);
 					passwordVisible = true;
@@ -233,7 +234,7 @@ public class AuthView {
 					AuthModel am = new AuthModel();
 					//cuando ambos campos coinciden con los datos de la cuenta del usuario
 					if(am.login(username, passTxt)) {	//el metodo recibe parametros de usuario y contraseña
-						image = new ImageIcon("src/images/checkCircle.png").getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); //imagen
+						image = new ImageIcon(AuthView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); //imagen
 	       				imageIcon = new ImageIcon(image);
 	       				
 						message = "Sesión iniciada correctamente.";
@@ -244,7 +245,7 @@ public class AuthView {
 						dc.dishes(); //llamar al método que crea y muestra la ventana de platillos
 					}
 					else { //cuando alguno de los dos campos no es correcto
-						image = new ImageIcon("src/images/errorCircle.png").getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); //imagen
+						image = new ImageIcon(AuthView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); //imagen
 	       				imageIcon = new ImageIcon(image);
 	       				
 						message = "Datos erróneos. Por favor, inténtelo otra vez.";
@@ -253,7 +254,7 @@ public class AuthView {
 					
 				}else { //uno o los dos componentes se encuentran vacíos
 					
-					image = new ImageIcon("src/images/warning.png").getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); //imagen
+					image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); //imagen
        				imageIcon = new ImageIcon(image);
 					
 					message = "Uno o más campos se encuentran vacíos.";
@@ -282,35 +283,35 @@ public class AuthView {
             	/**cambiar tamaño de imagenes a porcentajes del ancho y alto de la ventana**/
             	relativeXSize = frame.getWidth()/2;
             	relativeYSize = frame.getHeight();
-               	image = new ImageIcon("src/images/mangroveImage.png").getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+               	image = new ImageIcon(AuthView.class.getResource("/images/mangroveImage.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			backgroundDeco.setIcon(imageIcon);  
        			
        			relativeXSize = (int) (frame.getHeight()*0.086)-15;
        			relativeYSize = (int) (frame.getHeight()*0.086);
-       			image = new ImageIcon("src/images/elManglarLogoText.png").getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			logoTextLbl.setIcon(imageIcon); 
        			
        			/**cambiar tamaño de iconos a porcentajes del ancho y alto de la ventana**/
        			relativeXSize = (int) (frame.getWidth()*0.022);
        			relativeYSize = relativeXSize;
-       			image = new ImageIcon("src/images/users.png").getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			image = new ImageIcon(AuthView.class.getResource("/images/users.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			usersIconLbl.setIcon(imageIcon);
        			
-       			image = new ImageIcon("src/images/key.png").getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			image = new ImageIcon(AuthView.class.getResource("/images/key.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			keyIconLbl.setIcon(imageIcon);
        			
        			/**según el estado de visibilidad de contraseña colocar el icono correspondiente y tamaño de letra**/
        			if(passwordVisible) { 
-       				image = new ImageIcon("src/images/eye.png").getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       				image = new ImageIcon(AuthView.class.getResource("/images/eye.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        				imageIcon = new ImageIcon(image);
        				seeBttn.setIcon(imageIcon);
        				passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.012)));;
        			}else {
-       				image = new ImageIcon("src/images/eyeOff.png").getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       				image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        				imageIcon = new ImageIcon(image);
        				seeBttn.setIcon(imageIcon);
        				passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));
@@ -345,16 +346,15 @@ public class AuthView {
 	    List<String> AVAILABLE_FONT_FAMILY_NAMES = Arrays.asList(GE.getAvailableFontFamilyNames());
 	    
 	    try {
-	        List<File> LIST = Arrays.asList(
-	          new File("src/files/Caladea-Bold.ttf")
-	        );
-	        for (File LIST_ITEM : LIST) {
-	            if (LIST_ITEM.exists()) {
-	                Font FONT = Font.createFont(Font.TRUETYPE_FONT, LIST_ITEM);
-	                if (!AVAILABLE_FONT_FAMILY_NAMES.contains(FONT.getFontName())) {
-	                    GE.registerFont(FONT);
-	                }
+	    	InputStream fontStream = getClass().getResourceAsStream("/files/Caladea-Bold.ttf"); //leer información del archivo
+	    	
+	        if(fontStream!=null) {
+	            Font font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
+	            if(!AVAILABLE_FONT_FAMILY_NAMES.contains(font.getFontName())) {
+	                GE.registerFont(font);
 	            }
+	        }else {
+	            JOptionPane.showMessageDialog(null, "No se encontró la fuente.");
 	        }
 	    }catch(FontFormatException | IOException exception) {
 	        JOptionPane.showMessageDialog(null, exception.getMessage());
@@ -366,16 +366,15 @@ public class AuthView {
 	    List<String> AVAILABLE_FONT_FAMILY_NAMES = Arrays.asList(GE.getAvailableFontFamilyNames());
 	    
 	    try {
-	        List<File> LIST = Arrays.asList(
-	          new File("src/files/Caladea-Regular.ttf")
-	        );
-	        for (File LIST_ITEM : LIST) {
-	            if (LIST_ITEM.exists()) {
-	                Font FONT = Font.createFont(Font.TRUETYPE_FONT, LIST_ITEM);
-	                if (!AVAILABLE_FONT_FAMILY_NAMES.contains(FONT.getFontName())) {
-	                    GE.registerFont(FONT);
-	                }
+	    	InputStream fontStream = getClass().getResourceAsStream("/files/Caladea-Regular.ttf"); //leer información del archivo
+	    	
+	        if(fontStream!=null) {
+	            Font font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
+	            if(!AVAILABLE_FONT_FAMILY_NAMES.contains(font.getFontName())) {
+	                GE.registerFont(font);
 	            }
+	        }else {
+	            JOptionPane.showMessageDialog(null, "No se encontró la fuente.");
 	        }
 	    }catch(FontFormatException | IOException exception) {
 	        JOptionPane.showMessageDialog(null, exception.getMessage());

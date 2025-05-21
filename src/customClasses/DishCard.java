@@ -1,30 +1,26 @@
 package customClasses;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import views.DishView;
-
 public class DishCard {
 	
 	public int radius;
-	public String dishImageURL;
+	public URL dishImageURL;
 	public String text;
 	public Image image;
 	public ImageIcon imageIcon;
 
-	public DishCard(int radius, String dishImageURL, String text) {
+	public DishCard(int radius, URL dishImageURL, String text) {
 		this.radius = radius;
 		this.dishImageURL = dishImageURL;
 		this.text = text;

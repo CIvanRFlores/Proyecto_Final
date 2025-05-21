@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -98,7 +97,7 @@ public class OrderCard {
 		actionPnl.add(payBttn);
 		
 		//botón de editar órden
-		image = new ImageIcon("src/images/editOrder.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		image = new ImageIcon(OrderCard.class.getResource("/images/editOrder.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		RoundButton editBttn = new RoundButton(30, imageIcon); //botón
 		editBttn.setBackground(Color.white);
@@ -115,7 +114,7 @@ public class OrderCard {
 			case 1:
 				text = Color.decode("#555BF6");
 				footer = Color.decode("#BCF0FB");
-				image = new ImageIcon("src/images/blueClock.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+				image = new ImageIcon(OrderCard.class.getResource("/images/blueClock.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 				imageIcon = new ImageIcon(image);
 				type = "Comer aquí";
 			break;
@@ -123,7 +122,7 @@ public class OrderCard {
 			case 2:
 				text = Color.decode("#EF2D2D");
 				footer = Color.decode("#FBBCBC");
-				image = new ImageIcon("src/images/redClock.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+				image = new ImageIcon(OrderCard.class.getResource("/images/redClock.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 				imageIcon = new ImageIcon(image);
 				type = "Llevar";
 			break;
@@ -131,7 +130,7 @@ public class OrderCard {
 			case 3:
 				text = Color.decode("#C07A00");
 				footer = Color.decode("#FFE8C1");
-				image = new ImageIcon("src/images/yellowClock.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+				image = new ImageIcon(OrderCard.class.getResource("/images/yellowClock.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 				imageIcon = new ImageIcon(image);
 				type = "Entregado";
 			break;
