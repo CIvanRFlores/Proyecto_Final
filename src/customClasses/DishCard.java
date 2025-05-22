@@ -30,23 +30,21 @@ public class DishCard {
 	public RoundPanel createCard() {
 		RoundPanel card = new RoundPanel(this.radius);  
 		card.setBackground(Color.decode("#EDEDED"));
-		card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); //borde invisible para centrar elementos que el panel contenga 
-		card.setForeground(Color.decode("#EDEDED")); //color del borde
+		card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		card.setForeground(Color.decode("#EDEDED")); 
 		card.setLayout(new GridLayout(2, 1));
 		card.setPreferredSize(new Dimension(170, 200));
 		
-		//imagen ilustrativa del platillo
 		image = new ImageIcon(dishImageURL).getImage().getScaledInstance(140, 90, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel dishImage = new JLabel(this.imageIcon);
 		card.add(dishImage);
 		
-		//nombre del platillo
 		JLabel dishLbl = new JLabel(this.text);
 		dishLbl.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		dishLbl.setForeground(Color.decode("#244E23")); //color de letra
-		dishLbl.setHorizontalAlignment(JLabel.CENTER); //alinear etiqueta a la izquierda
-		dishLbl.setHorizontalAlignment(SwingConstants.CENTER); //centrar texto de la etiqueta 
+		dishLbl.setForeground(Color.decode("#244E23"));
+		dishLbl.setHorizontalAlignment(JLabel.CENTER); 
+		dishLbl.setHorizontalAlignment(SwingConstants.CENTER); 
 		card.add(dishLbl);
 		
 		return card; 

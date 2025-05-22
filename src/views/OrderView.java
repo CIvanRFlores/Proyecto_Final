@@ -32,40 +32,36 @@ public class OrderView {
 	
 	
 	public OrderView(String title, int frameWidth, int frameHeight) {
-		frame = new JFrame(); //crear JFrame	
+		frame = new JFrame(); 
 		imageIcon = new ImageIcon(OrderView.class.getResource("/images/elManglarLogo.png")); //icono de la ventana
 		frame.setIconImage(imageIcon.getImage());
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //cerrar ventana si se presiona la X
-		frame.setSize(frameWidth, frameHeight); //tamaño de la ventana
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		frame.setSize(frameWidth, frameHeight); 
 		frame.setLocationRelativeTo(null); //colocar la ventana en el centro de la pantalla
-		frame.setResizable(true); //redimensionar la ventana
+		frame.setResizable(true); 
 		frame.setMinimumSize(new Dimension(350, 350));
-		frame.setTitle(title); //colocar título a la ventana
+		frame.setTitle(title);
 		
-		/**BOTONES LATERALES DE NAVEGACIÓN**/
 		buttonPnl = new JPanel();
 		buttonPnl.setBackground(Color.decode("#DEFFDB"));
 		buttonPnl.setLayout(new GridLayout(6, 1, 0, 10));
 		frame.add(buttonPnl, BorderLayout.WEST);
 		
-		//nombre del restaurante 
 		image = new ImageIcon(OrderView.class.getResource("/images/elManglarName.png")).getImage().getScaledInstance(200, 40, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		restaurantNameLbl = new JLabel(imageIcon);
 		buttonPnl.add(restaurantNameLbl);
 		
-		//botón de platillos
 		image = new ImageIcon(OrderView.class.getResource("/images/food.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		foodBttn = new RoundButton(30, imageIcon); //botón
+		foodBttn = new RoundButton(30, imageIcon);
 		foodBttn.setBackground(Color.decode("#244E23"));
 		foodBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		foodBttn.setForeground(Color.white);
 		foodBttn.setText("Platillos");
 		buttonPnl.add(foodBttn);
 		
-		//ir a platillos
 		foodBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -75,7 +71,6 @@ public class OrderView {
 			}
 		});
 		
-		//efecto hover del botón platillos
 		foodBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				foodBttn.setBackground(Color.decode("#3C7E3A"));
@@ -87,10 +82,9 @@ public class OrderView {
 		});
 		
 		
-		//botón de órdenes
 		image = new ImageIcon(OrderView.class.getResource("/images/order.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		orderBttn = new RoundButton(30, imageIcon); //botón
+		orderBttn = new RoundButton(30, imageIcon);
 		orderBttn.setBackground(Color.decode("#3C7E3A"));
 		orderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		orderBttn.setForeground(Color.white);
@@ -98,7 +92,6 @@ public class OrderView {
 		buttonPnl.add(orderBttn);
 		
 		
-		//botón de clientes
 		image = new ImageIcon(OrderView.class.getResource("/images/client.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		clientBttn = new RoundButton(30, imageIcon); //botón
@@ -108,7 +101,6 @@ public class OrderView {
 		clientBttn.setText("Clientes");
 		buttonPnl.add(clientBttn);
 		
-		//ir a clientes
 		clientBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -118,7 +110,6 @@ public class OrderView {
 			}
 		});
 		
-		//efecto hover del botón clientes
 		clientBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				clientBttn.setBackground(Color.decode("#3C7E3A"));
@@ -130,17 +121,15 @@ public class OrderView {
 		});
 		
 		
-		//botón de inventario
 		image = new ImageIcon(OrderView.class.getResource("/images/inventory.png")).getImage().getScaledInstance(30, 28, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		inventoryBttn = new RoundButton(30, imageIcon); //botón
+		inventoryBttn = new RoundButton(30, imageIcon); 
 		inventoryBttn.setBackground(Color.decode("#244E23"));
 		inventoryBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		inventoryBttn.setForeground(Color.white);
 		inventoryBttn.setText("Inventario");
 		buttonPnl.add(inventoryBttn);
 		
-		//ir a inventario
 		inventoryBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -150,7 +139,6 @@ public class OrderView {
 			}
 		});
 		
-		//efecto hover del botón inventario
 		inventoryBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				inventoryBttn.setBackground(Color.decode("#3C7E3A"));
@@ -162,17 +150,15 @@ public class OrderView {
 		});
 		
 		
-		//botón de salir
 		image = new ImageIcon(OrderView.class.getResource("/images/return.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		returnBttn = new RoundButton(30, imageIcon); //botón
+		returnBttn = new RoundButton(30, imageIcon); 
 		returnBttn.setBackground(Color.decode("#EF2D2D"));
 		returnBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		returnBttn.setForeground(Color.white);
 		returnBttn.setText("Salir");
 		buttonPnl.add(returnBttn);
 		
-		//volver a la ventana anterior de acorde a la ventana actual
 		returnBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -194,7 +180,6 @@ public class OrderView {
 			}
 		});
 		
-		//efecto hover del botón volver
 		returnBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				if(currentWindow.equals("orders")) {
@@ -215,61 +200,53 @@ public class OrderView {
 	}
 	
 	public void orders() {
-		currentWindow = "orders"; //indicar la ventana actual en la que se encuentra el usuario
-		returnBttn.setBackground(Color.decode("#EF2D2D")); //cambiar aspecto del botón
+		currentWindow = "orders";
+		returnBttn.setBackground(Color.decode("#EF2D2D")); 
 		returnBttn.setText("Salir");
 		
-		/**PANEL PRINCIPAL/CENTRAL*/
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
 		mainPnl.setLayout(new BorderLayout());
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
-		/**CABECERA*/
 		JPanel headerPnl = new JPanel();
 		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
-		headerPnl.setOpaque(false); //tiene fondo o no
+		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
-		//título que alude a la ventana actual
 		JLabel ordersLbl = new JLabel("Ordenes");
 		ordersLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
-		ordersLbl.setForeground(Color.decode("#244E23")); //color de letra
-		ordersLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
-		ordersLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
+		ordersLbl.setForeground(Color.decode("#244E23")); 
+		ordersLbl.setHorizontalAlignment(JLabel.LEFT); 
+		ordersLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		headerPnl.add(ordersLbl);
 		
-		//panel de barra de búsqueda y botones
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
-		actionPnl.setOpaque(false); //tiene fondo o no
+		actionPnl.setOpaque(false); 
 		headerPnl.add(actionPnl);
 		
-		//barra de búsqueda
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
-		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //borde invisible para centrar elementos que el panel contenga 
-		searchBarPnl.setForeground(Color.decode("#244E23")); //color del borde
+		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));  
+		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
 		actionPnl.add(searchBarPnl);
 		
-		//imagen de lupa 
 		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
 		
-		//textfield
 		JTextField searchTxtFld = new JTextField();
 		searchTxtFld.setBorder(null);
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
-		searchTxtFld.setForeground(Color.decode("#999999")); //color de letra
-		searchTxtFld.setOpaque(false); //tiene fondo o no
+		searchTxtFld.setForeground(Color.decode("#999999"));
+		searchTxtFld.setOpaque(false);
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
-		//botón de barra de búsqueda
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -277,7 +254,6 @@ public class OrderView {
 		searchBttn.setText("Buscar");
 		actionPnl.add(searchBttn);
 		
-		//efecto hover de botón de barra de búsqueda
 		searchBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				searchBttn.setBackground(Color.decode("#3C7E3A"));
@@ -289,7 +265,6 @@ public class OrderView {
 		});
 				
 		
-		//botón de añadir nueva órden
 		RoundButton newOrderBttn = new RoundButton(30);
 		newOrderBttn.setBackground(Color.white);
 		newOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -297,7 +272,6 @@ public class OrderView {
 		newOrderBttn.setText("Nuevo");
 		actionPnl.add(newOrderBttn); 
 		
-		//botón de ordenes existentes
 		RoundButton ongoingOrderBttn = new RoundButton(30);
 		ongoingOrderBttn.setBackground(Color.decode("#3C7E3A"));
 		ongoingOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -305,7 +279,6 @@ public class OrderView {
 		ongoingOrderBttn.setText("En curso");
 		actionPnl.add(ongoingOrderBttn); 
 		
-		//ir a nueva órden
 		newOrderBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -321,7 +294,6 @@ public class OrderView {
 			}
 		});
 		
-		//efecto hover de botón de añadir nueva órden
 		newOrderBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				if(newOrderBttn.getBackground().toString().equals("#3C7E3A")){
@@ -340,14 +312,12 @@ public class OrderView {
 		    }
 		});
 		
-		/**PANEL DONDE SE MUESTRAN LAS ORDENES EXISTENTES*/
 		JPanel ordersPnl = new JPanel();
-		ordersPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0)); //borde invisible para centrar elementos que el panel contenga 
+		ordersPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));  
 		ordersPnl.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 30));	
-		ordersPnl.setOpaque(false); //tiene fondo o no
+		ordersPnl.setOpaque(false); 
 		mainPnl.add(ordersPnl, BorderLayout.CENTER);
 		
-		//tarjeta del platillo
 		OrderCard orderCard = new OrderCard(30, "Mesa 1", "$1200.00 MXN", "Luis", 1, 25+"min");
 		RoundPanel order = orderCard.createCard();
 		ordersPnl.add(order);
@@ -357,61 +327,53 @@ public class OrderView {
 	
 	
 	public void newOrder() {
-		currentWindow = "newOrder"; //indicar la ventana actual en la que se encuentra el usuario
-		returnBttn.setBackground(Color.decode("#244E23")); //cambiar aspecto del botón
+		currentWindow = "newOrder"; 
+		returnBttn.setBackground(Color.decode("#244E23")); 
 		returnBttn.setText("Volver");
 		
-		/**PANEL PRINCIPAL/CENTRAL*/
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
 		mainPnl.setLayout(new BorderLayout());
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
-		/**CABECERA*/
 		JPanel headerPnl = new JPanel();
 		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
-		headerPnl.setOpaque(false); //tiene fondo o no
+		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
-		//título que alude a la ventana actual
 		JLabel ordersLbl = new JLabel("Ordenes");
 		ordersLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
-		ordersLbl.setForeground(Color.decode("#244E23")); //color de letra
-		ordersLbl.setHorizontalAlignment(JLabel.LEFT); //alinear etiqueta a la izquierda
-		ordersLbl.setHorizontalAlignment(SwingConstants.LEFT); //centrar texto de la etiqueta 
+		ordersLbl.setForeground(Color.decode("#244E23"));
+		ordersLbl.setHorizontalAlignment(JLabel.LEFT); 
+		ordersLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		headerPnl.add(ordersLbl);
 		
-		//panel de barra de búsqueda y botones
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
-		actionPnl.setOpaque(false); //tiene fondo o no
+		actionPnl.setOpaque(false);
 		headerPnl.add(actionPnl);
 		
-		//barra de búsqueda
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
-		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); //borde invisible para centrar elementos que el panel contenga 
-		searchBarPnl.setForeground(Color.decode("#244E23")); //color del borde
+		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));  
+		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
 		actionPnl.add(searchBarPnl);
 		
-		//imagen de lupa 
 		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
 		
-		//textfield
 		JTextField searchTxtFld = new JTextField();
 		searchTxtFld.setBorder(null);
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
-		searchTxtFld.setForeground(Color.decode("#999999")); //color de letra
-		searchTxtFld.setOpaque(false); //tiene fondo o no
+		searchTxtFld.setForeground(Color.decode("#999999")); 
+		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
-		//botón de barra de búsqueda
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -419,7 +381,6 @@ public class OrderView {
 		searchBttn.setText("Buscar");
 		actionPnl.add(searchBttn);
 		
-		//efecto hover de botón de barra de búsqueda
 		searchBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				searchBttn.setBackground(Color.decode("#3C7E3A"));
@@ -431,7 +392,6 @@ public class OrderView {
 		});
 				
 		
-		//botón de añadir nueva órden
 		RoundButton newOrderBttn = new RoundButton(30);
 		newOrderBttn.setBackground(Color.decode("#3C7E3A"));
 		newOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -439,7 +399,6 @@ public class OrderView {
 		newOrderBttn.setText("Nuevo");
 		actionPnl.add(newOrderBttn); 
 		
-		//botón de añadir nueva órden
 		RoundButton ongoingOrderBttn = new RoundButton(30);
 		ongoingOrderBttn.setBackground(Color.white);
 		ongoingOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -447,7 +406,6 @@ public class OrderView {
 		ongoingOrderBttn.setText("En curso");
 		actionPnl.add(ongoingOrderBttn); 
 
-		//ir a ordenes en curso
 		ongoingOrderBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -464,7 +422,6 @@ public class OrderView {
 		});
 	
 		
-		//efecto hover de botón de añadir nueva órden según el estilo actual del botón 
 		ongoingOrderBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				if(ongoingOrderBttn.getBackground().toString().equals("#3C7E3A")){
