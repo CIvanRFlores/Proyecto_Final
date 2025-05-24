@@ -2,7 +2,6 @@ package views;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -59,27 +58,31 @@ public class AuthView {
 		JPanel sidePnl = new JPanel();
 		sidePnl.setBackground(Color.white);
 		sidePnl.setBorder(BorderFactory.createEmptyBorder(60, 30, 60, 60)); 
-		sidePnl.setLayout(new GridLayout(6, 1, 0, 25));
+		sidePnl.setLayout(new GridLayout(6, 1, 0, 20));
 		frame.add(sidePnl, BorderLayout.CENTER );
+		
+		//sidePnl.add(Box.createHorizontalStrut(25));
 		
 		JLabel welcomeLbl = new JLabel("Bienvenido");
 		welcomeLbl.setFont(new Font("Caladea Bold", Font.BOLD, 50));
 		welcomeLbl.setForeground(Color.decode("#244E23")); 
 		welcomeLbl.setHorizontalAlignment(JLabel.CENTER); 
 		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER); 
+		welcomeLbl.setOpaque(false);
 		sidePnl.add(welcomeLbl);
 		
-	
-		image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(72, 86, Image.SCALE_SMOOTH);
+		
+		image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(103, 118, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
+		logoTextLbl.setOpaque(false);
 		sidePnl.add(logoTextLbl);
 
-
+		
 		RoundPanel usernamePnl = new RoundPanel(30);  
-		usernamePnl.setBackground(Color.white);
+		usernamePnl.setBackground(Color.white); 
 		usernamePnl.setForeground(Color.decode("#8A5627")); 
-		usernamePnl.setLayout(new BorderLayout(15, 0));
+		usernamePnl.setLayout(new BorderLayout(15, 10));
 		sidePnl.add(usernamePnl);
 		
 		JLabel usernameLbl = new JLabel("Nombre de usuario");
@@ -102,9 +105,8 @@ public class AuthView {
 		usernameTxtFld.setForeground(Color.decode("#999999")); 
 		usernameTxtFld.setOpaque(false);
 		usernamePnl.add(usernameTxtFld, BorderLayout.CENTER);
+	
 		
-		
-		/**PANEL CON JTEXTFIELD DE CONTRASEÑA DE USUARIO**/
 		RoundPanel passwordPnl = new RoundPanel(30); 
 		passwordPnl.setBackground(Color.white); 
 		passwordPnl.setForeground(Color.decode("#8A5627"));
@@ -143,9 +145,9 @@ public class AuthView {
 		imageIcon = new ImageIcon(image);
 		JButton seeBttn = new JButton();
 		seeBttn.setIcon(imageIcon);
-		seeBttn.setFocusPainted(false); //hace invisible el recuadro blanco al presionar el botón
-		seeBttn.setBorderPainted(false); //hace invisible el borde por defecto de los botones   
-		seeBttn.setContentAreaFilled(false); //hace invisible la animacion al presionar el botón
+		seeBttn.setFocusPainted(false); 
+		seeBttn.setBorderPainted(false); 
+		seeBttn.setContentAreaFilled(false); 
 		jPssWrdFldPnl.add(seeBttn, BorderLayout.EAST);
 		
 		seeBttn.addActionListener(new ActionListener() {
@@ -173,12 +175,14 @@ public class AuthView {
 			
 		});
 
+
 		JCheckBox rememberUserChckBx = new JCheckBox("Recordar usuario");
 		rememberUserChckBx.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		rememberUserChckBx.setForeground(Color.decode("#244E23"));
 		rememberUserChckBx.setOpaque(false); 
 		
 		sidePnl.add(rememberUserChckBx);
+		
 		
 		RoundButton loginBttn = new RoundButton(30);
 		loginBttn.setBackground(Color.decode("#306572"));
@@ -215,9 +219,9 @@ public class AuthView {
 						message = "Sesión iniciada correctamente.";
 						JOptionPane.showMessageDialog(null, message, "Datos correctos", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
 						
-						frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de platillos
-						dc = new DishController("Platillos", frame.getWidth(), frame.getHeight()); //crear controlador de platillos y asignar parámetros a la ventana
-						dc.dishes(); //llamar al método que crea y muestra la ventana de platillos
+						frame.dispose(); //destruir ventana actual
+						dc = new DishController("Platillos", frame.getWidth(), frame.getHeight()); 
+						dc.dishes(); 
 					}
 					else { //cuando alguno de los dos campos no es correcto
 						image = new ImageIcon(AuthView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
@@ -251,6 +255,8 @@ public class AuthView {
 		    }
 		});
 		
+		//sidePnl.add(Box.createHorizontalStrut(25));
+		
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
 		frame.addComponentListener(new ComponentAdapter() {
@@ -261,29 +267,28 @@ public class AuthView {
        			imageIcon = new ImageIcon(image);
        			backgroundDeco.setIcon(imageIcon);  
        			
-       			relativeXSize = (int) (frame.getHeight()*0.086)-15;
-       			relativeYSize = (int) (frame.getHeight()*0.086);
+       			relativeXSize = (int) (frame.getHeight()*0.103) - (int) (frame.getHeight()*0.01);
+       			relativeYSize = (int) (frame.getHeight()*0.118) - (int) (frame.getHeight()*0.02);
        			image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			logoTextLbl.setIcon(imageIcon); 
        			
        			relativeXSize = (int) (frame.getWidth()*0.022);
-       			relativeYSize = relativeXSize;
-       			image = new ImageIcon(AuthView.class.getResource("/images/users.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			image = new ImageIcon(AuthView.class.getResource("/images/users.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			usersIconLbl.setIcon(imageIcon);
        			
-       			image = new ImageIcon(AuthView.class.getResource("/images/key.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			image = new ImageIcon(AuthView.class.getResource("/images/key.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			keyIconLbl.setIcon(imageIcon);
        			
        			if(passwordVisible) { 
-       				image = new ImageIcon(AuthView.class.getResource("/images/eye.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       				image = new ImageIcon(AuthView.class.getResource("/images/eye.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
        				imageIcon = new ImageIcon(image);
        				seeBttn.setIcon(imageIcon);
        				passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.012)));;
        			}else {
-       				image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       				image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
        				imageIcon = new ImageIcon(image);
        				seeBttn.setIcon(imageIcon);
        				passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));
