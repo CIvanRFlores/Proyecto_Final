@@ -1,26 +1,34 @@
 package customClasses;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class DishCard {
 	
+	public JFrame frame;
 	public int radius;
 	public URL dishImageURL;
 	public String text;
 	public Image image;
 	public ImageIcon imageIcon;
+	public int relativeXSize;
+	public int relativeYSize;
 
-	public DishCard(int radius, URL dishImageURL, String text) {
+	public DishCard(int radius, URL dishImageURL, String text, JFrame frame) {
+		this.frame = frame;
 		this.radius = radius;
 		this.dishImageURL = dishImageURL;
 		this.text = text;
@@ -28,26 +36,70 @@ public class DishCard {
 	
 	//crear tarjeta
 	public RoundPanel createCard() {
-		RoundPanel card = new RoundPanel(this.radius);  
-		card.setBackground(Color.decode("#EDEDED"));
-		card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-		card.setForeground(Color.decode("#EDEDED")); 
-		card.setLayout(new GridLayout(2, 1));
-		card.setPreferredSize(new Dimension(170, 200));
+		RoundPanel cardPnl = new RoundPanel(radius);  
+		cardPnl.setBackground(Color.decode("#EDEDED"));
+		cardPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		cardPnl.setForeground(Color.decode("#EDEDED")); 
+		cardPnl.setLayout(new GridLayout(2, 1));
 		
 		image = new ImageIcon(dishImageURL).getImage().getScaledInstance(140, 90, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel dishImage = new JLabel(this.imageIcon);
-		card.add(dishImage);
+		cardPnl.add(dishImage);
 		
-		JLabel dishLbl = new JLabel(this.text);
-		dishLbl.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		dishLbl.setForeground(Color.decode("#244E23"));
-		dishLbl.setHorizontalAlignment(JLabel.CENTER); 
-		dishLbl.setHorizontalAlignment(SwingConstants.CENTER); 
-		card.add(dishLbl);
+		JLabel dishNameLbl = new JLabel(adjustText(text));
+		dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		dishNameLbl.setForeground(Color.decode("#244E23"));
+		dishNameLbl.setHorizontalAlignment(JLabel.CENTER); 
+		dishNameLbl.setHorizontalAlignment(SwingConstants.CENTER); 
+		cardPnl.add(dishNameLbl);
 		
-		return card; 
+		dishNameLbl.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				dishNameLbl.setForeground(Color.decode("#3C7E3A"));
+				String underlined = "<html><u>" + dishNameLbl.getText() + "</u></html>";
+				dishNameLbl.setText(underlined);
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	dishNameLbl.setForeground(Color.decode("#244E23"));
+				dishNameLbl.setText(adjustText(text));
+		    }
+		});
+		
+		
+		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
+		frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+            	relativeXSize = (int) (frame.getHeight()*0.01);
+            	cardPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize)); 
+            	
+            	relativeXSize = (int) (frame.getWidth()*0.140);
+            	relativeYSize = (int) (frame.getWidth()*0.09);
+               	image = new ImageIcon(dishImageURL).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			imageIcon = new ImageIcon(image);
+       			dishImage.setIcon(imageIcon);  
+       		
+       			dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.02)));
+       			
+       			frame.repaint();
+            }
+        });
+		
+		return cardPnl; 
+	}
+	
+	public String adjustText(String name) {
+		String[] separatedText = name.split(" ");
+		String adjustedText = "<html><center>";
+		
+		for(int i=0; i<separatedText.length; i++) {
+			adjustedText += separatedText[i] + "<br>";
+		}
+		
+		adjustedText += "</center></html>";
+		
+		return adjustedText;
 	}
 
 }

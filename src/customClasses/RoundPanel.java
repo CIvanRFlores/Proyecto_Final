@@ -14,8 +14,8 @@ public class RoundPanel extends JPanel {
 	public int radius;
 
     public RoundPanel(int radius) {
-        this.radius = radius; //radio de las esquinas
-        setOpaque(false); //hacer que el panel real no se muestre
+        this.radius = radius; 
+        setOpaque(false); 
     }
 
     @Override
@@ -26,7 +26,7 @@ public class RoundPanel extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //suavizar bordes
 
         //borde de color
-        g2.setColor(getForeground()); // Use foreground color for border
+        g2.setColor(getForeground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
         
         //fondo de color
