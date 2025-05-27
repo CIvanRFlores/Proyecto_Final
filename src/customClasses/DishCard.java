@@ -1,20 +1,12 @@
 package customClasses;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.net.URL;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+
+import controllers.DishController;
 
 public class DishCard {
 	
@@ -26,6 +18,7 @@ public class DishCard {
 	public ImageIcon imageIcon;
 	public int relativeXSize;
 	public int relativeYSize;
+	public DishController dc;
 
 	public DishCard(int radius, URL dishImageURL, String text, JFrame frame) {
 		this.frame = frame;

@@ -1,23 +1,15 @@
 package customClasses;
 
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class ActionButtonPanel extends JPanel{
 	
 	private static final long serialVersionUID = -689991868671728381L;
 	
-	RoundButton deleteBttn, editBttn, seeBttn;
+	public RoundButton deleteBttn, editBttn, seeBttn;
 	public Image image;
 	public ImageIcon imageIcon;
 	
@@ -82,13 +74,13 @@ public class ActionButtonPanel extends JPanel{
 		deleteBttn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	Object[] options = {"Volver","Eliminar"};
+            	Object[] options = {"Volver", "Eliminar"};
 				
 				image = new ImageIcon(ActionButtonPanel.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 				imageIcon = new ImageIcon(image);
 				
 				String message = "Esta acción no se puede deshacer.";
-				int opc = JOptionPane.showOptionDialog(null, message,"Borrar cliente", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				int opc = JOptionPane.showOptionDialog(null, message, "Borrar cliente", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
 				
 				if(opc==1)
 					event.onDelete(row);

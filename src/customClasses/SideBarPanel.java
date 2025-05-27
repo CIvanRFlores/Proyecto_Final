@@ -1,34 +1,18 @@
 package customClasses;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
-import controllers.AuthController;
-import controllers.ClientController;
-import controllers.DishController;
-import controllers.InventoryController;
-import controllers.OrderController;
+import controllers.*;
 
 public class SideBarPanel {
 
 	public JFrame frame;
 	public Image image;
 	public ImageIcon imageIcon;
+	public String message;
 	public int relativeXSize;
 	public int relativeYSize;
 	public AuthController ac;
@@ -37,11 +21,9 @@ public class SideBarPanel {
 	public ClientController cc;
 	public InventoryController ic;
 
-
 	public SideBarPanel(JFrame frame) {
 		this.frame = frame;
 	}
-
 
 	public JPanel createSidePanel() {
 		JPanel buttonPnl = new JPanel();
@@ -191,9 +173,19 @@ public class SideBarPanel {
 		returnBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); 
-				ac.login(); 
+				Object[] options = {"Volver", "Salir"};
+				
+				image = new ImageIcon(SideBarPanel.class.getResource("/images/questionMark.png")).getImage().getScaledInstance(25, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				message = "¿Desea cerrar sesión?";
+				int opc = JOptionPane.showOptionDialog(null, message, "Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				
+				if(opc==1) {
+					frame.dispose();
+					ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); 
+					ac.login(); 
+				}
 			}
 		});
 		

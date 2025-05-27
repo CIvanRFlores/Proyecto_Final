@@ -1,26 +1,14 @@
 package customClasses;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 public class OrderCard {
 	
 	public JFrame frame;
+	public JPanel mainPnl;
 	public int radius;
 	public String table;
 	public String amount;
@@ -31,10 +19,12 @@ public class OrderCard {
 	public ImageIcon imageIcon;
 	public int relativeXSize;
 	public int relativeYSize;
+	public String message;
 
 
-	public OrderCard(int radius, String table, String amount, String clientName, int orderType, String orderTime, JFrame frame) {
+	public OrderCard(int radius, String table, String amount, String clientName, int orderType, String orderTime, JFrame frame, JPanel mainPnl) {
 		this.frame = frame;
+		this.mainPnl= mainPnl;
 		this.radius = radius;
 		this.table = table;
 		this.amount = amount;
@@ -69,26 +59,39 @@ public class OrderCard {
 		amountLbl.setHorizontalAlignment(SwingConstants.RIGHT); 
 		infoPnl.add(amountLbl);
 		
-		JLabel clientLbl = new JLabel("Cliente " + clientName);
-		clientLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 15));
+		JLabel clientLbl = new JLabel("Cliente:  " + clientName);
+		clientLbl.setFont(new Font("Caladea Regular", Font.BOLD, 15));
 		clientLbl.setForeground(Color.decode("#244E23")); 
 		clientLbl.setHorizontalAlignment(JLabel.LEFT);
 		clientLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		infoPnl.add(clientLbl);
 		
-		
+
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new GridLayout(1, 3, 10, 0));
 		actionPnl.setOpaque(false);
 		cardPnl.add(actionPnl, BorderLayout.CENTER);
 		
-		RoundButton cancelBttn = new RoundButton(radius);
+		RoundButton cancelBttn = new RoundButton(radius/2);
 		cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		cancelBttn.setFont(new Font("Caladea Regular", Font.PLAIN, 12));
 		cancelBttn.setForeground(Color.white);
 		cancelBttn.setText("Cancelar");
 		actionPnl.add(cancelBttn);
 		
+		cancelBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+   				Object[] options = {"Volver","Eliminar"};
+				
+				image = new ImageIcon("src/images/errorCircle.png").getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				message = "Esta acción no se puede deshacer.";
+				JOptionPane.showOptionDialog(null, message,"Cancelar órden", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+			}
+		});
+		 
 		cancelBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				cancelBttn.setBackground(Color.decode("#ED5C5C"));
@@ -100,12 +103,25 @@ public class OrderCard {
 		});
 		
 		
-		RoundButton payBttn = new RoundButton(radius);
+		RoundButton payBttn = new RoundButton(radius/2);
 		payBttn.setBackground(Color.decode("#555BF6"));
 		payBttn.setFont(new Font("Caladea Regular", Font.PLAIN, 12));
 		payBttn.setForeground(Color.white);
 		payBttn.setText("Pagar");
 		actionPnl.add(payBttn);
+		
+		payBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+   				Object[] options = {"No","Descargar"};
+				
+				image = new ImageIcon("src/images/checkCircle.png").getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				message = "¿Desea descargar detalles de la órden?";
+				JOptionPane.showOptionDialog(null, message,"Pago exitoso", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+			}
+		});
 		
 		payBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
@@ -144,7 +160,7 @@ public class OrderCard {
 		}
 		
 		
-		RoundPanel footerPnl = new RoundPanel(radius);
+		RoundPanel footerPnl = new RoundPanel(radius/2);
 		footerPnl.setBackground(footer);
 		footerPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
 		footerPnl.setForeground(footer);
@@ -173,7 +189,7 @@ public class OrderCard {
             public void componentResized(ComponentEvent e) {
             	tableLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.02)));
             	amountLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.012)));
-            	clientLbl.setFont(new Font("Caladea Bold", Font.PLAIN, (int) (frame.getWidth()*0.015)));
+            	clientLbl.setFont(new Font("Caladea Regular", Font.BOLD, (int) (frame.getWidth()*0.015)));
             	
             	cancelBttn.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.012)));
             	payBttn.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.012)));

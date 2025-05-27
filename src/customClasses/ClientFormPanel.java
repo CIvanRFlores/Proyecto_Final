@@ -1,8 +1,12 @@
 package customClasses;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 
 public class ClientFormPanel {
 	
@@ -17,14 +21,17 @@ public class ClientFormPanel {
 	public JTextField cityTxtFld;
 	public JTextField stateTxtFld;
 	public JTextField codeTxtFld;
+	public int relativeXSize;
+	public Font font; 
+	
 	
 	public ClientFormPanel(JFrame frame) {
-		this.frame =frame;
+		this.frame = frame;
 	}
 	
 	public JPanel createClientForm() {
 		JPanel clientsPnl = new JPanel();
-		clientsPnl.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));  
+		clientsPnl.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));  
 		clientsPnl.setLayout(new GridLayout(10, 2, 20, 20));	
 		clientsPnl.setOpaque(false);
 		
@@ -32,6 +39,7 @@ public class ClientFormPanel {
 		nameLbl.setForeground(Color.decode("#244E23")); 
 		nameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		nameLbl.setHorizontalAlignment(SwingConstants.LEFT);  
+		nameLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		nameLbl.setOpaque(false);
 		clientsPnl.add(nameLbl);
 		
@@ -39,6 +47,7 @@ public class ClientFormPanel {
 		surnameLbl.setForeground(Color.decode("#244E23")); 
 		surnameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		surnameLbl.setHorizontalAlignment(SwingConstants.LEFT); 
+		surnameLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		surnameLbl.setOpaque(false);
 		clientsPnl.add(surnameLbl);
 		
@@ -50,7 +59,7 @@ public class ClientFormPanel {
 		nameTxtFldPnl.setLayout(new BorderLayout());
 		clientsPnl.add(nameTxtFldPnl);
 		
-		nameTxtFld = new JTextField();
+		nameTxtFld = new JTextField("");
 		nameTxtFld.setBorder(null);
 		nameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		nameTxtFld.setForeground(Color.decode("#244E23")); 
@@ -65,7 +74,7 @@ public class ClientFormPanel {
 		surnameTxtFldPnl.setLayout(new BorderLayout());
 		clientsPnl.add(surnameTxtFldPnl);
 		
-		surnameTxtFld = new JTextField();
+		surnameTxtFld = new JTextField("");
 		surnameTxtFld.setBorder(null);
 		surnameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		surnameTxtFld.setForeground(Color.decode("#244E23")); 
@@ -77,13 +86,14 @@ public class ClientFormPanel {
 		phoneLbl.setForeground(Color.decode("#244E23")); 
 		phoneLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		phoneLbl.setHorizontalAlignment(SwingConstants.LEFT);  
+		phoneLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		phoneLbl.setOpaque(false);
 		clientsPnl.add(phoneLbl);
 		
 		clientsPnl.add(Box.createHorizontalStrut(0));
 		
 		JPanel phonePnl = new JPanel();
-		phonePnl.setLayout(new BorderLayout(20, 0));
+		phonePnl.setLayout(new GridLayout(1, 2, 20, 0));
 		phonePnl.setOpaque(false);
 		clientsPnl.add(phonePnl);
 		
@@ -97,10 +107,12 @@ public class ClientFormPanel {
 		String ambitos[] = {"+52", "+13", "+44", "+55", "+30"};
 		
 		countryCodeCmbBx = new JComboBox<>(ambitos);
+		countryCodeCmbBx.setBorder(null); 
 		countryCodeCmbBx.setForeground(Color.decode("#244E23")); 
-		countryCodeCmbBx.setFont(new Font("Caladea Regular", Font.PLAIN, 12)); 
+		countryCodeCmbBx.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		countryCodeCmbBx.setOpaque(false);
-		countryCmbBxPnl.add(new JScrollPane(countryCodeCmbBx), BorderLayout.CENTER);
+		countryCodeCmbBx.setUI(new BasicComboBoxUI());
+		countryCmbBxPnl.add(countryCodeCmbBx, BorderLayout.CENTER);
 		
 		RoundPanel phoneTxtFldPnl = new RoundPanel(30);  
 		phoneTxtFldPnl.setBackground(Color.decode("#EDEDED"));
@@ -109,7 +121,7 @@ public class ClientFormPanel {
 		phoneTxtFldPnl.setLayout(new BorderLayout(15, 0));
 		phonePnl.add(phoneTxtFldPnl, BorderLayout.CENTER);
 		
-		phoneTxtFld = new JTextField();
+		phoneTxtFld = new JTextField("");
 		phoneTxtFld.setBorder(null);
 		phoneTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		phoneTxtFld.setForeground(Color.decode("#244E23")); 
@@ -121,7 +133,8 @@ public class ClientFormPanel {
 		JLabel emailLbl = new JLabel("Correo");
 		emailLbl.setForeground(Color.decode("#244E23")); 
 		emailLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
-		emailLbl.setHorizontalAlignment(SwingConstants.LEFT);  
+		emailLbl.setHorizontalAlignment(SwingConstants.LEFT); 
+		emailLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		emailLbl.setOpaque(false);
 		clientsPnl.add(emailLbl);
 		
@@ -134,7 +147,7 @@ public class ClientFormPanel {
 		emailTxtFldPnl.setLayout(new BorderLayout());
 		clientsPnl.add(emailTxtFldPnl);
 		
-		emailTxtFld = new JTextField();
+		emailTxtFld = new JTextField("");
 		emailTxtFld.setBorder(null);
 		emailTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		emailTxtFld.setForeground(Color.decode("#244E23")); 
@@ -147,6 +160,7 @@ public class ClientFormPanel {
 		adressLbl.setForeground(Color.decode("#244E23")); 
 		adressLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		adressLbl.setHorizontalAlignment(SwingConstants.LEFT);  
+		adressLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		adressLbl.setOpaque(false);
 		clientsPnl.add(adressLbl);
 		
@@ -159,7 +173,7 @@ public class ClientFormPanel {
 		adressTxtFldPnl.setLayout(new BorderLayout());
 		clientsPnl.add(adressTxtFldPnl);
 		
-		adressTxtFld = new JTextField();
+		adressTxtFld = new JTextField("");
 		adressTxtFld.setBorder(null);
 		adressTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		adressTxtFld.setForeground(Color.decode("#244E23")); 
@@ -174,7 +188,7 @@ public class ClientFormPanel {
 		adress2TxtFldPnl.setLayout(new BorderLayout());
 		clientsPnl.add(adress2TxtFldPnl);
 		
-		adress2TxtFld = new JTextField();
+		adress2TxtFld = new JTextField("");
 		adress2TxtFld.setBorder(null);
 		adress2TxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		adress2TxtFld.setForeground(Color.decode("#244E23")); 
@@ -186,6 +200,7 @@ public class ClientFormPanel {
 		cityLbl.setForeground(Color.decode("#244E23")); 
 		cityLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		cityLbl.setHorizontalAlignment(SwingConstants.LEFT);  
+		cityLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		cityLbl.setOpaque(false);
 		clientsPnl.add(cityLbl);
 		
@@ -198,6 +213,7 @@ public class ClientFormPanel {
 		stateLbl.setForeground(Color.decode("#244E23")); 
 		stateLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		stateLbl.setHorizontalAlignment(SwingConstants.LEFT);  
+		stateLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		stateLbl.setOpaque(false);
 		extraInfoLblPnl.add(stateLbl);
 		
@@ -205,6 +221,7 @@ public class ClientFormPanel {
 		codeLbl.setForeground(Color.decode("#244E23")); 
 		codeLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		codeLbl.setHorizontalAlignment(SwingConstants.LEFT); 
+		stateLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		codeLbl.setOpaque(false);
 		extraInfoLblPnl.add(codeLbl);
 		
@@ -216,7 +233,7 @@ public class ClientFormPanel {
 		cityTxtFldPnl.setLayout(new BorderLayout());
 		clientsPnl.add(cityTxtFldPnl);
 		
-		cityTxtFld = new JTextField();
+		cityTxtFld = new JTextField("");
 		cityTxtFld.setBorder(null);
 		cityTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		cityTxtFld.setForeground(Color.decode("#244E23")); 
@@ -236,7 +253,7 @@ public class ClientFormPanel {
 		stateTxtFldPnl.setLayout(new BorderLayout());
 		extraInfoTxtFld.add(stateTxtFldPnl);
 		
-		stateTxtFld = new JTextField();
+		stateTxtFld = new JTextField("");
 		stateTxtFld.setBorder(null);
 		stateTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		stateTxtFld.setForeground(Color.decode("#244E23")); 
@@ -250,12 +267,56 @@ public class ClientFormPanel {
 		codeTxtFldPnl.setLayout(new BorderLayout());
 		extraInfoTxtFld.add(codeTxtFldPnl);
 		
-		codeTxtFld = new JTextField();
+		codeTxtFld = new JTextField("");
 		codeTxtFld.setBorder(null);
 		codeTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		codeTxtFld.setForeground(Color.decode("#244E23")); 
 		codeTxtFld.setOpaque(false);
 		codeTxtFldPnl.add(codeTxtFld,  BorderLayout.CENTER);
+		
+		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
+		frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+            	relativeXSize = (int) (frame.getHeight()*0.016);
+            	font = new Font("Caladea Bold", Font.BOLD, relativeXSize);
+       			nameLbl.setFont(font);
+       			surnameLbl.setFont(font);
+       			nameTxtFld.setFont(font);
+       			surnameTxtFld.setFont(font);
+       			phoneLbl.setFont(font);
+       			countryCodeCmbBx.setFont(font); 
+       			phoneTxtFld.setFont(font);
+       			emailLbl.setFont(font);
+       			emailTxtFld.setFont(font);
+       			adressLbl.setFont(font);
+       			adressTxtFld.setFont(font);
+       			adress2TxtFld.setFont(font);
+       			cityLbl.setFont(font);
+       			stateLbl.setFont(font);
+       			codeLbl.setFont(font);
+       			cityTxtFld.setFont(font);
+       			stateTxtFld.setFont(font);
+       			codeTxtFld.setFont(font);
+       			
+       			relativeXSize = (int) (frame.getHeight()*0.03);
+       			clientsPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, 0, relativeXSize, 0));
+       			
+       			relativeXSize = (int) (frame.getHeight()*0.01);
+       			Border border = BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize);
+       			nameTxtFldPnl.setBorder(border);  
+       			surnameTxtFldPnl.setBorder(border);  
+       			countryCmbBxPnl.setBorder(border);  
+       			phoneTxtFldPnl.setBorder(border);  
+       			emailTxtFldPnl.setBorder(border); 
+       			adressTxtFldPnl.setBorder(border); 
+       			adress2TxtFldPnl.setBorder(border); 
+       			cityTxtFldPnl.setBorder(border); 
+       			stateTxtFldPnl.setBorder(border); 
+       			codeTxtFldPnl.setBorder(border); 
+       			
+       			frame.repaint();
+            }
+        });
 		
 		return clientsPnl;
 	}
