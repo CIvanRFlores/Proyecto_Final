@@ -4,32 +4,17 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import controllers.AuthController;
-import controllers.DishController;
-import controllers.ClientController;
-import controllers.InventoryController;
-import customClasses.OrderCard;
-import customClasses.RoundButton;
-import customClasses.RoundPanel;
+import customClasses.*;
 
 public class OrderView {
 
 	public JFrame frame;
-	public JPanel buttonPnl;
-	public JLabel restaurantNameLbl;
-	public RoundButton foodBttn, orderBttn, clientBttn, inventoryBttn, returnBttn;
 	public JPanel mainPnl;
 	public Image image;
 	public ImageIcon imageIcon;
 	public String message;
-	public String currentWindow;
 	public int relativeXSize;
 	public int relativeYSize;
-	public AuthController ac;
-	public DishController dc;
-	public ClientController cc;
-	public InventoryController ic;
-	
 	
 	public OrderView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -43,167 +28,12 @@ public class OrderView {
 		frame.setMinimumSize(new Dimension(350, 350));
 		frame.setTitle(title);
 		
-		buttonPnl = new JPanel();
-		buttonPnl.setBackground(Color.decode("#DEFFDB"));
-		buttonPnl.setLayout(new GridLayout(6, 1, 0, 10));
-		frame.add(buttonPnl, BorderLayout.WEST);
-		
-		image = new ImageIcon(OrderView.class.getResource("/images/elManglarName.png")).getImage().getScaledInstance(200, 40, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		restaurantNameLbl = new JLabel(imageIcon);
-		buttonPnl.add(restaurantNameLbl);
-		
-		image = new ImageIcon(OrderView.class.getResource("/images/food.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		foodBttn = new RoundButton(30, imageIcon);
-		foodBttn.setBackground(Color.decode("#244E23"));
-		foodBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		foodBttn.setForeground(Color.white);
-		foodBttn.setText("Platillos");
-		buttonPnl.add(foodBttn);
-		
-		foodBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de platillos
-				dc = new DishController("Platillos", frame.getWidth(), frame.getHeight()); //crear controlador de platillos y asignar parámetros a la ventana
-				dc.dishes(); //llamar al método que crea y muestra la ventana de platillos
-			}
-		});
-		
-		foodBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				foodBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	foodBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
-		
-		
-		image = new ImageIcon(OrderView.class.getResource("/images/order.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		orderBttn = new RoundButton(30, imageIcon);
-		orderBttn.setBackground(Color.decode("#3C7E3A"));
-		orderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		orderBttn.setForeground(Color.white);
-		orderBttn.setText("Órdenes");
-		buttonPnl.add(orderBttn);
-		
-		
-		image = new ImageIcon(OrderView.class.getResource("/images/client.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		clientBttn = new RoundButton(30, imageIcon); //botón
-		clientBttn.setBackground(Color.decode("#244E23"));
-		clientBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		clientBttn.setForeground(Color.white);
-		clientBttn.setText("Clientes");
-		buttonPnl.add(clientBttn);
-		
-		clientBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de clientes
-				cc = new ClientController("Clientes", frame.getWidth(), frame.getHeight()); //crear controlador de clientes y asignar parámetros a la ventana
-				cc.clients(); //llamar al método que crea y muestra la ventana de clientes
-			}
-		});
-		
-		clientBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				clientBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	clientBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
-		
-		
-		image = new ImageIcon(OrderView.class.getResource("/images/inventory.png")).getImage().getScaledInstance(30, 28, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		inventoryBttn = new RoundButton(30, imageIcon); 
-		inventoryBttn.setBackground(Color.decode("#244E23"));
-		inventoryBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		inventoryBttn.setForeground(Color.white);
-		inventoryBttn.setText("Inventario");
-		buttonPnl.add(inventoryBttn);
-		
-		inventoryBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de inventario
-				ic = new InventoryController("Inventario", frame.getWidth(), frame.getHeight()); //crear controlador de inventario y asignar parámetros a la ventana
-				ic.inventory(); //llamar al método que crea y muestra la ventana de inventario
-			}
-		});
-		
-		inventoryBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				inventoryBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	inventoryBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
-		
-		
-		image = new ImageIcon(OrderView.class.getResource("/images/return.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		returnBttn = new RoundButton(30, imageIcon); 
-		returnBttn.setBackground(Color.decode("#EF2D2D"));
-		returnBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		returnBttn.setForeground(Color.white);
-		returnBttn.setText("Salir");
-		buttonPnl.add(returnBttn);
-		
-		returnBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				switch(currentWindow) { 
-					case "orders":
-						frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de login
-						ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); //crear controlador de login y asignar parámetros a la ventana
-						ac.login(); //llamar al método que crea y muestra la ventana de login
-					break;
-					
-					case "newOrder":
-						frame.remove(mainPnl);
-						orders();
-					break;
-				}
-				
-				frame.repaint();
-				frame.revalidate();
-			}
-		});
-		
-		returnBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				if(currentWindow.equals("orders")) {
-					returnBttn.setBackground(Color.decode("#ED5C5C"));
-				}else {
-					returnBttn.setBackground(Color.decode("#3C7E3A"));
-				}
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	if(currentWindow.equals("orders")) {
-					returnBttn.setBackground(Color.decode("#EF2D2D"));
-				}else {
-					returnBttn.setBackground(Color.decode("#244E23"));
-				}
-		    }
-		});
+		SideBarPanel sideBar = new SideBarPanel(frame);
+		JPanel buttonPanel = sideBar.createSidePanel();
+		frame.add(buttonPanel, BorderLayout.WEST);
 	}
 	
 	public void orders() {
-		currentWindow = "orders";
-		returnBttn.setBackground(Color.decode("#EF2D2D")); 
-		returnBttn.setText("Salir");
-		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -223,7 +53,7 @@ public class OrderView {
 		headerPnl.add(ordersLbl);
 		
 		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
 		headerPnl.add(actionPnl);
 		
@@ -235,7 +65,7 @@ public class OrderView {
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
 		actionPnl.add(searchBarPnl);
 		
-		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
@@ -243,7 +73,7 @@ public class OrderView {
 		JTextField searchTxtFld = new JTextField();
 		searchTxtFld.setBorder(null);
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
-		searchTxtFld.setForeground(Color.decode("#999999"));
+		searchTxtFld.setForeground(Color.decode("#244E23"));
 		searchTxtFld.setOpaque(false);
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
@@ -318,19 +148,14 @@ public class OrderView {
 		ordersPnl.setOpaque(false); 
 		mainPnl.add(ordersPnl, BorderLayout.CENTER);
 		
-		OrderCard orderCard = new OrderCard(30, "Mesa 1", "$1200.00 MXN", "Luis", 1, 25+"min");
+		OrderCard orderCard = new OrderCard(30, "1", "$1200.00 MXN", "Luis", 1, 25+"min", frame, mainPnl);
 		RoundPanel order = orderCard.createCard();
 		ordersPnl.add(order);
 		
 		frame.setVisible(true);
 	}
 	
-	
 	public void newOrder() {
-		currentWindow = "newOrder"; 
-		returnBttn.setBackground(Color.decode("#244E23")); 
-		returnBttn.setText("Volver");
-		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -350,7 +175,7 @@ public class OrderView {
 		headerPnl.add(ordersLbl);
 		
 		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false);
 		headerPnl.add(actionPnl);
 		
@@ -362,7 +187,7 @@ public class OrderView {
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
 		actionPnl.add(searchBarPnl);
 		
-		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
@@ -370,7 +195,7 @@ public class OrderView {
 		JTextField searchTxtFld = new JTextField();
 		searchTxtFld.setBorder(null);
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
-		searchTxtFld.setForeground(Color.decode("#999999")); 
+		searchTxtFld.setForeground(Color.decode("#244E23")); 
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
