@@ -120,6 +120,7 @@ public class ClientView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.remove(mainPnl);
+				newClient();
 				frame.repaint();
 				frame.revalidate();
 			}
@@ -233,6 +234,128 @@ public class ClientView {
 		headerPnl.add(clientsLbl);
 		
 		frame.setVisible(true);	
+	}
+	
+	public void newClient() {
+		mainPnl = new JPanel();
+		mainPnl.setBackground(Color.white);
+		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
+		mainPnl.setLayout(new BorderLayout());
+		frame.add(mainPnl, BorderLayout.CENTER);
+		
+		JPanel headerPnl = new JPanel();
+		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setOpaque(false); 
+		mainPnl.add(headerPnl, BorderLayout.NORTH);
+		
+		JLabel clientsLbl = new JLabel("Añadir cliente");
+		clientsLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
+		clientsLbl.setForeground(Color.decode("#244E23")); 
+		clientsLbl.setHorizontalAlignment(JLabel.LEFT);
+		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT);  
+		headerPnl.add(clientsLbl);
+			
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl);
+		
+		actionPnl.add(Box.createHorizontalStrut(0));
+		actionPnl.add(Box.createHorizontalStrut(0));
+		
+		RoundButton cancelBttn = new RoundButton(30);
+		cancelBttn.setBackground(Color.decode("#EF2D2D"));
+		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		cancelBttn.setForeground(Color.white);
+		cancelBttn.setText("Cancelar");
+		actionPnl.add(cancelBttn);
+		
+		cancelBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] options = {"Volver","Salir"};
+				
+				image = new ImageIcon(ClientView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				message = "Todos los cambios se perderán.";
+				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				
+				if(opc==1) {
+					frame.remove(mainPnl);
+					clients();
+					frame.repaint();
+					frame.revalidate();
+				}
+			}
+		});
+		
+		cancelBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				cancelBttn.setBackground(Color.decode("#ED5C5C"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
+		    }
+		});
+		
+		ClientFormPanel form = new ClientFormPanel(frame);
+		JPanel formPanel = form.createClientForm();
+		mainPnl.add(formPanel, BorderLayout.CENTER);
+		
+		frame.setVisible(true);
+		
+		RoundButton newClient = new RoundButton(30);
+		newClient.setBackground(Color.decode("#2EA623"));
+		newClient.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		newClient.setForeground(Color.white);
+		newClient.setText("Añadir");
+		actionPnl.add(newClient); 
+
+		newClient.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String name = form.getNameTxtFld(); 
+				String surname = form.getSurnameTxtFld();
+				String countryCode = form.getCountryCodeCmbBx(); 
+				String phone = form.getPhoneTxtFld();
+				String email = form.getEmailTxtFld();
+				String adress1 = form.getAdressTxtFld();
+				String adress2 = form.getAdress2TxtFld();
+				String city = form.getCityTxtFld();
+				String state = form.getStateTxtFld();
+				String code = form.getCodeTxtFld();
+				
+				if(name.equals("") || surname.equals("") || countryCode.equals("") || phone.equals("") || email.equals("") || 
+				   adress1.equals("") || adress2.equals("") || city.equals("") || state.equals("") || code.equals("")) {
+					image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+	   				imageIcon = new ImageIcon(image);
+	   				
+					message = "Complete los campos para guardar la información.";
+					JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+				}else { //valida con modelo
+					frame.remove(mainPnl);
+					clients();
+					frame.repaint();
+					frame.revalidate();
+				}
+				
+				
+			}
+		});
+		
+		newClient.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				newClient.setBackground(Color.decode("#39C82C"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	newClient.setBackground(Color.decode("#2EA623"));
+		    }
+		});
+		
+		frame.setVisible(true);
 	}
 	
 	public void editClient() {
