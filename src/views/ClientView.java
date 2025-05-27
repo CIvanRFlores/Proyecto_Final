@@ -3,12 +3,13 @@ package views;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import customClasses.*;
 
 public class ClientView {
 
-	public JFrame frame;
+	public JFrame frame; 
 	public JPanel mainPnl;
 	public Image image;
 	public ImageIcon imageIcon;
@@ -16,7 +17,6 @@ public class ClientView {
 	public String currentWindow;
 	public int relativeXSize;
 	public int relativeYSize;
-	
 	
 	public ClientView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -68,7 +68,7 @@ public class ClientView {
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
 		actionPnl.add(searchBarPnl);
 		
-		image = new ImageIcon(ClientView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		image = new ImageIcon(ClientView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
@@ -76,7 +76,7 @@ public class ClientView {
 		JTextField searchTxtFld = new JTextField();
 		searchTxtFld.setBorder(null);
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
-		searchTxtFld.setForeground(Color.decode("#999999")); 
+		searchTxtFld.setForeground(Color.decode("#244E23"));
 		searchTxtFld.setOpaque(false);
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 		
@@ -86,6 +86,16 @@ public class ClientView {
 		searchBttn.setForeground(Color.white);
 		searchBttn.setText("Buscar");
 		actionPnl.add(searchBttn);
+		
+		searchBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(mainPnl);
+				searchClient();
+				frame.repaint();
+				frame.revalidate();
+			}
+		});
 		
 		searchBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
@@ -97,7 +107,7 @@ public class ClientView {
 		    }
 		});
 				
-		actionPnl.add(Box.createHorizontalStrut(40));
+		actionPnl.add(Box.createHorizontalStrut(0));
 		
 		RoundButton newClient = new RoundButton(30);
 		newClient.setBackground(Color.decode("#2EA623"));
@@ -110,7 +120,6 @@ public class ClientView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.remove(mainPnl);
-				newClient();
 				frame.repaint();
 				frame.revalidate();
 			}
@@ -125,7 +134,6 @@ public class ClientView {
 		    	newClient.setBackground(Color.decode("#2EA623"));
 		    }
 		});
-
 		
 		JPanel clientsPnl = new JPanel();
 		clientsPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));  
@@ -140,29 +148,50 @@ public class ClientView {
 						   {"Christian Ivan Rivera", "Del Árbol 169, col. La fuente", "6121761317", "civan@gmail.com", null}, 
 						   {"Luis Miguel Pérez", "Del Árbol 169, col. La fuente", "6122170991", "lucatero@gmail.com", null}};
 		
-		/*DefaultTableModel tableModel = new DefaultTableModel(data, column) {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-		    public boolean isCellEditable(int row, int column) {
-		       return false;
-		    }
-			
-			
-		};*/
+		DefaultTableModel tableModel = new DefaultTableModel(data, column);
+		JTable clientsTable = new JTable(tableModel);
 		
-		JTable clientsTable = new JTable(data, column);
-		clientsTable.getColumn("Acción").setCellRenderer(new PanelRenderer());
-		clientsTable.setFont(new Font("Caladea Bold", Font.BOLD, 15));
+		TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                System.out.println("Edit row: " + (row+1));
+                frame.remove(mainPnl);
+				editClient();
+				frame.repaint();
+				frame.revalidate();
+            }
+
+            @Override
+            public void onDelete(int row) {
+                if(clientsTable.isEditing()) {
+                	clientsTable.getCellEditor().stopCellEditing();
+                }
+                System.out.println("Delete  row : " + (row+1));
+                tableModel.removeRow(row);
+            }
+
+            @Override
+            public void onView(int row) {
+                System.out.println("Viewed row : " + (row+1));
+                frame.remove(mainPnl);
+				frame.repaint();
+				frame.revalidate();
+            }
+        };
+		
+		clientsTable.getColumn("Acción").setCellRenderer(new TableActionCellRender());
+		clientsTable.getColumn("Acción").setCellEditor(new TableActionCellEditor(event));
+		
+		clientsTable.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		clientsTable.setDefaultEditor(Object.class, null);
 		clientsTable.setRowHeight(40);
 		clientsTable.setShowGrid(false);
-		clientsTable.setShowHorizontalLines(false);
+		clientsTable.setShowHorizontalLines(true);
 		clientsTable.setShowVerticalLines(false);
 		
 		clientsTable.getTableHeader().setBackground(Color.decode("#555BF6"));
 		clientsTable.getTableHeader().setForeground(Color.white);
-		clientsTable.getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, 15));
+		clientsTable.getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		clientsTable.getTableHeader().setReorderingAllowed(false);
 		clientsTable.getTableHeader().setResizingAllowed(false);
 		
@@ -183,8 +212,7 @@ public class ClientView {
 		frame.setVisible(true);
 	}
 	
-	
-	public void newClient() {
+	public void searchClient() {
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -192,75 +220,19 @@ public class ClientView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
-		JLabel clientsLbl = new JLabel("Añadir cliente");
+		JLabel clientsLbl = new JLabel("Cliente");
 		clientsLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
 		clientsLbl.setForeground(Color.decode("#244E23")); 
-		clientsLbl.setHorizontalAlignment(JLabel.LEFT);
-		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT);  
+		clientsLbl.setHorizontalAlignment(JLabel.LEFT); 
+		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		headerPnl.add(clientsLbl);
-			
-		RoundButton cancelBttn = new RoundButton(30);
-		cancelBttn.setBackground(Color.decode("#EF2D2D"));
-		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		cancelBttn.setForeground(Color.white);
-		cancelBttn.setText("Cancelar");
-		headerPnl.add(cancelBttn);
 		
-		cancelBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				clients();
-				frame.repaint();
-				frame.revalidate();
-			}
-		});
-		
-		cancelBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				cancelBttn.setBackground(Color.decode("#ED5C5C"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
-		    }
-		});
-				
-		
-		RoundButton newClient = new RoundButton(30);
-		newClient.setBackground(Color.decode("#2EA623"));
-		newClient.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		newClient.setForeground(Color.white);
-		newClient.setText("Añadir");
-		headerPnl.add(newClient); 
-
-		newClient.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				clients();
-				frame.repaint();
-				frame.revalidate();
-			}
-		});
-		
-		newClient.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				newClient.setBackground(Color.decode("#39C82C"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	newClient.setBackground(Color.decode("#2EA623"));
-		    }
-		});
-	
-		frame.setVisible(true);
+		frame.setVisible(true);	
 	}
-	
 	
 	public void editClient() {
 		mainPnl = new JPanel();
@@ -270,7 +242,7 @@ public class ClientView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -280,13 +252,21 @@ public class ClientView {
 		clientsLbl.setHorizontalAlignment(JLabel.LEFT); 
 		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		headerPnl.add(clientsLbl);
+		
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl);
+		
+		actionPnl.add(Box.createHorizontalStrut(0));
+		actionPnl.add(Box.createHorizontalStrut(0));
 				
 		RoundButton cancelBttn = new RoundButton(30);
 		cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		cancelBttn.setForeground(Color.white);
 		cancelBttn.setText("Cancelar");
-		headerPnl.add(cancelBttn);
+		actionPnl.add(cancelBttn);
 		
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
@@ -314,7 +294,7 @@ public class ClientView {
 		saveBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		saveBttn.setForeground(Color.white);
 		saveBttn.setText("Guardar");
-		headerPnl.add(saveBttn); 
+		actionPnl.add(saveBttn); 
 
 		saveBttn.addActionListener(new ActionListener() {
 			@Override
@@ -336,56 +316,11 @@ public class ClientView {
 		    }
 		});
 	
+		ClientFormPanel form = new ClientFormPanel(frame);
+		JPanel formPanel = form.createClientForm();
+		mainPnl.add(formPanel, BorderLayout.CENTER); 
+		
 		frame.setVisible(true);
 	}
 	
-	
-	public void clientHistory() {
-		mainPnl = new JPanel();
-		mainPnl.setBackground(Color.white);
-		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
-		mainPnl.setLayout(new BorderLayout());
-		frame.add(mainPnl, BorderLayout.CENTER);
-		
-		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
-		headerPnl.setOpaque(false); 
-		mainPnl.add(headerPnl, BorderLayout.NORTH);
-		
-		JLabel clientsLbl = new JLabel("Consultar historial de compras");
-		clientsLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
-		clientsLbl.setForeground(Color.decode("#244E23"));
-		clientsLbl.setHorizontalAlignment(JLabel.LEFT); 
-		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(clientsLbl);
-				
-		RoundButton downloadBttn = new RoundButton(30);
-		downloadBttn.setBackground(Color.decode("#367181"));
-		downloadBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		downloadBttn.setForeground(Color.white);
-		downloadBttn.setText("Descargar");
-		headerPnl.add(downloadBttn); 
-
-		downloadBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				clients();
-				frame.repaint();
-				frame.revalidate();
-			}
-		});
-		
-		downloadBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				downloadBttn.setBackground(Color.decode("#264F59"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	downloadBttn.setBackground(Color.decode("#367181"));
-		    }
-		});
-	
-		frame.setVisible(true);
-	}
 }
