@@ -5,229 +5,37 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import controllers.AuthController;
-import controllers.ClientController;
-import controllers.DishController;
-import controllers.OrderController;
-import customClasses.RoundButton;
-import customClasses.RoundPanel;
+import customClasses.*;
 
 public class InventoryView {
 
 	public JFrame frame;
-	public JPanel buttonPnl;
-	public JLabel restaurantNameLbl;
-	public RoundButton foodBttn, orderBttn, clientBttn, inventoryBttn, returnBttn;
 	public JPanel mainPnl;
 	public Image image;
 	public ImageIcon imageIcon;
 	public String message;
-	public String currentWindow;
 	public int relativeXSize;
 	public int relativeYSize;
 	public AuthController ac;
-	public DishController dc;
-	public OrderController oc;
-	public ClientController cc;
-	
 	
 	public InventoryView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
 		imageIcon = new ImageIcon(InventoryView.class.getResource("/images/elManglarLogo.png")); //icono de la ventana
 		frame.setIconImage(imageIcon.getImage());
 		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //cerrar ventana si se presiona la X
-		frame.setSize(frameWidth, frameHeight); //tamaño de la ventana
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+		frame.setSize(frameWidth, frameHeight); 
 		frame.setLocationRelativeTo(null); //colocar la ventana en el centro de la pantalla
-		frame.setResizable(true); //redimensionar la ventana
+		frame.setResizable(true);
 		frame.setMinimumSize(new Dimension(350, 350));
-		frame.setTitle(title); //colocar título a la ventana
+		frame.setTitle(title); 
 		
-		/**BOTONES LATERALES DE NAVEGACIÓN**/
-		buttonPnl = new JPanel();
-		buttonPnl.setBackground(Color.decode("#DEFFDB"));
-		buttonPnl.setLayout(new GridLayout(6, 1, 0, 10));
-		frame.add(buttonPnl, BorderLayout.WEST);
-		
-		//nombre del restaurante 
-		image = new ImageIcon(InventoryView.class.getResource("/images/elManglarName.png")).getImage().getScaledInstance(200, 40, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		restaurantNameLbl = new JLabel(imageIcon);
-		buttonPnl.add(restaurantNameLbl);
-		
-		//botón de platillos
-		image = new ImageIcon(InventoryView.class.getResource("/images/food.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		foodBttn = new RoundButton(30, imageIcon); //botón
-		foodBttn.setBackground(Color.decode("#244E23"));
-		foodBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		foodBttn.setForeground(Color.white);
-		foodBttn.setText("Platillos");
-		buttonPnl.add(foodBttn);
-		
-		//ir a platillos
-		foodBttn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de platillos
-				dc = new DishController("Platillos", frame.getWidth(), frame.getHeight()); //crear controlador de platillos y asignar parámetros a la ventana
-				dc.dishes(); //llamar al método que crea y muestra la ventana de platillos
-			}
-			
-		});
-		
-		//efecto hover del botón platillos
-		foodBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				foodBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	foodBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
-		
-		
-		//botón de órdenes
-		image = new ImageIcon(InventoryView.class.getResource("/images/order.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		orderBttn = new RoundButton(30, imageIcon); //botón
-		orderBttn.setBackground(Color.decode("#244E23"));
-		orderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		orderBttn.setForeground(Color.white);
-		orderBttn.setText("Órdenes");
-		buttonPnl.add(orderBttn);
-		
-		//ir a ordenes
-		orderBttn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de ordenes
-				oc = new OrderController("Ordenes", frame.getWidth(), frame.getHeight()); //crear controlador de ordenes y asignar parámetros a la ventana
-				oc.orders(); //llamar al método que crea y muestra la ventana de ordenes
-			}
-			
-		});
-		
-		//efecto hover del botón órdenes
-		orderBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				orderBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	orderBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
-		
-
-		//botón de clientes
-		image = new ImageIcon(InventoryView.class.getResource("/images/client.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		clientBttn = new RoundButton(30, imageIcon); //botón
-		clientBttn.setBackground(Color.decode("#244E23"));
-		clientBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		clientBttn.setForeground(Color.white);
-		clientBttn.setText("Clientes");
-		buttonPnl.add(clientBttn);
-		
-		//ir a clientes
-		clientBttn.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de clientes
-				cc = new ClientController("Clientes", frame.getWidth(), frame.getHeight()); //crear controlador de clientes y asignar parámetros a la ventana
-				cc.clients(); //llamar al método que crea y muestra la ventana de clientes
-			}
-			
-		});
-		
-		//efecto hover del botón clientes
-		clientBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				clientBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	clientBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
-		
-		
-		//botón de inventario
-		image = new ImageIcon(InventoryView.class.getResource("/images/inventory.png")).getImage().getScaledInstance(30, 28, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		inventoryBttn = new RoundButton(30, imageIcon); //botón
-		inventoryBttn.setBackground(Color.decode("#3C7E3A"));
-		inventoryBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		inventoryBttn.setForeground(Color.white);
-		inventoryBttn.setText("Inventario");
-		buttonPnl.add(inventoryBttn);
-		
-		
-		image = new ImageIcon(InventoryView.class.getResource("/images/return.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-		imageIcon = new ImageIcon(image);
-		returnBttn = new RoundButton(30, imageIcon); //botón
-		returnBttn.setBackground(Color.decode("#EF2D2D"));
-		returnBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		returnBttn.setForeground(Color.white);
-		returnBttn.setText("Salir");
-		buttonPnl.add(returnBttn);
-		
-		returnBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				switch(currentWindow) { 
-					case "inventory":
-						frame.dispose(); //destruir ventana actual y llevar al usuario a la ventana de login
-						ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); //crear controlador de login y asignar parámetros a la ventana
-						ac.login(); //llamar al método que crea y muestra la ventana de login
-					break;
-					
-					case "newInventory":
-						frame.remove(mainPnl);
-						inventory();
-					break;
-					
-					case "editInventory":
-						frame.remove(mainPnl);
-						inventory();
-					break;
-					
-				}
-				
-				frame.repaint();
-				frame.revalidate();
-			}	
-		});
-		
-		returnBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				if(currentWindow.equals("inventory")) {
-					returnBttn.setBackground(Color.decode("#ED5C5C"));
-				}else {
-					returnBttn.setBackground(Color.decode("#3C7E3A"));
-				}
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	if(currentWindow.equals("inventory")) {
-					returnBttn.setBackground(Color.decode("#EF2D2D"));
-				}else {
-					returnBttn.setBackground(Color.decode("#244E23"));
-				}
-		    }
-		});
+		SideBarPanel sideBar = new SideBarPanel(frame);
+		JPanel buttonPanel = sideBar.createSidePanel();
+		frame.add(buttonPanel, BorderLayout.WEST);
 	}
 	
-	
 	public void inventory() {
-		currentWindow = "inventory"; 
-		returnBttn.setBackground(Color.decode("#EF2D2D")); 
-		returnBttn.setText("Salir");
-		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -247,7 +55,7 @@ public class InventoryView {
 		headerPnl.add(inventoryLbl);
 		
 		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
 		headerPnl.add(actionPnl);
 		
@@ -259,7 +67,7 @@ public class InventoryView {
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
 		actionPnl.add(searchBarPnl);
 		
-		image = new ImageIcon(InventoryView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		image = new ImageIcon(InventoryView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
@@ -267,7 +75,7 @@ public class InventoryView {
 		JTextField searchTxtFld = new JTextField();
 		searchTxtFld.setBorder(null);
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
-		searchTxtFld.setForeground(Color.decode("#999999")); 
+		searchTxtFld.setForeground(Color.decode("#244E23")); 
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
@@ -288,6 +96,8 @@ public class InventoryView {
 		    }
 		});
 				
+		actionPnl.add(Box.createHorizontalStrut(0));
+		
 		RoundButton newInv = new RoundButton(30);
 		newInv.setBackground(Color.decode("#2EA623"));
 		newInv.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -344,10 +154,6 @@ public class InventoryView {
 	
 	
 	public void newInventory() {
-		currentWindow = "newInventory"; 
-		returnBttn.setBackground(Color.decode("#244E23")); 
-		returnBttn.setText("Volver");
-		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -355,7 +161,7 @@ public class InventoryView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -366,12 +172,20 @@ public class InventoryView {
 		inventoryLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		headerPnl.add(inventoryLbl);
 				
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl);
+		
+		actionPnl.add(Box.createHorizontalStrut(0));
+		actionPnl.add(Box.createHorizontalStrut(0));
+		
 		RoundButton cancelBttn = new RoundButton(30);
 		cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		cancelBttn.setForeground(Color.white);
 		cancelBttn.setText("Cancelar");
-		headerPnl.add(cancelBttn);
+		actionPnl.add(cancelBttn);
 		
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
@@ -399,7 +213,7 @@ public class InventoryView {
 		newInv.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		newInv.setForeground(Color.white);
 		newInv.setText("Añadir");
-		headerPnl.add(newInv); 
+		actionPnl.add(newInv); 
 
 		newInv.addActionListener(new ActionListener() {
 			@Override
@@ -426,10 +240,6 @@ public class InventoryView {
 	
 	
 	public void editInventory() {
-		currentWindow = "editInventory"; 
-		returnBttn.setBackground(Color.decode("#244E23")); 
-		returnBttn.setText("Volver");
-		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -437,7 +247,7 @@ public class InventoryView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -448,12 +258,20 @@ public class InventoryView {
 		inventoryLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		headerPnl.add(inventoryLbl);
 				
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl);
+		
+		actionPnl.add(Box.createHorizontalStrut(0));
+		actionPnl.add(Box.createHorizontalStrut(0));
+		
 		RoundButton cancelBttn = new RoundButton(30);
 		cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		cancelBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		cancelBttn.setForeground(Color.white);
 		cancelBttn.setText("Cancelar");
-		headerPnl.add(cancelBttn);
+		actionPnl.add(cancelBttn);
 		
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
@@ -481,7 +299,7 @@ public class InventoryView {
 		saveBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		saveBttn.setForeground(Color.white);
 		saveBttn.setText("Guardar");
-		headerPnl.add(saveBttn); 
+		actionPnl.add(saveBttn); 
 
 		saveBttn.addActionListener(new ActionListener() {
 			@Override
