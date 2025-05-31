@@ -14,4 +14,19 @@ public class ClientController {
  		view.clients(); 
  	}
  	
+ 	public void searchClient() { 
+ 		view.searchClient();; 
+ 	}
+ 	
+ 	public void newClient() { 
+ 		view.newClient(); 
+ 	}
+ 	
+ 	public void editClient() { 
+ 		view.editClient();
+ 	}
+ 	
+ 	public void clientHistory() { 
+ 		view.clientHistory(); 
+ 	}
 }
