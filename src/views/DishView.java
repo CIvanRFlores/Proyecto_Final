@@ -3,7 +3,9 @@ package views;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 
+import controllers.DishController;
 import customClasses.*;
 
 public class DishView {
@@ -15,6 +17,7 @@ public class DishView {
 	public String currentWindow;
 	public int relativeXSize;
 	public int relativeYSize;
+	public DishController dc;
 	
 	public DishView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -25,15 +28,19 @@ public class DishView {
 		frame.setSize(frameWidth, frameHeight); 
 		frame.setLocationRelativeTo(null); //colocar la ventana en el centro de la pantalla
 		frame.setResizable(true); 
-		frame.setMinimumSize(new Dimension(350, 350));
+		frame.setMinimumSize(new Dimension(352, 300));
 		frame.setTitle(title); 
 		
 		SideBarPanel sideBar = new SideBarPanel(frame);
 		JPanel buttonPanel = sideBar.createSidePanel();
 		frame.add(buttonPanel, BorderLayout.WEST);
+		
+		buttonPanel.getComponent(1).setBackground(Color.decode("#3C7E3A"));
 	}
 	
 	public void dishes() {
+		dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -41,7 +48,7 @@ public class DishView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -50,20 +57,14 @@ public class DishView {
 		dishesLbl.setForeground(Color.decode("#244E23")); 
 		dishesLbl.setHorizontalAlignment(JLabel.LEFT); 
 		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		headerPnl.add(dishesLbl);
-		
-		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
-		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(dishesLbl, BorderLayout.NORTH);
 		
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
 		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
 		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
-		searchBarPnl.setPreferredSize(new Dimension(414, 30));
-		actionPnl.add(searchBarPnl);
+		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
 		
 		image = new ImageIcon(DishView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
@@ -77,6 +78,11 @@ public class DishView {
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 3, 20, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl, BorderLayout.EAST);
+		
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -115,16 +121,12 @@ public class DishView {
 				int opc = JOptionPane.showOptionDialog(null, message, "Alimentos y bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null); //ventana emergente
 				
 				if(opc==0) {
-					frame.remove(mainPnl);
-					newDish("platillo");
-					frame.repaint();
-					frame.revalidate();
+					frame.dispose();
+					dc.newDish("platillo");
 				} 
 				else if(opc==1){
-					frame.remove(mainPnl);
-					newDish("bebida");
-					frame.repaint();
-					frame.revalidate();
+					frame.dispose();
+					dc.newDish("bebida");
 				}
 			}
 		});
@@ -149,15 +151,6 @@ public class DishView {
 			DishCard dishCard = new DishCard(30, DishView.class.getResource("/images/shrimps.png"), "Camarones (sin cabeza)", frame);
 			RoundPanel dish = dishCard.createCard();
 			
-			dish.getComponent(1).addMouseListener(new MouseAdapter() {
-				public void mouseClicked(MouseEvent evt) {
-					frame.remove(mainPnl);
-					dishPage("platillo"); 
-					frame.repaint();
-					frame.revalidate();
-				}
-			});
-			
 			dishesPnl.add(dish);
 		}
 	
@@ -173,6 +166,8 @@ public class DishView {
 	}
 	
 	public void newDish(String type) {
+		dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -207,10 +202,8 @@ public class DishView {
 		
 		cancelBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				frame.remove(mainPnl);
-				dishes();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				dc.dishes();
 			}
 		});
 		
@@ -253,7 +246,12 @@ public class DishView {
 		frame.setVisible(true);
 	}
 	
+	public void searchDish() {
+	}
+	
 	public void dishPage(String type) {
+		dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -261,21 +259,21 @@ public class DishView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
-		JLabel dishesLbl = new JLabel("Platillo");
+		JLabel dishesLbl = new JLabel(type);
 		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
 		dishesLbl.setForeground(Color.decode("#244E23")); 
 		dishesLbl.setHorizontalAlignment(JLabel.LEFT); 
 		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		headerPnl.add(dishesLbl);
+		headerPnl.add(dishesLbl, BorderLayout.NORTH);
 		
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(actionPnl, BorderLayout.EAST);
 		
 		actionPnl.add(Box.createHorizontalStrut(0));
 				
@@ -288,10 +286,8 @@ public class DishView {
 		
 		deleteBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				frame.remove(mainPnl);
-				dishes();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				dc.dishes();
 			}
 		});
 		
@@ -316,10 +312,8 @@ public class DishView {
 		
 		editBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				frame.remove(mainPnl);
-				editDish(type);
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				dc.editDish(type);
 			}
 		});
 		
@@ -351,6 +345,104 @@ public class DishView {
 		    }
 		});
 		
+		
+		JPanel dishPnl = new JPanel();
+		dishPnl.setBackground(Color.white);
+		dishPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
+		dishPnl.setLayout(new BorderLayout(0, 30));
+		mainPnl.add(dishPnl, BorderLayout.CENTER);
+		
+		
+		RoundPanel dishHeaderPnl = new RoundPanel(30);
+		dishHeaderPnl.setBackground(Color.decode("#EDEDED"));
+		dishHeaderPnl.setForeground(Color.decode("#EDEDED"));
+		dishHeaderPnl.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+		dishHeaderPnl.setLayout(new GridLayout(1, 3, 30, 0));
+		dishPnl.add(dishHeaderPnl, BorderLayout.NORTH);
+		
+		dishHeaderPnl.add(Box.createHorizontalStrut(0));
+		
+		JLabel priceLbl = new JLabel("$365 MXN");
+		priceLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
+		priceLbl.setForeground(Color.decode("#244E23")); 
+		priceLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		dishHeaderPnl.add(priceLbl);
+		
+		String ingredients[] = {"Ingredientes", "Maíz", "Camarón", "Papa", "Mantequilla", "Aceite"};
+		
+		JComboBox<String> ingredientsCmbBx = new JComboBox<>(ingredients);
+		ingredientsCmbBx.setBorder(null); 
+		ingredientsCmbBx.setForeground(Color.decode("#244E23")); 
+		ingredientsCmbBx.setFont(new Font("Caladea Regular", Font.PLAIN, 28)); 
+		ingredientsCmbBx.setOpaque(false);
+		ingredientsCmbBx.setUI(new BasicComboBoxUI());
+		dishHeaderPnl.add(ingredientsCmbBx);
+		
+		ingredientsCmbBx.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange()==ItemEvent.SELECTED) { //si se cambia el elemento seleccionado
+					if(!ingredientsCmbBx.getSelectedItem().toString().equals(ingredients[0])) {
+						ingredientsCmbBx.setSelectedItem(ingredients[0]);
+					}
+				}
+			}
+			
+		});
+		
+		image = new ImageIcon(ClientView.class.getResource("/images/shrimps.png")).getImage().getScaledInstance(420, 220, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		JLabel dishImageLbl = new JLabel(imageIcon);
+		dishPnl.add(dishImageLbl, BorderLayout.CENTER);
+		
+		
+		RoundPanel dishFooterPnl = new RoundPanel(30);
+		dishFooterPnl.setBackground(Color.decode("#EDEDED"));
+		dishFooterPnl.setForeground(Color.decode("#EDEDED"));
+		dishFooterPnl.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		dishFooterPnl.setLayout(new GridLayout(2, 1, 0, 20));
+		dishPnl.add(dishFooterPnl, BorderLayout.SOUTH);
+		
+		JLabel dishNameLbl = new JLabel("Camarones (sin cabeza)");
+		dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
+		dishNameLbl.setForeground(Color.decode("#244E23")); 
+		dishNameLbl.setHorizontalAlignment(JLabel.LEFT); 
+		dishNameLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		dishFooterPnl.add(dishNameLbl);
+		
+		JTextArea dishDescText = new JTextArea();
+		dishDescText.setForeground(Color.decode("#244E23"));
+		dishDescText.setEnabled(false);
+		dishDescText.setDisabledTextColor(Color.decode("#244E23"));
+		dishDescText.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
+		dishDescText.setText("Camarones cocidos sin cabeza, servidos con maíz y papas, ideales para todos los gustos.");
+		dishDescText.setLineWrap(true); 
+		dishDescText.setWrapStyleWord(true); 
+		dishDescText.setOpaque(false);
+		dishFooterPnl.add(dishDescText);
+		
+		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
+		frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+            	relativeXSize = (int) (frame.getWidth()*0.420);
+            	relativeYSize = (int) (frame.getWidth()*0.220);
+               	image = new ImageIcon(AuthView.class.getResource("/images/shrimps.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			imageIcon = new ImageIcon(image);
+       			dishImageLbl.setIcon(imageIcon);  
+       			
+       			priceLbl.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.03)));
+       			ingredientsCmbBx.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.028))); 
+       			dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.036)));
+       			dishDescText.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.030)));
+       			
+       			relativeXSize = (int) (frame.getHeight()*0.045);
+       			mainPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize-15, relativeXSize, relativeXSize-15, relativeXSize)); 
+       			dishPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize-5, 0, relativeXSize-5, 0));
+       			
+       			frame.repaint();
+            }
+        });
+		
 		frame.setVisible(true);
 	}
 	
@@ -366,7 +458,7 @@ public class DishView {
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
-		JLabel dishesLbl = new JLabel("Editar platillo");
+		JLabel dishesLbl = new JLabel(type.equals("platillo")?"Editar " + type : "Editar " + type);
 		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
 		dishesLbl.setForeground(Color.decode("#244E23")); 
 		dishesLbl.setHorizontalAlignment(JLabel.LEFT);
