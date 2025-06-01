@@ -65,6 +65,7 @@ public class ClientFormPanel {
 		nameTxtFld.setBorder(null);
 		nameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		nameTxtFld.setForeground(Color.decode("#244E23")); 
+		nameTxtFld.setOpaque(false);
 		nameTxtFld.addKeyListener((KeyListener) new KeyAdapter() {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
