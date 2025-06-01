@@ -21,7 +21,7 @@ public class AuthView {
 	public ImageIcon imageIcon;
 	public int relativeXSize;
 	public int relativeYSize;
-	DishController dc;
+	public DishController dc;
 	
 	
 	public AuthView(String title, int frameWidth, int frameHeight) {
@@ -68,6 +68,7 @@ public class AuthView {
 		welcomeLbl.setForeground(Color.decode("#244E23")); 
 		welcomeLbl.setHorizontalAlignment(JLabel.CENTER); 
 		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER); 
+		welcomeLbl.setVerticalAlignment(SwingConstants.BOTTOM);
 		welcomeLbl.setOpaque(false);
 		sidePnl.add(welcomeLbl);
 		
@@ -267,7 +268,7 @@ public class AuthView {
        			imageIcon = new ImageIcon(image);
        			backgroundDeco.setIcon(imageIcon);  
        			
-       			relativeXSize = (int) (frame.getHeight()*0.103) - (int) (frame.getHeight()*0.01);
+       			relativeXSize = (int) (frame.getHeight()*0.103) - (int) (frame.getHeight()*0.015);
        			relativeYSize = (int) (frame.getHeight()*0.118) - (int) (frame.getHeight()*0.02);
        			image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
@@ -298,7 +299,7 @@ public class AuthView {
        			loginBttn.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.03)));
        			passwordLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.018)));
        			usernameLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.018)));
-       			usernameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));;
+       			usernameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));
        			rememberUserChckBx.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.016)));
        			
        			relativeXSize = (int) (frame.getHeight()*0.06);

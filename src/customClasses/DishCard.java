@@ -27,8 +27,9 @@ public class DishCard {
 		this.text = text;
 	}
 	
-	//crear tarjeta
 	public RoundPanel createCard() {
+		dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		RoundPanel cardPnl = new RoundPanel(radius);  
 		cardPnl.setBackground(Color.decode("#EDEDED"));
 		cardPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
@@ -46,6 +47,13 @@ public class DishCard {
 		dishNameLbl.setHorizontalAlignment(JLabel.CENTER); 
 		dishNameLbl.setHorizontalAlignment(SwingConstants.CENTER); 
 		cardPnl.add(dishNameLbl);
+		
+		dishNameLbl.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				frame.dispose();
+				dc.dishPage("Platillo");
+			}
+		});
 		
 		dishNameLbl.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {

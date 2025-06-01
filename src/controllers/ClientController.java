@@ -4,14 +4,29 @@ import views.ClientView;
  
 public class ClientController {
 	
-	public ClientView view; //crear objeto de la vista
+	public ClientView view; 
  	
- 	public ClientController(String title, int frameWidth, int frameHeight) { //constructor
+ 	public ClientController(String title, int frameWidth, int frameHeight) { 
  		view = new ClientView(title, frameWidth, frameHeight);
  	}
  	
- 	public void clients(){ //llamar al método clientes de la vista
+ 	public void clients() { 
  		view.clients(); 
  	}
  	
+ 	public void searchClient() { 
+ 		view.searchClient();; 
+ 	}
+ 	
+ 	public void newClient() { 
+ 		view.newClient(); 
+ 	}
+ 	
+ 	public void editClient() { 
+ 		view.editClient();
+ 	}
+ 	
+ 	public void clientHistory() { 
+ 		view.clientHistory(); 
+ 	}
 }

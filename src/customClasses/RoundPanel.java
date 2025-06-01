@@ -1,9 +1,7 @@
 package customClasses;
 
 import javax.swing.JPanel;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
 
 public class RoundPanel extends JPanel {
 
