@@ -3,6 +3,9 @@ package customClasses;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -51,7 +54,6 @@ public class ClientFormPanel {
 		surnameLbl.setOpaque(false);
 		clientsPnl.add(surnameLbl);
 		
-		
 		RoundPanel nameTxtFldPnl = new RoundPanel(30);  
 		nameTxtFldPnl.setBackground(Color.decode("#EDEDED"));
 		nameTxtFldPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));  
@@ -63,7 +65,14 @@ public class ClientFormPanel {
 		nameTxtFld.setBorder(null);
 		nameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		nameTxtFld.setForeground(Color.decode("#244E23")); 
-		nameTxtFld.setOpaque(false);
+		nameTxtFld.addKeyListener((KeyListener) new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+		            e.consume();
+		    }
+		}});
 		nameTxtFldPnl.add(nameTxtFld,  BorderLayout.CENTER);
 		
 		
@@ -79,6 +88,14 @@ public class ClientFormPanel {
 		surnameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		surnameTxtFld.setForeground(Color.decode("#244E23")); 
 		surnameTxtFld.setOpaque(false);
+		surnameTxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+		            e.consume();
+		    }
+		}});
 		surnameTxtFldPnl.add(surnameTxtFld,  BorderLayout.CENTER);
 		
 		
@@ -119,6 +136,7 @@ public class ClientFormPanel {
 		phoneTxtFldPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));  
 		phoneTxtFldPnl.setForeground(Color.decode("#244E23")); 
 		phoneTxtFldPnl.setLayout(new BorderLayout(15, 0));
+		
 		phonePnl.add(phoneTxtFldPnl, BorderLayout.CENTER);
 		
 		phoneTxtFld = new JTextField("");
@@ -126,6 +144,14 @@ public class ClientFormPanel {
 		phoneTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		phoneTxtFld.setForeground(Color.decode("#244E23")); 
 		phoneTxtFld.setOpaque(false);
+		phoneTxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isDigit(c)) {
+		            e.consume();
+		    }
+		}});
 		phoneTxtFldPnl.add(phoneTxtFld,  BorderLayout.CENTER);
 		
 		clientsPnl.add(Box.createHorizontalStrut(0));
@@ -178,6 +204,14 @@ public class ClientFormPanel {
 		adressTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		adressTxtFld.setForeground(Color.decode("#244E23")); 
 		adressTxtFld.setOpaque(false);
+		adressTxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c) && !Character.isDigit(c)) {
+		            e.consume();
+		    }
+		}});
 		adressTxtFldPnl.add(adressTxtFld,  BorderLayout.CENTER);
 		
 		
@@ -193,6 +227,14 @@ public class ClientFormPanel {
 		adress2TxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		adress2TxtFld.setForeground(Color.decode("#244E23")); 
 		adress2TxtFld.setOpaque(false);
+		adress2TxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c) && !Character.isDigit(c)) {
+		            e.consume();
+		    }
+		}});
 		adress2TxtFldPnl.add(adress2TxtFld,  BorderLayout.CENTER);
 		
 		
@@ -238,6 +280,14 @@ public class ClientFormPanel {
 		cityTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		cityTxtFld.setForeground(Color.decode("#244E23")); 
 		cityTxtFld.setOpaque(false);
+		cityTxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+		            e.consume();
+		    }
+		}});
 		cityTxtFldPnl.add(cityTxtFld,  BorderLayout.CENTER);
 		
 		
@@ -258,6 +308,14 @@ public class ClientFormPanel {
 		stateTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		stateTxtFld.setForeground(Color.decode("#244E23")); 
 		stateTxtFld.setOpaque(false);
+		stateTxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+		            e.consume();
+		    }
+		}});
 		stateTxtFldPnl.add(stateTxtFld,  BorderLayout.CENTER);
 		
 		RoundPanel codeTxtFldPnl = new RoundPanel(30);  
@@ -272,6 +330,14 @@ public class ClientFormPanel {
 		codeTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		codeTxtFld.setForeground(Color.decode("#244E23")); 
 		codeTxtFld.setOpaque(false);
+		codeTxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (!Character.isDigit(c)) {
+		            e.consume();
+		    }
+		}});
 		codeTxtFldPnl.add(codeTxtFld,  BorderLayout.CENTER);
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
