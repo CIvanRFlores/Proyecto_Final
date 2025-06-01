@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import controllers.ClientController;
 import customClasses.*;
 
 public class ClientView {
@@ -17,6 +18,7 @@ public class ClientView {
 	public String currentWindow;
 	public int relativeXSize;
 	public int relativeYSize;
+	public ClientController cc;
 	
 	public ClientView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -33,9 +35,13 @@ public class ClientView {
 		SideBarPanel sideBar = new SideBarPanel(frame);
 		JPanel buttonPanel = sideBar.createSidePanel();
 		frame.add(buttonPanel, BorderLayout.WEST);
+		
+		buttonPanel.getComponent(3).setBackground(Color.decode("#3C7E3A"));
 	}
 	
 	public void clients() {
+		cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -43,7 +49,7 @@ public class ClientView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -52,13 +58,7 @@ public class ClientView {
 		clientsLbl.setForeground(Color.decode("#244E23")); 
 		clientsLbl.setHorizontalAlignment(JLabel.LEFT); 
 		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(clientsLbl);
-		
-		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
-		//actionPnl.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(clientsLbl, BorderLayout.NORTH);
 		
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
@@ -66,7 +66,7 @@ public class ClientView {
 		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
-		actionPnl.add(searchBarPnl);
+		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
 		
 		image = new ImageIcon(ClientView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
@@ -80,6 +80,11 @@ public class ClientView {
 		searchTxtFld.setOpaque(false);
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 		
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 3, 20, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl, BorderLayout.EAST);
+		
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -90,10 +95,8 @@ public class ClientView {
 		searchBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				searchClient();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				cc.searchClient();
 			}
 		});
 		
@@ -119,10 +122,8 @@ public class ClientView {
 		newClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				newClient();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				cc.newClient();
 			}
 		});
 		
@@ -156,10 +157,8 @@ public class ClientView {
             @Override
             public void onEdit(int row) {
                 System.out.println("Edit row: " + (row+1));
-                frame.remove(mainPnl);
-				editClient();
-				frame.repaint();
-				frame.revalidate();
+                frame.dispose();
+				cc.editClient();
             }
 
             @Override
@@ -175,9 +174,8 @@ public class ClientView {
             public void onView(int row) {
                 System.out.println("Viewed row : " + (row+1));
                 frame.remove(mainPnl);
-                clientHistory();
-				frame.repaint();
-				frame.revalidate();
+                frame.dispose();
+				cc.clientHistory();
             }
         };
 		
@@ -215,6 +213,8 @@ public class ClientView {
 	}
 	
 	public void searchClient() {
+		cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -237,6 +237,8 @@ public class ClientView {
 	}
 	
 	public void newClient() {
+		cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -244,7 +246,7 @@ public class ClientView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -253,12 +255,12 @@ public class ClientView {
 		clientsLbl.setForeground(Color.decode("#244E23")); 
 		clientsLbl.setHorizontalAlignment(JLabel.LEFT);
 		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT);  
-		headerPnl.add(clientsLbl);
+		headerPnl.add(clientsLbl, BorderLayout.NORTH);
 			
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(actionPnl, BorderLayout.EAST);
 		
 		actionPnl.add(Box.createHorizontalStrut(0));
 		actionPnl.add(Box.createHorizontalStrut(0));
@@ -282,10 +284,8 @@ public class ClientView {
 				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
 				
 				if(opc==1) {
-					frame.remove(mainPnl);
-					clients();
-					frame.repaint();
-					frame.revalidate();
+					frame.dispose();
+					cc.clients();
 				}
 			}
 		});
@@ -316,32 +316,16 @@ public class ClientView {
 		newClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String name = form.getNameTxtFld(); 
-				String surname = form.getSurnameTxtFld();
-				String countryCode = form.getCountryCodeCmbBx(); 
-				String phone = form.getPhoneTxtFld();
-				String email = form.getEmailTxtFld();
-				String adress1 = form.getAdressTxtFld();
-				String adress2 = form.getAdress2TxtFld();
-				String city = form.getCityTxtFld();
-				String state = form.getStateTxtFld();
-				String code = form.getCodeTxtFld();
-				
-				if(name.equals("") || surname.equals("") || countryCode.equals("") || phone.equals("") || email.equals("") || 
-				   adress1.equals("") || adress2.equals("") || city.equals("") || state.equals("") || code.equals("")) {
-					image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+				if(!form.clientFormEmptyFields()) {
+					image = new ImageIcon(ClientView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
 	   				imageIcon = new ImageIcon(image);
 	   				
-					message = "Complete los campos para guardar la información.";
-					JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.INFORMATION_MESSAGE, imageIcon);
-				}else { //valida con modelo
-					frame.remove(mainPnl);
-					clients();
-					frame.repaint();
-					frame.revalidate();
+					message = "Cliente creado correctamente.";
+					JOptionPane.showMessageDialog(null, message, "Acción exitosa", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+					
+					frame.dispose();
+					cc.clients();
 				}
-				
-				
 			}
 		});
 		
@@ -357,8 +341,10 @@ public class ClientView {
 		
 		frame.setVisible(true);
 	}
-	
+
 	public void editClient() {
+		cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -366,7 +352,7 @@ public class ClientView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -375,12 +361,12 @@ public class ClientView {
 		clientsLbl.setForeground(Color.decode("#244E23")); 
 		clientsLbl.setHorizontalAlignment(JLabel.LEFT); 
 		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(clientsLbl);
+		headerPnl.add(clientsLbl, BorderLayout.NORTH);
 		
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(actionPnl, BorderLayout.EAST);
 		
 		actionPnl.add(Box.createHorizontalStrut(0));
 		actionPnl.add(Box.createHorizontalStrut(0));
@@ -395,10 +381,18 @@ public class ClientView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				clients();
-				frame.repaint();
-				frame.revalidate();
+				Object[] options = {"Volver", "Salir"};
+				
+				image = new ImageIcon(ActionButtonPanel.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				String message = "Todos los cambios se perderán.";
+				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				
+				if(opc==1) {
+					frame.dispose();
+					cc.clients();
+				}
 			}
 		});
 		
@@ -411,7 +405,12 @@ public class ClientView {
 		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		    }
 		});
-				
+			
+	
+		ClientFormPanel form = new ClientFormPanel(frame);
+		JPanel formPanel = form.createClientForm();
+		mainPnl.add(formPanel, BorderLayout.CENTER); 
+		
 		
 		RoundButton saveBttn = new RoundButton(30);
 		saveBttn.setBackground(Color.decode("#555BF6"));
@@ -423,10 +422,16 @@ public class ClientView {
 		saveBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				clients();
-				frame.repaint();
-				frame.revalidate();
+				if(!form.clientFormEmptyFields()) {
+					image = new ImageIcon(ClientView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+	   				imageIcon = new ImageIcon(image);
+	   				
+					message = "Cliente actualizado correctamente.";
+					JOptionPane.showMessageDialog(null, message, "Acción exitosa", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+					
+					frame.dispose();
+					cc.clients();
+				}
 			}
 		});
 		
@@ -439,15 +444,14 @@ public class ClientView {
 		    	saveBttn.setBackground(Color.decode("#555BF6"));
 		    }
 		});
-	
-		ClientFormPanel form = new ClientFormPanel(frame);
-		JPanel formPanel = form.createClientForm();
-		mainPnl.add(formPanel, BorderLayout.CENTER); 
+		
 		
 		frame.setVisible(true);
 	}
 	
 	public void clientHistory() {
+		cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -455,7 +459,7 @@ public class ClientView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -464,12 +468,12 @@ public class ClientView {
 		clientsLbl.setForeground(Color.decode("#244E23"));
 		clientsLbl.setHorizontalAlignment(JLabel.LEFT); 
 		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(clientsLbl);
+		headerPnl.add(clientsLbl, BorderLayout.NORTH);
 				
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(actionPnl, BorderLayout.EAST);
 		
 		actionPnl.add(Box.createHorizontalStrut(0));
 		actionPnl.add(Box.createHorizontalStrut(0));
@@ -485,10 +489,8 @@ public class ClientView {
 		downloadBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				clients();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				cc.clients();
 			}
 		});
 		

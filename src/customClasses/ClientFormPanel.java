@@ -1,11 +1,7 @@
 package customClasses;
 
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -24,6 +20,8 @@ public class ClientFormPanel {
 	public JTextField cityTxtFld;
 	public JTextField stateTxtFld;
 	public JTextField codeTxtFld;
+	public ImageIcon imageIcon;
+	public Image image;
 	public int relativeXSize;
 	public Font font; 
 	
@@ -387,6 +385,34 @@ public class ClientFormPanel {
 		
 		return clientsPnl;
 	}
+	
+	
+	public boolean clientFormEmptyFields() {
+		String name = getNameTxtFld(); 
+		String surname = getSurnameTxtFld();
+		String countryCode = getCountryCodeCmbBx(); 
+		String phone = getPhoneTxtFld();
+		String email = getEmailTxtFld();
+		String adress1 = getAdressTxtFld();
+		String adress2 = getAdress2TxtFld();
+		String city = getCityTxtFld();
+		String state = getStateTxtFld();
+		String code = getCodeTxtFld();
+		
+		if(name.equals("") || surname.equals("") || countryCode.equals("") || phone.equals("") || email.equals("") || 
+		   adress1.equals("") || adress2.equals("") || city.equals("") || state.equals("") || code.equals("")) {
+			image = new ImageIcon(ClientFormPanel.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+			imageIcon = new ImageIcon(image);
+				
+			String message = "Complete los campos para guardar la información.";
+			JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+			
+			return true;
+		}else { 
+			return false;
+		}
+	}
+	
 	
 	public String getNameTxtFld() {
 		return nameTxtFld.getText();
