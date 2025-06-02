@@ -1,7 +1,7 @@
 package customClasses;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.*; 
 import java.util.List;
 
 import javax.swing.*;
@@ -12,28 +12,14 @@ import views.ClientView;
 public class DishFormPanel {
 	
 	public JFrame frame;
-	public JLabel dishNameLbl;
-	public JLabel uploadPhotoLbl;
-	public RoundPanel nameTxtFldPnl;
 	public JTextField nameTxtFld;
-	public JLabel priceLbl;
-	public RoundPanel priceTxtFldPnl;
 	public JTextField priceTxtFld;
-	public RoundPanel uploadPhotoPnl;
-	public JLabel uploadImageLbl;
-	public RoundButton uploadFileBttn;
-	public JLabel descriptionLbl;
-	public RoundPanel descTxtFldPnl;
 	public JTextArea dishDescText;
-	
-	public JLabel topLeftLbl;
-	public JList<String> topLeftCmbBx;
-	public JLabel topRightLbl;
-	public JList<String> topRightCmbBx;
-	public JLabel bottomLeftLbl;
-	public JList<String> bottomLeftCmbBx;
-	public JLabel bottomRightLbl;
-	public JList<String> bottomRightCmbBx;
+
+	JList<String> topLeftCmbBx;
+	JList<String> topRightCmbBx;
+	JList<String> bottomLeftCmbBx;
+	JList<String> bottomRightCmbBx;
 
 	public ImageIcon imageIcon;
 	public Image image;
@@ -62,13 +48,13 @@ public class DishFormPanel {
 		headerInfoPnl.setOpaque(false);
 		infoPnl.add(headerInfoPnl, BorderLayout.NORTH);
 		
-		dishNameLbl = new JLabel(dishType.equals("platillo")?"Nombre del "+dishType+":" : "Nombre de la "+dishType+":");
+		JLabel dishNameLbl = new JLabel(dishType.equals("platillo")?"Nombre del "+dishType+":" : "Nombre de la "+dishType+":");
 		dishNameLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		dishNameLbl.setForeground(Color.decode("#244E23")); 
 		dishNameLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		headerInfoPnl.add(dishNameLbl);
 		
-		uploadPhotoLbl = new JLabel("Subir foto:");
+		JLabel uploadPhotoLbl = new JLabel("Subir foto:");
 		uploadPhotoLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		uploadPhotoLbl.setForeground(Color.decode("#244E23")); 
 		uploadPhotoLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -84,7 +70,7 @@ public class DishFormPanel {
 		leftInfoPnl.setOpaque(false);
 		centerInfoPnl.add(leftInfoPnl);
 		
-		nameTxtFldPnl = new RoundPanel(30);  
+		RoundPanel nameTxtFldPnl = new RoundPanel(30);  
 		nameTxtFldPnl.setBackground(Color.white);
 		nameTxtFldPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
 		nameTxtFldPnl.setForeground(Color.decode("#244E23")); 
@@ -108,13 +94,13 @@ public class DishFormPanel {
 		}});
 		
 		
-		priceLbl = new JLabel("Precio:");
+		JLabel priceLbl = new JLabel("Precio:");
 		priceLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		priceLbl.setForeground(Color.decode("#244E23")); 
 		priceLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		leftInfoPnl.add(priceLbl);
 		
-		priceTxtFldPnl = new RoundPanel(30);  
+		RoundPanel priceTxtFldPnl = new RoundPanel(30);  
 		priceTxtFldPnl.setBackground(Color.white);
 		priceTxtFldPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
 		priceTxtFldPnl.setForeground(Color.decode("#244E23")); 
@@ -143,7 +129,7 @@ public class DishFormPanel {
 		rightInfoPnl.setOpaque(false);
 		centerInfoPnl.add(rightInfoPnl);
 		
-		uploadPhotoPnl = new RoundPanel(30);  
+		RoundPanel uploadPhotoPnl = new RoundPanel(30);  
 		uploadPhotoPnl.setBackground(Color.white);
 		uploadPhotoPnl.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); 
 		uploadPhotoPnl.setForeground(Color.decode("#244E23")); 
@@ -152,10 +138,10 @@ public class DishFormPanel {
 		
 		image = new ImageIcon(DishFormPanel.class.getResource("/images/uploadFile.png")).getImage().getScaledInstance(90, 120, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		uploadImageLbl = new JLabel(imageIcon);
+		JLabel uploadImageLbl = new JLabel(imageIcon);
 		uploadPhotoPnl.add(uploadImageLbl, BorderLayout.CENTER);
 		
-		uploadFileBttn = new RoundButton(30);
+		RoundButton uploadFileBttn = new RoundButton(30);
 		uploadFileBttn.setBackground(Color.decode("#244E23"));
 		uploadFileBttn.setFont(new Font("Caladea Bold", Font.BOLD, 30));
 		uploadFileBttn.setForeground(Color.white);
@@ -185,13 +171,13 @@ public class DishFormPanel {
 		footerInfoPnl.setOpaque(false);
 		newDishPnl.add(footerInfoPnl);
 		
-		descriptionLbl = new JLabel("Descripción:");
+		JLabel descriptionLbl = new JLabel("Descripción:");
 		descriptionLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		descriptionLbl.setForeground(Color.decode("#244E23")); 
 		descriptionLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		footerInfoPnl.add(descriptionLbl, BorderLayout.NORTH);
 		
-		descTxtFldPnl = new RoundPanel(30);  
+		RoundPanel descTxtFldPnl = new RoundPanel(30);  
 		descTxtFldPnl.setBackground(Color.white);
 		descTxtFldPnl.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); 
 		descTxtFldPnl.setForeground(Color.decode("#244E23")); 
@@ -269,7 +255,7 @@ public class DishFormPanel {
 		topLeftPnl.setOpaque(false);
 		newDishPnl.add(topLeftPnl);
 		
-		topLeftLbl = new JLabel(dishType.equals("platillo")?"Proteínas:" : "Base:");
+		JLabel topLeftLbl = new JLabel(dishType.equals("platillo")?"Proteínas:" : "Base:");
 		topLeftLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		topLeftLbl.setForeground(Color.decode("#244E23")); 
 		topLeftLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -292,7 +278,7 @@ public class DishFormPanel {
 		topRightPnl.setOpaque(false);
 		newDishPnl.add(topRightPnl);
 		
-		topRightLbl = new JLabel(dishType.equals("platillo")?"Vegetales:" : "Jugo:");
+		JLabel topRightLbl = new JLabel(dishType.equals("platillo")?"Vegetales:" : "Jugo:");
 		topRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		topRightLbl.setForeground(Color.decode("#244E23")); 
 		topRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -313,7 +299,7 @@ public class DishFormPanel {
 		bottomLeftPnl.setOpaque(false);
 		newDishPnl.add(bottomLeftPnl);
 		
-		bottomLeftLbl = new JLabel(dishType.equals("platillo")?"Carbohidratos:" : "Licor:");
+		JLabel bottomLeftLbl = new JLabel(dishType.equals("platillo")?"Carbohidratos:" : "Licor:");
 		bottomLeftLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		bottomLeftLbl.setForeground(Color.decode("#244E23")); 
 		bottomLeftLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -334,7 +320,7 @@ public class DishFormPanel {
 		bottomRightPnl.setOpaque(false);
 		newDishPnl.add(bottomRightPnl);
 		
-		bottomRightLbl = new JLabel(dishType.equals("platillo")?"Especias:" : "Extra:");
+		JLabel bottomRightLbl = new JLabel(dishType.equals("platillo")?"Especias:" : "Extra:");
 		bottomRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		bottomRightLbl.setForeground(Color.decode("#244E23")); 
 		bottomRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
@@ -440,4 +426,18 @@ public class DishFormPanel {
 		List<String> selectedValues = bottomRightCmbBx.getSelectedValuesList();
 		return selectedValues.toString(); 
 	}
+
+	
+	public void setNameTxtFld(String name) {
+		this.nameTxtFld.setText(name);
+	}
+
+	public void setPriceTxtFld(String price) {
+		this.priceTxtFld.setText(price);;
+	}
+
+	public void setDishDescText(String description) {
+		this.dishDescText.setText(description);
+	}
+	
 }
