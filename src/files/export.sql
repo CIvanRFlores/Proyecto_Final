@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `Client`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Client` (
-  `id_client` int NOT NULL,
+  `id_client` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `phone_number` int NOT NULL,
@@ -55,13 +55,14 @@ DROP TABLE IF EXISTS `Dish`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Dish` (
-  `id_dish` int NOT NULL,
+  `id_dish` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `price` double NOT NULL,
   `description` varchar(50) DEFAULT NULL,
   `stock` int NOT NULL,
   `image` varchar(100) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
+  `dish_type` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_dish`),
   UNIQUE KEY `name` (`name`),
   CONSTRAINT `Dish_chk_1` CHECK ((`price` >= 0)),
@@ -107,6 +108,34 @@ LOCK TABLES `Dish_Ingredients` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `Dish_Orders`
+--
+
+DROP TABLE IF EXISTS `Dish_Orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Dish_Orders` (
+  `id_order` int NOT NULL,
+  `id_dish` int NOT NULL,
+  `quantity` double NOT NULL,
+  PRIMARY KEY (`id_order`,`id_dish`),
+  KEY `id_dish` (`id_dish`),
+  CONSTRAINT `Dish_Orders_ibfk_1` FOREIGN KEY (`id_order`) REFERENCES `Order` (`id_order`),
+  CONSTRAINT `Dish_Orders_ibfk_2` FOREIGN KEY (`id_dish`) REFERENCES `Dish` (`id_dish`),
+  CONSTRAINT `Dish_Orders_chk_1` CHECK ((`quantity` > 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Dish_Orders`
+--
+
+LOCK TABLES `Dish_Orders` WRITE;
+/*!40000 ALTER TABLE `Dish_Orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Dish_Orders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `Employee`
 --
 
@@ -114,11 +143,11 @@ DROP TABLE IF EXISTS `Employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Employee` (
-  `id_employee` int NOT NULL,
+  `id_employee` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   PRIMARY KEY (`id_employee`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,7 +156,7 @@ CREATE TABLE `Employee` (
 
 LOCK TABLES `Employee` WRITE;
 /*!40000 ALTER TABLE `Employee` DISABLE KEYS */;
-INSERT INTO `Employee` VALUES (1,'jonasoto','1234'),(2,'civanrflores','5678'),(3,'angelmv','9101112'),(4,'luismig','13141516'),(5,'buereke','17181920');
+INSERT INTO `Employee` VALUES (1,'jonasoto','1234'),(2,'sandoval','5678'),(3,'angelmv','9101112'),(4,'luismig','13141516'),(5,'buereke','17181920'),(6,'civan','21222324');
 /*!40000 ALTER TABLE `Employee` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +168,7 @@ DROP TABLE IF EXISTS `Inventory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Inventory` (
-  `id_ingredient` int NOT NULL,
+  `id_ingredient` int NOT NULL AUTO_INCREMENT,
   `code_ingredient` int NOT NULL,
   `name` varchar(50) NOT NULL,
   `ammount` int NOT NULL,
@@ -166,13 +195,13 @@ DROP TABLE IF EXISTS `Order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Order` (
-  `id_order` int NOT NULL,
+  `id_order` int NOT NULL AUTO_INCREMENT,
   `id_dish` int NOT NULL,
   `id_client` int NOT NULL,
   `table_number` varchar(5) NOT NULL,
   `price` double NOT NULL,
   `ammount` int NOT NULL,
-  `order_type` tinyint(1) NOT NULL,
+  `order_type` tinyint(1) NOT NULL DEFAULT '1',
   `estimated_time` int DEFAULT NULL,
   PRIMARY KEY (`id_order`),
   KEY `id_dish` (`id_dish`),
@@ -202,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-20  6:50:33
+-- Dump completed on 2025-06-01 19:58:23
