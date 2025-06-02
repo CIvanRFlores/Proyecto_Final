@@ -20,6 +20,7 @@ public class ClientFormPanel {
 	public JTextField cityTxtFld;
 	public JTextField stateTxtFld;
 	public JTextField codeTxtFld;
+	
 	public ImageIcon imageIcon;
 	public Image image;
 	public int relativeXSize;
@@ -36,7 +37,7 @@ public class ClientFormPanel {
 		clientsPnl.setLayout(new GridLayout(10, 2, 20, 20));	
 		clientsPnl.setOpaque(false);
 		
-		JLabel nameLbl = new JLabel("Nombre/s");
+		JLabel nameLbl = new JLabel("Nombre/s:");
 		nameLbl.setForeground(Color.decode("#244E23")); 
 		nameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		nameLbl.setHorizontalAlignment(SwingConstants.LEFT);  
@@ -44,7 +45,7 @@ public class ClientFormPanel {
 		nameLbl.setOpaque(false);
 		clientsPnl.add(nameLbl);
 		
-		JLabel surnameLbl = new JLabel("Apellidos");
+		JLabel surnameLbl = new JLabel("Apellidos:");
 		surnameLbl.setForeground(Color.decode("#244E23")); 
 		surnameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		surnameLbl.setHorizontalAlignment(SwingConstants.LEFT); 
@@ -98,7 +99,7 @@ public class ClientFormPanel {
 		surnameTxtFldPnl.add(surnameTxtFld,  BorderLayout.CENTER);
 		
 		
-		JLabel phoneLbl = new JLabel("Número de teléfono");
+		JLabel phoneLbl = new JLabel("Número de teléfono:");
 		phoneLbl.setForeground(Color.decode("#244E23")); 
 		phoneLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		phoneLbl.setHorizontalAlignment(SwingConstants.LEFT);  
@@ -155,7 +156,7 @@ public class ClientFormPanel {
 		
 		clientsPnl.add(Box.createHorizontalStrut(0));
 		
-		JLabel emailLbl = new JLabel("Correo");
+		JLabel emailLbl = new JLabel("Correo:");
 		emailLbl.setForeground(Color.decode("#244E23")); 
 		emailLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		emailLbl.setHorizontalAlignment(SwingConstants.LEFT); 
@@ -181,7 +182,7 @@ public class ClientFormPanel {
 		
 		clientsPnl.add(Box.createHorizontalStrut(0));
 		
-		JLabel adressLbl = new JLabel("Dirección");
+		JLabel adressLbl = new JLabel("Dirección:");
 		adressLbl.setForeground(Color.decode("#244E23")); 
 		adressLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		adressLbl.setHorizontalAlignment(SwingConstants.LEFT);  
@@ -189,7 +190,13 @@ public class ClientFormPanel {
 		adressLbl.setOpaque(false);
 		clientsPnl.add(adressLbl);
 		
-		clientsPnl.add(Box.createHorizontalStrut(0));
+		JLabel adressLbl2 = new JLabel("Dirección 2:");
+		adressLbl2.setForeground(Color.decode("#244E23")); 
+		adressLbl2.setFont(new Font("Caladea Bold", Font.BOLD, 16));
+		adressLbl2.setHorizontalAlignment(SwingConstants.LEFT);  
+		adressLbl2.setVerticalAlignment(SwingConstants.BOTTOM); 
+		adressLbl2.setOpaque(false);
+		clientsPnl.add(adressLbl2);
 		
 		RoundPanel adressTxtFldPnl = new RoundPanel(30);  
 		adressTxtFldPnl.setBackground(Color.decode("#EDEDED"));
@@ -354,6 +361,7 @@ public class ClientFormPanel {
        			emailLbl.setFont(font);
        			emailTxtFld.setFont(font);
        			adressLbl.setFont(font);
+       			adressLbl2.setFont(font);
        			adressTxtFld.setFont(font);
        			adress2TxtFld.setFont(font);
        			cityLbl.setFont(font);
@@ -394,13 +402,12 @@ public class ClientFormPanel {
 		String phone = getPhoneTxtFld();
 		String email = getEmailTxtFld();
 		String adress1 = getAdressTxtFld();
-		String adress2 = getAdress2TxtFld();
 		String city = getCityTxtFld();
 		String state = getStateTxtFld();
 		String code = getCodeTxtFld();
 		
 		if(name.equals("") || surname.equals("") || countryCode.equals("") || phone.equals("") || email.equals("") || 
-		   adress1.equals("") || adress2.equals("") || city.equals("") || state.equals("") || code.equals("")) {
+		   adress1.equals("") || city.equals("") || state.equals("") || code.equals("")) {
 			image = new ImageIcon(ClientFormPanel.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
 			imageIcon = new ImageIcon(image);
 				
@@ -452,6 +459,47 @@ public class ClientFormPanel {
 	
 	public String getCodeTxtFld() {
 		return codeTxtFld.getText();
+	}
+	
+	
+	public void setNameTxtFld(String name) {
+		this.nameTxtFld.setText(name);
+	}
+	
+	public void setSurnameTxtFld(String surname) {
+		this.surnameTxtFld.setText(surname);
+	}
+	
+	public void setCountryCodeCmbBx(String countryCode) {
+		this.countryCodeCmbBx.setSelectedItem(countryCode);
+	}
+	
+	public void setPhoneTxtFld(String phone) {
+		this.phoneTxtFld.setText(phone);
+	}
+	
+	public void setEmailTxtFld(String email) {
+		this.emailTxtFld.setText(email);
+	}
+	
+	public void setAdressTxtFld(String adress) {
+		this.adressTxtFld.setText(adress);
+	}
+	
+	public void setAdress2TxtFld(String adress2) {
+		this.adress2TxtFld.setText(adress2);
+	}
+	
+	public void setCityTxtFld(String city) {
+		this.cityTxtFld.setText(city);
+	}
+	
+	public void setStateTxtFld(String state) {
+		this.stateTxtFld.setText(state);
+	}
+	
+	public void setCodeTxtFld(String code) {
+		this.codeTxtFld.setText(code);
 	}
 	
 }
