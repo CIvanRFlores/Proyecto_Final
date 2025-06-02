@@ -74,7 +74,7 @@ public class SideBarPanel {
 		orderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		orderBttn.setForeground(Color.white);
 		orderBttn.setIcon(imageIcon);
-		orderBttn.setText("Órdenes");
+		orderBttn.setText("Ordenes");
 		orderBttn.setHorizontalAlignment(SwingConstants.LEFT);
 		buttonPnl.add(orderBttn);
 		

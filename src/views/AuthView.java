@@ -23,7 +23,6 @@ public class AuthView {
 	public int relativeYSize;
 	public DishController dc;
 	
-	
 	public AuthView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
 		imageIcon = new ImageIcon(AuthView.class.getResource("/images/elManglarLogo.png")); //icono de la ventana
@@ -34,7 +33,7 @@ public class AuthView {
 		frame.setSize(frameWidth, frameHeight); 
 		frame.setLocationRelativeTo(null); //colocar la ventana en el centro de la pantalla
 		frame.setResizable(true); 
-		frame.setMinimumSize(new Dimension(350, 350));
+		frame.setMinimumSize(new Dimension(352, 300));
 		frame.setTitle(title); 
 	}
 	
@@ -58,26 +57,25 @@ public class AuthView {
 		JPanel sidePnl = new JPanel();
 		sidePnl.setBackground(Color.white);
 		sidePnl.setBorder(BorderFactory.createEmptyBorder(60, 30, 60, 60)); 
-		sidePnl.setLayout(new GridLayout(6, 1, 0, 20));
+		sidePnl.setLayout(new GridLayout(7, 1, 0, 20));
 		frame.add(sidePnl, BorderLayout.CENTER );
 		
-		//sidePnl.add(Box.createHorizontalStrut(25));
-		
-		JLabel welcomeLbl = new JLabel("Bienvenido");
-		welcomeLbl.setFont(new Font("Caladea Bold", Font.BOLD, 50));
-		welcomeLbl.setForeground(Color.decode("#244E23")); 
-		welcomeLbl.setHorizontalAlignment(JLabel.CENTER); 
-		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER); 
-		welcomeLbl.setVerticalAlignment(SwingConstants.BOTTOM);
-		welcomeLbl.setOpaque(false);
-		sidePnl.add(welcomeLbl);
-		
+		sidePnl.add(Box.createHorizontalStrut(0));
 		
 		image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(103, 118, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		logoTextLbl.setOpaque(false);
 		sidePnl.add(logoTextLbl);
+		
+		
+		JLabel welcomeLbl = new JLabel("Bienvenido");
+		welcomeLbl.setFont(new Font("Caladea Bold", Font.BOLD, 50));
+		welcomeLbl.setForeground(Color.decode("#244E23")); 
+		welcomeLbl.setHorizontalAlignment(JLabel.CENTER); 
+		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER); 
+		welcomeLbl.setOpaque(false);
+		sidePnl.add(welcomeLbl);
 
 		
 		RoundPanel usernamePnl = new RoundPanel(30);  
@@ -175,14 +173,6 @@ public class AuthView {
 			}
 			
 		});
-
-
-		JCheckBox rememberUserChckBx = new JCheckBox("Recordar usuario");
-		rememberUserChckBx.setFont(new Font("Caladea Bold", Font.BOLD, 16));
-		rememberUserChckBx.setForeground(Color.decode("#244E23"));
-		rememberUserChckBx.setOpaque(false); 
-		
-		sidePnl.add(rememberUserChckBx);
 		
 		
 		RoundButton loginBttn = new RoundButton(30);
@@ -256,7 +246,7 @@ public class AuthView {
 		    }
 		});
 		
-		//sidePnl.add(Box.createHorizontalStrut(25));
+		sidePnl.add(Box.createHorizontalStrut(0));
 		
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
@@ -269,7 +259,7 @@ public class AuthView {
        			backgroundDeco.setIcon(imageIcon);  
        			
        			relativeXSize = (int) (frame.getHeight()*0.103) - (int) (frame.getHeight()*0.015);
-       			relativeYSize = (int) (frame.getHeight()*0.118) - (int) (frame.getHeight()*0.02);
+       			relativeYSize = (int) (frame.getHeight()*0.118) - (int) (frame.getWidth()*0.02);
        			image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			logoTextLbl.setIcon(imageIcon); 
@@ -300,7 +290,6 @@ public class AuthView {
        			passwordLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.018)));
        			usernameLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.018)));
        			usernameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));
-       			rememberUserChckBx.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.016)));
        			
        			relativeXSize = (int) (frame.getHeight()*0.06);
        			imagePnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize/2)); 
