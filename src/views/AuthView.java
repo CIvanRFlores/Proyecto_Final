@@ -53,21 +53,25 @@ public class AuthView {
 		JLabel backgroundDeco = new JLabel(imageIcon);
 		imagePnl.add(backgroundDeco, BorderLayout.CENTER);
 		
-		
 		JPanel sidePnl = new JPanel();
 		sidePnl.setBackground(Color.white);
-		sidePnl.setBorder(BorderFactory.createEmptyBorder(60, 30, 60, 60)); 
-		sidePnl.setLayout(new GridLayout(7, 1, 0, 20));
+		sidePnl.setBorder(BorderFactory.createEmptyBorder(120, 30, 0, 60)); 
+		sidePnl.setLayout(new BorderLayout(0, 20));
 		frame.add(sidePnl, BorderLayout.CENTER );
 		
-		sidePnl.add(Box.createHorizontalStrut(0));
-		
-		image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(103, 118, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(142, 162, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
+		logoTextLbl.setHorizontalAlignment(JLabel.CENTER); 
+		logoTextLbl.setVerticalAlignment(JLabel.BOTTOM);
 		logoTextLbl.setOpaque(false);
-		sidePnl.add(logoTextLbl);
+		sidePnl.add(logoTextLbl, BorderLayout.NORTH);
 		
+		
+		JPanel infoPnl = new JPanel();
+		infoPnl.setBackground(Color.white);
+		infoPnl.setLayout(new GridLayout(5, 1, 0, 20));
+		sidePnl.add(infoPnl, BorderLayout.CENTER);
 		
 		JLabel welcomeLbl = new JLabel("Bienvenido");
 		welcomeLbl.setFont(new Font("Caladea Bold", Font.BOLD, 50));
@@ -75,32 +79,33 @@ public class AuthView {
 		welcomeLbl.setHorizontalAlignment(JLabel.CENTER); 
 		welcomeLbl.setHorizontalAlignment(SwingConstants.CENTER); 
 		welcomeLbl.setOpaque(false);
-		sidePnl.add(welcomeLbl);
+		infoPnl.add(welcomeLbl);
 
-		
+	
 		RoundPanel usernamePnl = new RoundPanel(30);  
 		usernamePnl.setBackground(Color.white); 
 		usernamePnl.setForeground(Color.decode("#8A5627")); 
-		usernamePnl.setLayout(new BorderLayout(15, 10));
-		sidePnl.add(usernamePnl);
+		usernamePnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
+		usernamePnl.setLayout(new BorderLayout());
+		infoPnl.add(usernamePnl);
 		
 		JLabel usernameLbl = new JLabel("Nombre de usuario");
-		usernameLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); 
+		usernameLbl.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5)); 
 		usernameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 18));
 		usernameLbl.setForeground(Color.decode("#999999")); 
 		usernameLbl.setHorizontalAlignment(JLabel.CENTER);
 		usernameLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		usernamePnl.add(usernameLbl, BorderLayout.NORTH);
 		
-		image = new ImageIcon(AuthView.class.getResource("/images/users.png")).getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/user.png")).getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel usersIconLbl = new JLabel(imageIcon);
-		usersIconLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); 
+		usersIconLbl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
 		usernamePnl.add(usersIconLbl, BorderLayout.WEST);
 		
 		JTextField usernameTxtFld = new JTextField();
-		usernameTxtFld.setBorder(null);
-		usernameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
+		usernameTxtFld.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5)); 
+		usernameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		usernameTxtFld.setForeground(Color.decode("#999999")); 
 		usernameTxtFld.setOpaque(false);
 		usernamePnl.add(usernameTxtFld, BorderLayout.CENTER);
@@ -109,25 +114,27 @@ public class AuthView {
 		RoundPanel passwordPnl = new RoundPanel(30); 
 		passwordPnl.setBackground(Color.white); 
 		passwordPnl.setForeground(Color.decode("#8A5627"));
-		passwordPnl.setLayout(new BorderLayout(15, 0));
-		sidePnl.add(passwordPnl);
+		passwordPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
+		passwordPnl.setLayout(new BorderLayout());
+		infoPnl.add(passwordPnl);
 		
 		JLabel passwordLbl = new JLabel("Contraseña");
-		passwordLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); 
 		passwordLbl.setFont(new Font("Caladea Bold", Font.BOLD, 18));
 		passwordLbl.setForeground(Color.decode("#999999"));
+		passwordLbl.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 5));
 		passwordLbl.setHorizontalAlignment(JLabel.CENTER); 
 		passwordLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		passwordPnl.add(passwordLbl, BorderLayout.NORTH);
 		
-		image = new ImageIcon(AuthView.class.getResource("/images/key.png")).getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/key.png")).getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel keyIconLbl = new JLabel(imageIcon);
-		keyIconLbl.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); 
+		keyIconLbl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
 		passwordPnl.add(keyIconLbl, BorderLayout.WEST);
 	
 		//panel con el campo para escribir la contraseña y el botón para mostrarla/ocultarla
 		JPanel jPssWrdFldPnl = new JPanel();
+		jPssWrdFldPnl.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5)); 
 		jPssWrdFldPnl.setOpaque(false);
 		jPssWrdFldPnl.setLayout(new BorderLayout());
 		passwordPnl.add(jPssWrdFldPnl, BorderLayout.CENTER);
@@ -137,12 +144,13 @@ public class AuthView {
 		passwordFld.setBorder(null);
 		passwordFld.setForeground(Color.decode("#999999"));
 		passwordFld.setOpaque(false);
-		passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
+		passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
 		jPssWrdFldPnl.add(passwordFld, BorderLayout.CENTER);
 		
-		image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
+		image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(26, 26, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JButton seeBttn = new JButton();
+		seeBttn.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 5));
 		seeBttn.setIcon(imageIcon);
 		seeBttn.setFocusPainted(false); 
 		seeBttn.setBorderPainted(false); 
@@ -152,18 +160,18 @@ public class AuthView {
 		seeBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				relativeXSize = (int) (frame.getWidth()*0.022);
+				relativeXSize = (int) (frame.getWidth()*0.026);
        			relativeYSize = relativeXSize;
 				if(passwordVisible) {
 					passwordFld.setEchoChar((char)0); //representar los caracteres de la contraseña con letras 'ABCdario'	
-					passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.012))); 
+					passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.016))); 
 					image = new ImageIcon(AuthView.class.getResource("/images/eye.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
 					imageIcon = new ImageIcon(image);
 					seeBttn.setIcon(imageIcon);
 					passwordVisible = false;
 				}else {
 					passwordFld.setEchoChar('*'); //representar los caracteres de la contraseña con asteriscos '*'				
-					passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014))); 
+					passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.015))); 
 					image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
 					imageIcon = new ImageIcon(image);
 					seeBttn.setIcon(imageIcon);
@@ -180,7 +188,7 @@ public class AuthView {
 		loginBttn.setFont(new Font("Caladea Bold", Font.BOLD, 30));
 		loginBttn.setForeground(Color.white);
 		loginBttn.setText("Iniciar sesión");
-		sidePnl.add(loginBttn);
+		infoPnl.add(loginBttn);
 		
 		loginBttn.addActionListener(new ActionListener() {
 			@Override
@@ -246,7 +254,7 @@ public class AuthView {
 		    }
 		});
 		
-		sidePnl.add(Box.createHorizontalStrut(0));
+		infoPnl.add(Box.createHorizontalStrut(0));
 		
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
@@ -258,14 +266,14 @@ public class AuthView {
        			imageIcon = new ImageIcon(image);
        			backgroundDeco.setIcon(imageIcon);  
        			
-       			relativeXSize = (int) (frame.getHeight()*0.103) - (int) (frame.getHeight()*0.015);
-       			relativeYSize = (int) (frame.getHeight()*0.118) - (int) (frame.getWidth()*0.02);
+       			relativeXSize = (int) (frame.getHeight()*0.142) - (int) (frame.getHeight()*0.015);
+       			relativeYSize = (int) (frame.getHeight()*0.162) - (int) (frame.getWidth()*0.02);
        			image = new ImageIcon(AuthView.class.getResource("/images/elManglarLogoText.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			logoTextLbl.setIcon(imageIcon); 
        			
-       			relativeXSize = (int) (frame.getWidth()*0.022);
-       			image = new ImageIcon(AuthView.class.getResource("/images/users.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
+       			relativeXSize = (int) (frame.getWidth()*0.026);
+       			image = new ImageIcon(AuthView.class.getResource("/images/user.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			usersIconLbl.setIcon(imageIcon);
        			
@@ -277,28 +285,36 @@ public class AuthView {
        				image = new ImageIcon(AuthView.class.getResource("/images/eye.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
        				imageIcon = new ImageIcon(image);
        				seeBttn.setIcon(imageIcon);
-       				passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.012)));;
+       				passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.016)));;
        			}else {
        				image = new ImageIcon(AuthView.class.getResource("/images/eyeOff.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
        				imageIcon = new ImageIcon(image);
        				seeBttn.setIcon(imageIcon);
-       				passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));
+       				passwordFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.015)));
        			}
        			
        			welcomeLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.04)));
        			loginBttn.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.03)));
        			passwordLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.018)));
        			usernameLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.018)));
-       			usernameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));
+       			usernameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.016)));
        			
        			relativeXSize = (int) (frame.getHeight()*0.06);
        			imagePnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize/2)); 
-       			sidePnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize/2, relativeXSize, relativeXSize)); 
+       			sidePnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize*2, relativeXSize/2, 0, relativeXSize)); 
        			
        			relativeXSize = (int) (frame.getHeight()*0.005);
        			usernamePnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize)); 
+       			usernameLbl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, 0, relativeXSize)); 
+       			usersIconLbl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize)); 
+       			usernameTxtFld.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize*2, relativeXSize, relativeXSize)); 
+       			
        			passwordPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize));
- 
+       			passwordLbl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, 0, relativeXSize));
+       			keyIconLbl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize));
+       			jPssWrdFldPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize*2, relativeXSize, relativeXSize));
+       			seeBttn.setBorder(BorderFactory.createEmptyBorder(0, 0, relativeXSize, relativeXSize));
+       			
        			frame.repaint();
             }
         });
