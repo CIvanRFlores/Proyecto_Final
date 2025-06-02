@@ -13,6 +13,7 @@ public class DishCard {
 	public JFrame frame;
 	public int radius;
 	public URL dishImageURL;
+	public String type;
 	public String text;
 	public Image image;
 	public ImageIcon imageIcon;
@@ -20,10 +21,11 @@ public class DishCard {
 	public int relativeYSize;
 	public DishController dc;
 
-	public DishCard(int radius, URL dishImageURL, String text, JFrame frame) {
+	public DishCard(int radius, URL dishImageURL, String type, String text, JFrame frame) {
 		this.frame = frame;
 		this.radius = radius;
 		this.dishImageURL = dishImageURL;
+		this.type = type;
 		this.text = text;
 	}
 	
@@ -51,7 +53,7 @@ public class DishCard {
 		dishNameLbl.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				frame.dispose();
-				dc.dishPage("Platillo");
+				dc.dishPage(type);
 			}
 		});
 		

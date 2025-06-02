@@ -148,7 +148,7 @@ public class DishView {
 		dishesPnl.setLayout(new GridLayout(18, 3, 30, 30));	
 		
 		for(int i=0; i<27; i++) {
-			DishCard dishCard = new DishCard(30, DishView.class.getResource("/images/shrimps.png"), "Camarones (sin cabeza)", frame);
+			DishCard dishCard = new DishCard(30, DishView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
 			RoundPanel dish = dishCard.createCard();
 			
 			dishesPnl.add(dish);
@@ -518,6 +518,8 @@ public class DishView {
 	}
 	
 	public void editDish(String type) {
+		dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -525,7 +527,7 @@ public class DishView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -534,12 +536,12 @@ public class DishView {
 		dishesLbl.setForeground(Color.decode("#244E23")); 
 		dishesLbl.setHorizontalAlignment(JLabel.LEFT);
 		dishesLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(dishesLbl);
+		headerPnl.add(dishesLbl, BorderLayout.NORTH);
 		
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(actionPnl, BorderLayout.EAST);
 				
 		actionPnl.add(Box.createHorizontalStrut(0));
 		actionPnl.add(Box.createHorizontalStrut(0));
@@ -553,10 +555,18 @@ public class DishView {
 		
 		cancelBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				frame.remove(mainPnl);
-				dishPage(type);
-				frame.repaint();
-				frame.revalidate();
+				Object[] options = {"Volver", "Salir"};
+				
+				image = new ImageIcon(ActionButtonPanel.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				String message = "Todos los cambios se perderán.";
+				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				
+				if(opc==1) {
+					frame.dispose();
+					dc.dishes();
+				}
 			}
 		});
 		
@@ -571,12 +581,33 @@ public class DishView {
 		});
 		
 		
+		DishFormPanel form = new DishFormPanel(frame, type);
+		JPanel formPanel = form.createDishForm();
+		formPanel.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
+		mainPnl.add(formPanel, BorderLayout.CENTER);
+		
 		RoundButton saveBttn = new RoundButton(30);
 		saveBttn.setBackground(Color.decode("#555BF6"));
 		saveBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		saveBttn.setForeground(Color.white);
-		saveBttn.setText("Guardar");
-		actionPnl.add(saveBttn); 
+		saveBttn.setText("Guardar"); 
+
+		saveBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!form.ingredientFormEmptyFields()) {
+					System.out.println(form.getTopLeftCmbBx());
+					image = new ImageIcon(AuthView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+	   				imageIcon = new ImageIcon(image);
+	   				
+					message = type.equals("platillo")?type+" actualizado correctamente." : type+" actualizado correctamente.";
+					JOptionPane.showMessageDialog(null, message, "Acción exitosa", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+					
+					frame.dispose();
+					dc.dishes();
+				}
+			}
+		});
 		
 		saveBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
@@ -585,6 +616,42 @@ public class DishView {
 
 		    public void mouseExited(MouseEvent evt) {
 		    	saveBttn.setBackground(Color.decode("#555BF6"));
+		    }
+		});
+		
+		RoundButton nextBttn = new RoundButton(30);
+		nextBttn.setBackground(Color.decode("#244E23"));
+		nextBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		nextBttn.setForeground(Color.white);
+		nextBttn.setText("Siguiente");
+		actionPnl.add(nextBttn); 
+		
+		nextBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JPanel formPanel2 = form.createIngredientsForm();
+				formPanel2.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
+				
+				if(!form.dishFormEmptyFields()) {
+					mainPnl.remove(formPanel);
+					actionPnl.remove(nextBttn);
+					
+					mainPnl.add(formPanel2, BorderLayout.CENTER);
+					actionPnl.add(saveBttn);
+					
+					frame.repaint();
+					frame.revalidate();
+				}
+			}
+		});
+		
+		nextBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				nextBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	nextBttn.setBackground(Color.decode("#244E23"));
 		    }
 		});
 		
