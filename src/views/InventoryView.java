@@ -61,13 +61,12 @@ public class InventoryView {
 		
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
-		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));  
+		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
 		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
-		searchBarPnl.setPreferredSize(new Dimension(300, 30));
-		actionPnl.add(searchBarPnl);
+		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
 		
-		image = new ImageIcon(InventoryView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		image = new ImageIcon(DishView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
@@ -75,16 +74,27 @@ public class InventoryView {
 		JTextField searchTxtFld = new JTextField();
 		searchTxtFld.setBorder(null);
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
-		searchTxtFld.setForeground(Color.decode("#244E23")); 
+		searchTxtFld.setForeground(Color.decode("#244E23"));
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
+		JPanel actionPnl1 = new JPanel();
+		actionPnl1.setLayout(new GridLayout(1, 3, 20, 0));
+		actionPnl1.setOpaque(false); 
+		headerPnl.add(actionPnl1, BorderLayout.EAST);
+		
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		searchBttn.setForeground(Color.white);
 		searchBttn.setText("Buscar");
-		actionPnl.add(searchBttn);
+		searchBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				searchIngredient();
+			}
+		});
+		actionPnl1.add(searchBttn);
 		
 		searchBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
@@ -96,14 +106,14 @@ public class InventoryView {
 		    }
 		});
 				
-		actionPnl.add(Box.createHorizontalStrut(0));
+		actionPnl1.add(Box.createHorizontalStrut(0));
 		
 		RoundButton newInv = new RoundButton(30);
 		newInv.setBackground(Color.decode("#2EA623"));
 		newInv.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		newInv.setForeground(Color.white);
 		newInv.setText("Nuevo");
-		actionPnl.add(newInv); 
+		actionPnl1.add(newInv); 
 
 		newInv.addActionListener(new ActionListener() {
 			@Override
@@ -152,6 +162,13 @@ public class InventoryView {
 		frame.setVisible(true);
 	}
 	
+	public void searchIngredient() {
+		image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+			imageIcon = new ImageIcon(image);
+			
+		message = "Ingrediente no encontrado";
+		JOptionPane.showMessageDialog(null, message, "Inventario", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+	}
 	
 	public void newInventory() {
 		mainPnl = new JPanel();

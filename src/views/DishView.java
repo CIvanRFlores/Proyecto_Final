@@ -88,6 +88,12 @@ public class DishView {
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		searchBttn.setForeground(Color.white);
 		searchBttn.setText("Buscar");
+		searchBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				searchDish();
+			}
+		});
 		actionPnl.add(searchBttn);
 		
 		searchBttn.addMouseListener(new MouseAdapter() {
@@ -307,6 +313,11 @@ public class DishView {
 	}
 	
 	public void searchDish() {
+		image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+			imageIcon = new ImageIcon(image);
+			
+		message = "Platillo no encontrado";
+		JOptionPane.showMessageDialog(null, message, "Platillo", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
 	}
 	
 	public void dishPage(String type) {
