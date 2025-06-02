@@ -141,20 +141,18 @@ public class ClientView {
 		clientsPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));  
 		clientsPnl.setLayout(new BorderLayout());	
 		clientsPnl.setOpaque(false);
-		//clientsPnl.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		mainPnl.add(clientsPnl, BorderLayout.CENTER);
 		
 		String[] column =  {"Nombre", "Dirección", "Número", "Correo", "Acción"};
-//		Object[][] data = {{"José Eduardo Guereque", "Del Árbol 169, col. La fuente", "6128682392", "Gue123@gmail.com", null},
-//						   {"Ángel Gabriel Mendoza", "Del Árbol 169, col. La fuente", "6151093321", "litrin@gmail.com", null},
-//						   {"Christian Ivan Rivera", "Del Árbol 169, col. La fuente", "6121761317", "civan@gmail.com", null}, 
-//						   {"Luis Miguel Pérez", "Del Árbol 169, col. La fuente", "6122170991", "lucatero@gmail.com", null}};
+		/*Object[][] data = {{"José Eduardo Guereque", "Del Árbol 169, col. La fuente", "6128682392", "Gue123@gmail.com", null},
+						   {"Ángel Gabriel Mendoza", "Del Árbol 169, col. La fuente", "6151093321", "litrin@gmail.com", null},
+						   {"Christian Ivan Rivera", "Del Árbol 169, col. La fuente", "6121761317", "civan@gmail.com", null}, 
+						   {"Luis Miguel Pérez", "Del Árbol 169, col. La fuente", "6122170991", "lucatero@gmail.com", null}};*/
 		
 		DefaultTableModel tableModel = new DefaultTableModel(column, 0);
 		
 		Object[][] info = cc.clientsTable();
-		for(Object[] row : info)	//Inserta clientes de la base de datos a la tabla
-		{
+		for(Object[] row : info) {	//Inserta clientes de la base de datos a la tabla
 			tableModel.addRow(row);
 		}
 		
@@ -185,9 +183,14 @@ public class ClientView {
 				cc.clientHistory();
             }
         };
+        
+        clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRenderer());
 		
-		clientsTable.getColumn("Acción").setCellRenderer(new TableActionCellRender());
-		clientsTable.getColumn("Acción").setCellEditor(new TableActionCellEditor(event));
+		clientsTable.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
+		clientsTable.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
 		
 		clientsTable.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		clientsTable.setDefaultEditor(Object.class, null);

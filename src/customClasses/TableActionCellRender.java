@@ -5,13 +5,12 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
-public class TableActionCellRender extends JPanel implements TableCellRenderer{
-	
-	private static final long serialVersionUID = 1L;
+public class TableActionCellRender implements TableCellRenderer{
 	
     @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSeleted, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         ActionButtonPanel action = new ActionButtonPanel();
         return action;
     }
+  
 }
