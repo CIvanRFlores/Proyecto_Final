@@ -26,16 +26,18 @@ CREATE TABLE `Client` (
   `id_client` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
-  `phone_number` int NOT NULL,
+  `phone_number` varchar(30) NOT NULL,
   `address_1` varchar(50) NOT NULL,
   `address_2` varchar(50) DEFAULT NULL,
   `city` varchar(50) NOT NULL,
   `state` varchar(50) NOT NULL,
-  `postal_code` int DEFAULT NULL,
+  `postal_code` int NOT NULL,
+  `email` varchar(100) NOT NULL,
   PRIMARY KEY (`id_client`),
   UNIQUE KEY `phone_number` (`phone_number`),
+  UNIQUE KEY `phone_number_2` (`phone_number`),
   CONSTRAINT `Client_chk_1` CHECK ((`postal_code` > 0))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +46,7 @@ CREATE TABLE `Client` (
 
 LOCK TABLES `Client` WRITE;
 /*!40000 ALTER TABLE `Client` DISABLE KEYS */;
+INSERT INTO `Client` VALUES (1,'Christian Ivan','Rivera Flores','+526121761317','C/ Bachata123',NULL,'La Paz','Baja California Sur',23088,'christianr_23@alu.uabcs.mx'),(2,'Cliente2','apellido2','+521234567890','C/ calle2',NULL,'La Paz','Baja California Sur',12345,'correo2@email.com'),(4,'Cliente3','apellido3','+520987654321','C/ calle3',NULL,'La Paz','Baja California Sur',54321,'correo3@email.com');
 /*!40000 ALTER TABLE `Client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,4 +234,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-01 19:58:23
+-- Dump completed on 2025-06-02 14:35:01
