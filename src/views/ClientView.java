@@ -176,11 +176,10 @@ public class ClientView {
 		TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
-            	int selectedRow = row;
-            	System.out.println(cc.model.get().get(selectedRow).id);
+            	System.out.println(cc.model.get().get(row).id);
                 System.out.println("Edit row: " + (row+1));
                 frame.dispose();
-				cc.editClient(selectedRow);
+				cc.editClient(row);
             }
 
             @Override
@@ -189,6 +188,7 @@ public class ClientView {
                 	clientsTable.getCellEditor().stopCellEditing();
                 }
                 System.out.println("Delete  row : " + (row+1));
+                cc.clientDelete(row);
                 tableModel.removeRow(row);
             }
 
@@ -199,6 +199,7 @@ public class ClientView {
                 frame.dispose();
 				cc.clientHistory();
             }
+
         };
         
         clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
@@ -266,11 +267,10 @@ public class ClientView {
 		TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
-            	int selectedRow = row;
-            	System.out.println(cc.model.get().get(selectedRow).id);
+            	System.out.println(cc.model.get().get(row).id);
                 System.out.println("Edit row: " + (row+1));
                 frame.dispose();
-				cc.editClient(selectedRow);
+				cc.editClient(row);
             }
 
             @Override
@@ -279,6 +279,7 @@ public class ClientView {
                 	clientsTable.getCellEditor().stopCellEditing();
                 }
                 System.out.println("Delete  row : " + (row+1));
+                cc.clientDelete(row);
                 tableModel.removeRow(row);
             }
 
@@ -289,6 +290,7 @@ public class ClientView {
                 frame.dispose();
 				cc.clientHistory();
             }
+
         };
         
         clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
