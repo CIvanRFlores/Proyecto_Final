@@ -500,6 +500,5 @@ public class ClientFormPanel {
 	
 	public void setCodeTxtFld(String code) {
 		this.codeTxtFld.setText(code);
-	}
-	
+	}	
 }

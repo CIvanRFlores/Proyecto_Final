@@ -525,6 +525,15 @@ public class ClientView {
 		JPanel formPanel = form.createClientForm();
 		mainPnl.add(formPanel, BorderLayout.CENTER); 
 		
+		Client c = cc.clientRead(selectedRow);
+		//Formulario lleno
+		form.setNameTxtFld(c.name);
+		form.setSurnameTxtFld(c.last_Name);
+		form.setEmailTxtFld(c.email);
+		form.setAdressTxtFld(c.address_1);
+		form.setAdress2TxtFld(c.address_2);
+		form.setCityTxtFld(c.city);
+		form.setStateTxtFld(c.state);
 		
 		RoundButton saveBttn = new RoundButton(30);
 		saveBttn.setBackground(Color.decode("#555BF6"));
@@ -733,9 +742,8 @@ public class ClientView {
 		
 		String[] columnOrders =  {"Fecha", "Dirección", "Monto", "Órden"};
 		
-		Object[][] dataOrder = {{"27/05/25", "Del Árbol 169, col. La fuente", "$15.00", "Cacahuates enchilados"}};
 		
-		DefaultTableModel ordersTableModel = new DefaultTableModel(dataOrder, columnOrders);
+		DefaultTableModel ordersTableModel = new DefaultTableModel(columnOrders, 0);
 		
 		InformationTable ordersTemplate = new InformationTable(frame, ordersTableModel, Color.decode("#555BF6"));
 		JTable ordersTable = ordersTemplate.createTable();
