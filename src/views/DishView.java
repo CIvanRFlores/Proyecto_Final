@@ -335,7 +335,7 @@ public class DishView {
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
-		JLabel dishesLbl = new JLabel(type);
+		JLabel dishesLbl = new JLabel(type.substring(0, 1).toUpperCase() + type.substring(1));
 		dishesLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
 		dishesLbl.setForeground(Color.decode("#244E23")); 
 		dishesLbl.setHorizontalAlignment(JLabel.LEFT); 
