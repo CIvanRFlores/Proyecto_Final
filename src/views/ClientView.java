@@ -187,10 +187,10 @@ public class ClientView {
             }
         };
         
-        clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRenderer());
+        clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRender());
 		
 		clientsTable.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
 		clientsTable.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
@@ -600,10 +600,10 @@ public class ClientView {
 		InformationTable clientTemplate = new InformationTable(frame, clientTableModel, Color.decode("#555BF6"));
 		JTable clientsTable = clientTemplate.createTable();
 				
-		clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRender());
 		
 		JScrollPane clientScrllPn = new JScrollPane(clientsTable);
 		clientScrllPn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -635,10 +635,10 @@ public class ClientView {
 		InformationTable ordersTemplate = new InformationTable(frame, ordersTableModel, Color.decode("#555BF6"));
 		JTable ordersTable = ordersTemplate.createTable();
 				
-		ordersTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRenderer());
-		ordersTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRenderer());
-		ordersTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRenderer());
-		ordersTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRenderer());
+		ordersTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
+		ordersTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
+		ordersTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		ordersTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRender());
 		
 		JScrollPane historyScrllPn = new JScrollPane(ordersTable);
 		historyScrllPn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));

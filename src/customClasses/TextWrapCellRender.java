@@ -7,7 +7,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.table.TableCellRenderer;
 
-public class TextWrapCellRenderer implements TableCellRenderer{
+public class TextWrapCellRender implements TableCellRenderer{
 	
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
