@@ -102,8 +102,32 @@ public class InventoryView {
 		    }
 		});
 				
+		RoundButton editBttn = new RoundButton(30);
+		editBttn.setBackground(Color.decode("#3C7E3A"));
+		editBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		editBttn.setForeground(Color.white);
+		editBttn.setText("Editar");
+		actionPnl.add(editBttn); 
 		
-		actionPnl.add(Box.createHorizontalStrut(0));
+		editBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(mainPnl);
+				editInventory();
+				frame.repaint();
+				frame.revalidate();
+			}
+		});
+		
+		editBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				editBttn.setBackground(Color.decode("#39C82C"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	editBttn.setBackground(Color.decode("#2EA623"));
+		    }
+		});
 		
 		RoundButton newInv = new RoundButton(30);
 		newInv.setBackground(Color.decode("#2EA623"));
@@ -138,23 +162,6 @@ public class InventoryView {
 		inventoryPnl.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		inventoryPnl.setOpaque(false); 
 		mainPnl.add(inventoryPnl, BorderLayout.CENTER);
-		
-		RoundButton editBttn = new RoundButton(30);
-		editBttn.setBackground(Color.decode("#3C7E3A"));
-		editBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		editBttn.setForeground(Color.white);
-		editBttn.setText("Editar");
-		inventoryPnl.add(editBttn); 
-		
-		editBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				editInventory();
-				frame.repaint();
-				frame.revalidate();
-			}
-		});
 	
 		frame.setVisible(true);
 	}
