@@ -8,7 +8,9 @@ import java.awt.event.ComponentEvent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class InformationTable {
+public class InformationTable extends JTable {
+	
+	private static final long serialVersionUID = -5017157673091151929L;
 	
 	public JFrame frame;
 	public DefaultTableModel tableModel;
@@ -21,38 +23,40 @@ public class InformationTable {
 	}
 	
 	public JTable createTable() {
-		JTable table = new JTable(tableModel);
+		Font font = new Font("Caladea Bold", Font.BOLD, 16);
 		
-		table.setFont(new Font("Caladea Bold", Font.BOLD, 16));
-		table.setDefaultEditor(Object.class, null);
-		table.setRowHeight(40);
-		table.setShowGrid(false);
-		table.setShowHorizontalLines(true);
-		table.setShowVerticalLines(false);
+		setModel(tableModel);
+		setFont(font);
+		setDefaultEditor(Object.class, null);
+		setRowHeight(40);
+		setShowGrid(false);
+		setShowHorizontalLines(true);
+		setShowVerticalLines(false);
 		
-		table.getTableHeader().setBackground(tableHeader);
-		table.getTableHeader().setForeground(Color.white);
-		table.getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, 16));
-		table.getTableHeader().setReorderingAllowed(false);
-		table.getTableHeader().setResizingAllowed(false);
+		getTableHeader().setDefaultRenderer(new RoundedHeaderRender(tableHeader));
+		getTableHeader().setBackground(Color.white);
+		getTableHeader().setForeground(Color.white);
+		getTableHeader().setFont(font);
+		getTableHeader().setReorderingAllowed(false);
+		getTableHeader().setResizingAllowed(false);
 		
-		table.setBackground(Color.white);
-		table.setForeground(Color.decode("#244E23"));
-		table.setSelectionBackground(Color.white);
-		table.setSelectionForeground(Color.decode("#2EA623"));
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		setOpaque(false);
+		setForeground(Color.decode("#244E23"));
+		setSelectionBackground(Color.white);
+		setSelectionForeground(Color.decode("#2EA623"));
+		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-            	table.getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.016))));
-            	table.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.016))));
+            	getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.016))));
+            	setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.016))));
             	
        			frame.repaint();
             }
         });
 		
-		return table;
+		return this;
 	}
-	
+
 }
