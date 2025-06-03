@@ -46,7 +46,7 @@ public class ClientController {
 		for(int i = 0; i < clients.size(); i++)
 		{
 			Client client = clients.get(i);
-			info[i][0] = client.name;
+			info[i][0] = client.name + " " + client.last_Name;
 			info[i][1] = client.address_1;
 			info[i][2] = client.phone_Number;
 			info[i][3] = client.email;
@@ -65,5 +65,12 @@ public class ClientController {
  	public void clientUpdate(int row, String name, String last_Name, String countryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
  	{
  		model.update(model.get().get(row).id, name, last_Name, countryCodeCmbBx, phone_Number, address_1, address_2, city, state, postal_Code, email);
+ 	}
+ 	 	
+ 	//Funcion para eliminar un cliente existente
+ 	public void clientDelete(int row)
+ 	{
+ 		
+ 		model.delete(model.get().get(row).id);
  	}
 }

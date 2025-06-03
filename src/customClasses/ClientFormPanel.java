@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
-import controllers.ClientController;
-
 public class ClientFormPanel {
 	
 	public JFrame frame;
