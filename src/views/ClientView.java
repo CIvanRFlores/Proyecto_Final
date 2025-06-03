@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import com.itextpdf.*;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -625,8 +624,13 @@ public class ClientView {
 						PdfWriter.getInstance(document, new FileOutputStream(saveFile));
 						document.open();
 						
-						document.add(new Paragraph("PDF creado exitosamente"));
+						//Ingresa informacion dentro del PDF
 						document.add(new Paragraph("Fecha. " + java.time.LocalDate.now()));
+						document.add(new Paragraph("-----| Datos del cliente |-----"));
+						Client c = cc.clientRead(selectedRow);
+						document.add(new Paragraph("Nombre completo: " + c.name + " " + c.last_Name 
+								+ "\nNumero de telefono: " + c.phone_Number + "\nDireccion: " + c.address_1 + "\nDireccion 2: " + c.address_2 + "\nCiudad: " + c.city 
+								+ "\nEstado: " + c.state + "\nCodigo postal: " + c.postal_Code + "\nCorreo electronico: " + c.email));
 						
 						image = new ImageIcon(AuthView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 						imageIcon = new ImageIcon(image);
