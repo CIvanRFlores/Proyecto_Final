@@ -58,6 +58,7 @@ public class OrderView {
 		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
+		
 		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
 		
 		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
@@ -82,6 +83,12 @@ public class OrderView {
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		searchBttn.setForeground(Color.white);
 		searchBttn.setText("Buscar");
+		searchBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				searchOrder();
+			}
+		});
 		actionPnl.add(searchBttn);
 		
 		searchBttn.addMouseListener(new MouseAdapter() {
@@ -92,8 +99,7 @@ public class OrderView {
 		    public void mouseExited(MouseEvent evt) {
 		    	searchBttn.setBackground(Color.decode("#244E23"));
 		    }
-		});
-				
+		});		
 		
 		RoundButton newOrderBttn = new RoundButton(30, Color.decode("#244E23"));
 		newOrderBttn.setBackground(Color.white);
@@ -153,6 +159,14 @@ public class OrderView {
 		ordersPnl.add(order);
 		
 		frame.setVisible(true);
+	}
+	
+	public void searchOrder() {
+		image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+			imageIcon = new ImageIcon(image);
+			
+		message = "Mesa no encontrada";
+		JOptionPane.showMessageDialog(null, message, "Orden", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
 	}
 	
 	public void newOrder() {
