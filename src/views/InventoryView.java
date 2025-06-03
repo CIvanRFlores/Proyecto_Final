@@ -43,7 +43,7 @@ public class InventoryView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -52,12 +52,7 @@ public class InventoryView {
 		inventoryLbl.setForeground(Color.decode("#244E23")); 
 		inventoryLbl.setHorizontalAlignment(JLabel.LEFT); 
 		inventoryLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(inventoryLbl);
-		
-		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
-		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(inventoryLbl, BorderLayout.NORTH);
 		
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
@@ -76,25 +71,26 @@ public class InventoryView {
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
 		searchTxtFld.setForeground(Color.decode("#244E23"));
 		searchTxtFld.setOpaque(false); 
-		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
-				
-		JPanel actionPnl1 = new JPanel();
-		actionPnl1.setLayout(new GridLayout(1, 3, 20, 0));
-		actionPnl1.setOpaque(false); 
-		headerPnl.add(actionPnl1, BorderLayout.EAST);
+		searchBarPnl.add(searchTxtFld, BorderLayout.CENTER);
+		
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 3, 20, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl, BorderLayout.EAST);
 		
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		searchBttn.setForeground(Color.white);
 		searchBttn.setText("Buscar");
+		actionPnl.add(searchBttn);
+		
 		searchBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				searchIngredient();
 			}
 		});
-		actionPnl1.add(searchBttn);
 		
 		searchBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
@@ -106,14 +102,15 @@ public class InventoryView {
 		    }
 		});
 				
-		actionPnl1.add(Box.createHorizontalStrut(0));
+		
+		actionPnl.add(Box.createHorizontalStrut(0));
 		
 		RoundButton newInv = new RoundButton(30);
 		newInv.setBackground(Color.decode("#2EA623"));
 		newInv.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		newInv.setForeground(Color.white);
 		newInv.setText("Nuevo");
-		actionPnl1.add(newInv); 
+		actionPnl.add(newInv); 
 
 		newInv.addActionListener(new ActionListener() {
 			@Override

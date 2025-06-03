@@ -41,7 +41,7 @@ public class OrderView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -50,12 +50,7 @@ public class OrderView {
 		ordersLbl.setForeground(Color.decode("#244E23")); 
 		ordersLbl.setHorizontalAlignment(JLabel.LEFT); 
 		ordersLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(ordersLbl);
-		
-		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
-		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(ordersLbl, BorderLayout.NORTH);
 		
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
@@ -63,7 +58,7 @@ public class OrderView {
 		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
-		actionPnl.add(searchBarPnl);
+		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
 		
 		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
@@ -77,6 +72,11 @@ public class OrderView {
 		searchTxtFld.setOpaque(false);
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 3, 20, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl, BorderLayout.EAST);
+		
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -95,7 +95,7 @@ public class OrderView {
 		});
 				
 		
-		RoundButton newOrderBttn = new RoundButton(30);
+		RoundButton newOrderBttn = new RoundButton(30, Color.decode("#244E23"));
 		newOrderBttn.setBackground(Color.white);
 		newOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		newOrderBttn.setForeground(Color.decode("#244E23"));
@@ -163,7 +163,7 @@ public class OrderView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -172,12 +172,7 @@ public class OrderView {
 		ordersLbl.setForeground(Color.decode("#244E23"));
 		ordersLbl.setHorizontalAlignment(JLabel.LEFT); 
 		ordersLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(ordersLbl);
-		
-		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
-		actionPnl.setOpaque(false);
-		headerPnl.add(actionPnl);
+		headerPnl.add(ordersLbl, BorderLayout.NORTH);
 		
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
@@ -185,7 +180,7 @@ public class OrderView {
 		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
 		searchBarPnl.setPreferredSize(new Dimension(300, 30));
-		actionPnl.add(searchBarPnl);
+		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
 		
 		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
@@ -199,6 +194,11 @@ public class OrderView {
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
 				
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 3, 20, 0));
+		actionPnl.setOpaque(false);
+		headerPnl.add(actionPnl, BorderLayout.EAST);
+		
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
@@ -224,7 +224,7 @@ public class OrderView {
 		newOrderBttn.setText("Nuevo");
 		actionPnl.add(newOrderBttn); 
 		
-		RoundButton ongoingOrderBttn = new RoundButton(30);
+		RoundButton ongoingOrderBttn = new RoundButton(30, Color.decode("#244E23"));
 		ongoingOrderBttn.setBackground(Color.white);
 		ongoingOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		ongoingOrderBttn.setForeground(Color.decode("#244E23"));
