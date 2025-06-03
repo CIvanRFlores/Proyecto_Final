@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import controllers.AuthController;
+import controllers.InventoryController;
 import customClasses.*;
 
 public class InventoryView {
@@ -16,7 +16,7 @@ public class InventoryView {
 	public String message;
 	public int relativeXSize;
 	public int relativeYSize;
-	public AuthController ac;
+	public InventoryController ic;
 	
 	public InventoryView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
@@ -49,6 +49,8 @@ public class InventoryView {
 	}
 	
 	public void inventory() {
+		ic = new InventoryController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -125,10 +127,8 @@ public class InventoryView {
 		editBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				editInventory();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				ic.editInventory();
 			}
 		});
 		
@@ -152,10 +152,8 @@ public class InventoryView {
 		newInv.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				newInventory();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				ic.newInventory();
 			}
 		});
 		
@@ -188,6 +186,8 @@ public class InventoryView {
 	}
 	
 	public void newInventory() {
+		ic = new InventoryController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -224,10 +224,8 @@ public class InventoryView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				inventory();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				ic.inventory();
 			}
 		});
 		
@@ -252,10 +250,8 @@ public class InventoryView {
 		newInv.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				inventory();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				ic.inventory();
 			}
 		});
 		
@@ -274,6 +270,8 @@ public class InventoryView {
 	
 	
 	public void editInventory() {
+		ic = new InventoryController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -310,10 +308,8 @@ public class InventoryView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				inventory();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				ic.inventory();
 			}
 		});
 		
@@ -338,10 +334,8 @@ public class InventoryView {
 		saveBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				inventory();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				ic.inventory();
 			}
 		});
 		

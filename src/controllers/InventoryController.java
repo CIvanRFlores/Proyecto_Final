@@ -4,14 +4,25 @@ import views.InventoryView;
  
 public class InventoryController {
 	
-	public InventoryView view; //crear objeto de la vista
+	public InventoryView view; 
  	
  	public InventoryController(String title, int frameWidth, int frameHeight) { //constructor
  		view = new InventoryView(title, frameWidth, frameHeight);
  	}
  	
- 	public void inventory(){ //llamar al método inventario de la vista
+ 	public void inventory() {
  		view.inventory(); 
  	}
  	
+ 	public void searchIngredient() {
+ 		view.searchIngredient(); 
+ 	}
+ 	
+ 	public void newInventory() {
+ 		view.newInventory(); 
+ 	}
+
+ 	public void editInventory() {
+ 		view.editInventory(); 
+ 	}
 }
