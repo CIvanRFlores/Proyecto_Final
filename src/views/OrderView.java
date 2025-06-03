@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import controllers.OrderController;
 import customClasses.*;
 
 public class OrderView {
@@ -15,6 +16,7 @@ public class OrderView {
 	public String message;
 	public int relativeXSize;
 	public int relativeYSize;
+	public OrderController oc;
 	
 	public OrderView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -47,6 +49,8 @@ public class OrderView {
 	}
 	
 	public void orders() {
+		oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -131,10 +135,8 @@ public class OrderView {
 		newOrderBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				newOrder();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				oc.newOrder();
 				
 				newOrderBttn.setBackground(Color.decode("#3C7E3A"));	
 				newOrderBttn.setForeground(Color.white);
@@ -176,13 +178,15 @@ public class OrderView {
 	
 	public void searchOrder() {
 		image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-			imageIcon = new ImageIcon(image);
+		imageIcon = new ImageIcon(image);
 			
 		message = "Mesa no encontrada";
 		JOptionPane.showMessageDialog(null, message, "Orden", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
 	}
 	
 	public void newOrder() {
+		oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
 		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
@@ -261,10 +265,8 @@ public class OrderView {
 		ongoingOrderBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.remove(mainPnl);
-				orders();
-				frame.repaint();
-				frame.revalidate();
+				frame.dispose();
+				oc.orders();
 				
 				ongoingOrderBttn.setBackground(Color.decode("#3C7E3A"));	
 				ongoingOrderBttn.setForeground(Color.white);
