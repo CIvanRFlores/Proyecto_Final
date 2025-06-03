@@ -108,8 +108,20 @@ public class ClientView {
 		searchBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				cc.searchClient();
+				if(searchTxtFld.getText().equals(""))
+				{
+					image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+					imageIcon = new ImageIcon(image);
+					message = "Campo no llenado";
+					
+					JOptionPane.showMessageDialog(null, message, "Cliente", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+				}
+				else
+				{
+					frame.dispose();
+					cc.searchClient(searchTxtFld.getText());					
+				}
+				
 			}
 		});
 		
@@ -220,7 +232,7 @@ public class ClientView {
 		frame.setVisible(true);
 	}
 	
-	public void searchClient() {
+	public void searchClient(String searchText) {
 		cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight());
 		
 		mainPnl = new JPanel();
@@ -255,10 +267,23 @@ public class ClientView {
 		
 		DefaultTableModel tableModel = new DefaultTableModel(column, 0);
 		
-		Object[][] info = cc.clientsTable();
-		for(Object[] row : info) {	//Inserta clientes de la base de datos a la tabla
-			tableModel.addRow(row);
+		Object[][] clients = cc.searchClientsTable(searchText);
+		
+		if(clients.length <= 0)	//Condicional que verifica si se encontraron clientes o no
+		{
+			image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+			imageIcon = new ImageIcon(image);
+			message = "Cliente no encontrado";
+			
+			JOptionPane.showMessageDialog(null, message, "Cliente", JOptionPane.INFORMATION_MESSAGE, imageIcon);
 		}
+		else
+		{
+			for(Object[] row : clients) {	//Inserta clientes de la base de datos a la tabla
+				tableModel.addRow(row);
+			}			
+		}
+		
 		
 		InformationTable template = new InformationTable(frame, tableModel, Color.decode("#555BF6"));
 		JTable clientsTable = template.createTable();

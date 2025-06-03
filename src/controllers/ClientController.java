@@ -20,8 +20,8 @@ public class ClientController {
  		view.clients(); 
  	}
  	
- 	public void searchClient() { 
- 		view.searchClient();; 
+ 	public void searchClient(String searchText) { 
+ 		view.searchClient(searchText);; 
  	}
  	
  	public void newClient() { 
@@ -40,6 +40,24 @@ public class ClientController {
  	public Object[][] clientsTable()
  	{
  		List<Client> clients = model.get();
+ 		
+		Object[][] info = new Object[clients.size()][5];
+		
+		for(int i = 0; i < clients.size(); i++)
+		{
+			Client client = clients.get(i);
+			info[i][0] = client.name + " " + client.last_Name;
+			info[i][1] = client.address_1;
+			info[i][2] = client.phone_Number;
+			info[i][3] = client.email;
+			info[i][4] = "Accion";
+		}
+		return info;
+	}
+ 	
+ 	public Object[][] searchClientsTable(String searchText)
+ 	{
+ 		List<Client> clients = model.search(searchText);
  		
 		Object[][] info = new Object[clients.size()][5];
 		
