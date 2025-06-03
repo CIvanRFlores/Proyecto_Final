@@ -63,7 +63,7 @@ Puerto: 3306
 Usuario: freedb_civanrflores
 Contraseña: Pm6kE#W!3sQyK5s
 
-📋 # 🖌️ Tercera entrega - Sistema CRUD de Clientes
+# 📋 Tercera entrega - Sistema CRUD de Clientes
 
 🧾 Descripción General
 
