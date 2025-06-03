@@ -34,6 +34,8 @@ public class OrderView {
 		JPanel buttonPanel = sideBar.createSidePanel();
 		frame.add(buttonPanel, BorderLayout.WEST);
 		
+		buttonPanel.getComponent(2).setBackground(Color.decode("#3C7E3A"));
+		
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
             	double aspectRatio = 1.25/1;
