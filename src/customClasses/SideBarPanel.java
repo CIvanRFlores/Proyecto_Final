@@ -15,6 +15,18 @@ public class SideBarPanel {
 	public String message;
 	public int relativeXSize;
 	public int relativeYSize;
+	
+	public RoundButton dishBttn;
+	public RoundButton orderBttn;
+	public RoundButton clientBttn;
+	public RoundButton inventoryBttn;
+	public RoundButton returnBttn;
+	
+	public MouseListener mouseDish = null;
+	public MouseListener mouseOrder = null;
+	public MouseListener mouseClient = null;
+	public MouseListener mouseInventory = null;
+	
 	public AuthController ac;
 	public DishController dc;
 	public OrderController oc;
@@ -38,16 +50,16 @@ public class SideBarPanel {
 		
 		image = new ImageIcon("src/images/food.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton foodBttn = new RoundButton(30); 
-		foodBttn.setBackground(Color.decode("#244E23"));
-		foodBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
-		foodBttn.setForeground(Color.white);
-		foodBttn.setIcon(imageIcon);
-		foodBttn.setText("Platillos");
-		foodBttn.setHorizontalAlignment(SwingConstants.LEFT);
-		buttonPnl.add(foodBttn);
+		dishBttn = new RoundButton(30); 
+		dishBttn.setBackground(Color.decode("#244E23"));
+		dishBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
+		dishBttn.setForeground(Color.white);
+		dishBttn.setIcon(imageIcon);
+		dishBttn.setText("Platillos");
+		dishBttn.setHorizontalAlignment(SwingConstants.LEFT);
+		buttonPnl.add(dishBttn);
 		
-		foodBttn.addActionListener(new ActionListener() {
+		dishBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -56,20 +68,22 @@ public class SideBarPanel {
 			}
 		});
 		
-		foodBttn.addMouseListener(new MouseAdapter() {
+		mouseDish = new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
-				foodBttn.setBackground(Color.decode("#3C7E3A"));
+				dishBttn.setBackground(Color.decode("#3C7E3A"));
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	foodBttn.setBackground(Color.decode("#244E23"));
+		    	dishBttn.setBackground(Color.decode("#244E23"));
 		    }
-		});
+		};
+		
+		dishBttn.addMouseListener(mouseDish);
 		
 		
 		image = new ImageIcon(SideBarPanel.class.getResource("/images/order.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton orderBttn = new RoundButton(30); 
+		orderBttn = new RoundButton(30); 
 		orderBttn.setBackground(Color.decode("#244E23"));
 		orderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		orderBttn.setForeground(Color.white);
@@ -87,7 +101,7 @@ public class SideBarPanel {
 			}
 		});
 		
-		orderBttn.addMouseListener(new MouseAdapter() {
+		mouseOrder = new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				orderBttn.setBackground(Color.decode("#3C7E3A"));
 		    }
@@ -95,12 +109,14 @@ public class SideBarPanel {
 		    public void mouseExited(MouseEvent evt) {
 		    	orderBttn.setBackground(Color.decode("#244E23"));
 		    }
-		});
+		};
+		
+		orderBttn.addMouseListener(mouseOrder);
 		
 		
 		image = new ImageIcon(SideBarPanel.class.getResource("/images/client.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton clientBttn = new RoundButton(30); 
+		clientBttn = new RoundButton(30); 
 		clientBttn.setBackground(Color.decode("#244E23"));
 		clientBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		clientBttn.setForeground(Color.white);
@@ -118,7 +134,7 @@ public class SideBarPanel {
 			}
 		});
 		
-		clientBttn.addMouseListener(new MouseAdapter() {
+		mouseClient = new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				clientBttn.setBackground(Color.decode("#3C7E3A"));
 		    }
@@ -126,12 +142,14 @@ public class SideBarPanel {
 		    public void mouseExited(MouseEvent evt) {
 		    	clientBttn.setBackground(Color.decode("#244E23"));
 		    }
-		});
+		};
+		
+		clientBttn.addMouseListener(mouseClient);
 		
 		
 		image = new ImageIcon(SideBarPanel.class.getResource("/images/inventory.png")).getImage().getScaledInstance(30, 28, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton inventoryBttn = new RoundButton(30); 
+		inventoryBttn = new RoundButton(30); 
 		inventoryBttn.setBackground(Color.decode("#244E23"));
 		inventoryBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		inventoryBttn.setForeground(Color.white);
@@ -149,7 +167,7 @@ public class SideBarPanel {
 			}
 		});
 		
-		inventoryBttn.addMouseListener(new MouseAdapter() {
+		mouseInventory = new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				inventoryBttn.setBackground(Color.decode("#3C7E3A"));
 		    }
@@ -157,11 +175,14 @@ public class SideBarPanel {
 		    public void mouseExited(MouseEvent evt) {
 		    	inventoryBttn.setBackground(Color.decode("#244E23"));
 		    }
-		});
+		};
+		
+		inventoryBttn.addMouseListener(mouseInventory);
+		
 		
 		image = new ImageIcon(SideBarPanel.class.getResource("/images/return.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
-		RoundButton returnBttn = new RoundButton(30); 
+		returnBttn = new RoundButton(30); 
 		returnBttn.setBackground(Color.decode("#EF2D2D"));
 		returnBttn.setFont(new Font("Caladea Bold", Font.BOLD, 28)); 
 		returnBttn.setForeground(Color.white);
@@ -212,8 +233,8 @@ public class SideBarPanel {
             	relativeYSize = (int) (frame.getWidth()*0.03);
        			image = new ImageIcon(SideBarPanel.class.getResource("/images/food.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
-       			foodBttn.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.028) + (int) (frame.getHeight()*0.028))/2 ));
-       			foodBttn.setIcon(imageIcon);
+       			dishBttn.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.028) + (int) (frame.getHeight()*0.028))/2 ));
+       			dishBttn.setIcon(imageIcon);
        			
        			relativeXSize = (int) (frame.getWidth()*0.03);
             	relativeYSize = (int) (frame.getWidth()*0.035);
@@ -248,6 +269,30 @@ public class SideBarPanel {
         });
 		
 		return buttonPnl;
+	}
+	
+	public void removeDishListener() {
+		if(mouseDish!=null) {
+			dishBttn.removeMouseListener(mouseDish);
+		}
+	}
+	
+	public void removeOrderListener() {
+		if(mouseOrder!=null) {
+			orderBttn.removeMouseListener(mouseOrder);
+		}
+	}
+	
+	public void removeClientListener() {
+		if(mouseClient!=null) {
+			clientBttn.removeMouseListener(mouseClient);
+		}
+	}
+	
+	public void removeInventoryListener() {
+		if(mouseInventory!=null) {
+			inventoryBttn.removeMouseListener(mouseInventory);
+		}
 	}
 	
 }

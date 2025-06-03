@@ -35,6 +35,7 @@ public class OrderView {
 		frame.add(buttonPanel, BorderLayout.WEST);
 		
 		buttonPanel.getComponent(2).setBackground(Color.decode("#3C7E3A"));
+		sideBar.removeOrderListener();
 		
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
