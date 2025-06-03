@@ -156,7 +156,8 @@ public class ClientView {
 			tableModel.addRow(row);
 		}
 		
-		JTable clientsTable = new JTable(tableModel);
+		InformationTable template = new InformationTable(frame, tableModel, Color.decode("#555BF6"));
+		JTable clientsTable = template.createTable();
 		
 		TableActionEvent event = new TableActionEvent() {
             @Override
@@ -191,25 +192,6 @@ public class ClientView {
 		
 		clientsTable.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
 		clientsTable.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
-		
-		clientsTable.setFont(new Font("Caladea Bold", Font.BOLD, 16));
-		clientsTable.setDefaultEditor(Object.class, null);
-		clientsTable.setRowHeight(40);
-		clientsTable.setShowGrid(false);
-		clientsTable.setShowHorizontalLines(true);
-		clientsTable.setShowVerticalLines(false);
-		
-		clientsTable.getTableHeader().setBackground(Color.decode("#555BF6"));
-		clientsTable.getTableHeader().setForeground(Color.white);
-		clientsTable.getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, 16));
-		clientsTable.getTableHeader().setReorderingAllowed(false);
-		clientsTable.getTableHeader().setResizingAllowed(false);
-		
-		clientsTable.setBackground(Color.white);
-		clientsTable.setForeground(Color.decode("#244E23"));
-		clientsTable.setSelectionBackground(Color.white);
-		clientsTable.setSelectionForeground(Color.decode("#2EA623"));
-		clientsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				
 		JScrollPane scrollPane = new JScrollPane(clientsTable);
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -514,45 +496,81 @@ public class ClientView {
 		    }
 		});
 		
+		
 		JPanel clientsPnl = new JPanel();
-		clientsPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));  
-		clientsPnl.setLayout(new BorderLayout());	
+		clientsPnl.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));  
+		clientsPnl.setLayout(new GridLayout(2, 1, 0, 30));	
 		clientsPnl.setOpaque(false);
 		mainPnl.add(clientsPnl, BorderLayout.CENTER);
 		
-		String[] column =  {"Fecha", "Dirección", "Monto", "Órden"};
+		JPanel clientTablePnl = new JPanel();
+		clientTablePnl.setLayout(new BorderLayout(0, 30));
+		clientTablePnl.setOpaque(false);
+		clientsPnl.add(clientTablePnl);
 		
-		Object[][] data = {{"27/05/25", "Del Árbol 169, col. La fuente", "$15.00", "Cacahuates enchilados"}};
+		JLabel clientLbl = new JLabel("Cliente");
+		clientLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
+		clientLbl.setForeground(Color.decode("#244E23"));
+		clientLbl.setHorizontalAlignment(JLabel.LEFT); 
+		clientLbl.setVerticalAlignment(JLabel.BOTTOM); 
+		clientTablePnl.add(clientLbl, BorderLayout.NORTH);
 		
-		DefaultTableModel tableModel = new DefaultTableModel(data, column);
-		JTable clientsTable = new JTable(tableModel);
+		String[] columnClient =  {"Nombre", "Dirección", "Número", "Correo"};
 		
-		clientsTable.setFont(new Font("Caladea Bold", Font.BOLD, 16));
-		clientsTable.setDefaultEditor(Object.class, null);
-		clientsTable.setRowHeight(40);
-		clientsTable.setShowGrid(false);
-		clientsTable.setShowHorizontalLines(true);
-		clientsTable.setShowVerticalLines(false);
+		Object[][] dataClient = {{"Ángel Gabriel", "Del Árbol 169, col. La fuente", "6122170991", "angel@gmail.com"}};
 		
-		clientsTable.getTableHeader().setBackground(Color.decode("#555BF6"));
-		clientsTable.getTableHeader().setForeground(Color.white);
-		clientsTable.getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, 16));
-		clientsTable.getTableHeader().setReorderingAllowed(false);
-		clientsTable.getTableHeader().setResizingAllowed(false);
+		DefaultTableModel clientTableModel = new DefaultTableModel(dataClient, columnClient);
 		
-		clientsTable.setBackground(Color.white);
-		clientsTable.setForeground(Color.decode("#244E23"));
-		clientsTable.setSelectionBackground(Color.white);
-		clientsTable.setSelectionForeground(Color.decode("#2EA623"));
-		clientsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		InformationTable clientTemplate = new InformationTable(frame, clientTableModel, Color.decode("#555BF6"));
+		JTable clientsTable = clientTemplate.createTable();
 				
-		JScrollPane scrollPane = new JScrollPane(clientsTable);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setOpaque(false);
-	    scrollPane.getViewport().setOpaque(false);
-		clientsPnl.add(scrollPane, BorderLayout.CENTER);
+		clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRenderer());
+		
+		JScrollPane clientScrllPn = new JScrollPane(clientsTable);
+		clientScrllPn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+		clientScrllPn.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		clientScrllPn.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		clientScrllPn.setOpaque(false);
+	    clientScrllPn.getViewport().setOpaque(false);
+	    clientTablePnl.add(clientScrllPn, BorderLayout.CENTER);
+		
+		
+	    JPanel ordersTablePnl = new JPanel();
+	    ordersTablePnl.setLayout(new BorderLayout(0, 30));
+	    ordersTablePnl.setOpaque(false);
+		clientsPnl.add(ordersTablePnl);
+	    
+		JLabel historyLbl = new JLabel("Historial");
+		historyLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
+		historyLbl.setForeground(Color.decode("#244E23"));
+		historyLbl.setHorizontalAlignment(JLabel.LEFT); 
+		historyLbl.setVerticalAlignment(JLabel.BOTTOM); 
+		ordersTablePnl.add(historyLbl, BorderLayout.NORTH);
+		
+		String[] columnOrders =  {"Fecha", "Dirección", "Monto", "Órden"};
+		
+		Object[][] dataOrder = {{"27/05/25", "Del Árbol 169, col. La fuente", "$15.00", "Cacahuates enchilados"}};
+		
+		DefaultTableModel ordersTableModel = new DefaultTableModel(dataOrder, columnOrders);
+		
+		InformationTable ordersTemplate = new InformationTable(frame, ordersTableModel, Color.decode("#555BF6"));
+		JTable ordersTable = ordersTemplate.createTable();
+				
+		ordersTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRenderer());
+		ordersTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRenderer());
+		ordersTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRenderer());
+		ordersTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRenderer());
+		
+		JScrollPane historyScrllPn = new JScrollPane(ordersTable);
+		historyScrllPn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+		historyScrllPn.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		historyScrllPn.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		historyScrllPn.setOpaque(false);
+	    historyScrllPn.getViewport().setOpaque(false);
+	    ordersTablePnl.add(historyScrllPn, BorderLayout.CENTER);
 	
 		frame.setVisible(true);
 	}
