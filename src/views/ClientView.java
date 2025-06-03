@@ -37,6 +37,7 @@ public class ClientView {
 		frame.add(buttonPanel, BorderLayout.WEST);
 		
 		buttonPanel.getComponent(3).setBackground(Color.decode("#3C7E3A"));
+		sideBar.removeClientListener();
 		
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {

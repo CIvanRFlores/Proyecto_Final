@@ -36,6 +36,7 @@ public class DishView {
 		frame.add(buttonPanel, BorderLayout.WEST);
 		
 		buttonPanel.getComponent(1).setBackground(Color.decode("#3C7E3A"));
+		sideBar.removeDishListener();
 		
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {

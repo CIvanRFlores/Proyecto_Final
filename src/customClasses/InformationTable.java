@@ -23,7 +23,7 @@ public class InformationTable extends JTable {
 	}
 	
 	public JTable createTable() {
-		Font font = new Font("Caladea Bold", Font.BOLD, 16);
+		Font font = new Font("Caladea Bold", Font.BOLD, 20);
 		
 		setModel(tableModel);
 		setFont(font);
@@ -49,8 +49,8 @@ public class InformationTable extends JTable {
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-            	getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.016))));
-            	setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.016))));
+            	getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.02))));
+            	setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.02))));
             	
        			frame.repaint();
             }
