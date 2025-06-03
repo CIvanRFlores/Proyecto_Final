@@ -255,6 +255,7 @@ public class DishView {
 	   				imageIcon = new ImageIcon(image);
 	   				
 					message = type.equals("platillo")?type+" creado correctamente." : type+" creada correctamente.";
+					message = message.substring(0, 1).toUpperCase() + message.substring(1);
 					JOptionPane.showMessageDialog(null, message, "Acción exitosa", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
 					
 					frame.dispose();
