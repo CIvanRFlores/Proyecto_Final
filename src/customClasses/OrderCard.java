@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import views.AuthView;
+
 public class OrderCard {
 	
 	public JFrame frame;
@@ -211,6 +213,17 @@ public class OrderCard {
        					imageIcon = new ImageIcon(image);
        					editBttn.setIcon(imageIcon);
        			    }
+       			});
+       			
+       			editBttn.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+						imageIcon = new ImageIcon(image);
+						
+						message = "Editar orden";
+						JOptionPane.showMessageDialog(null, message, "Orden de Mesa 1", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+					}
        			});
        		
     			if(orderType==1) {
