@@ -227,6 +227,72 @@ public class ClientView {
 		clientsLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		headerPnl.add(clientsLbl);
 		
+		JPanel clientsPnl = new JPanel();
+		clientsPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));  
+		clientsPnl.setLayout(new BorderLayout());	
+		clientsPnl.setOpaque(false);
+		mainPnl.add(clientsPnl, BorderLayout.CENTER);
+		
+		String[] column =  {"Nombre", "Dirección", "Número", "Correo", "Acción"};
+		/*Object[][] data = {{"José Eduardo Guereque", "Del Árbol 169, col. La fuente", "6128682392", "Gue123@gmail.com", null},
+						   {"Ángel Gabriel Mendoza", "Del Árbol 169, col. La fuente", "6151093321", "litrin@gmail.com", null},
+						   {"Christian Ivan Rivera", "Del Árbol 169, col. La fuente", "6121761317", "civan@gmail.com", null}, 
+						   {"Luis Miguel Pérez", "Del Árbol 169, col. La fuente", "6122170991", "lucatero@gmail.com", null}};*/
+		
+		DefaultTableModel tableModel = new DefaultTableModel(column, 0);
+		
+		Object[][] info = cc.clientsTable();
+		for(Object[] row : info) {	//Inserta clientes de la base de datos a la tabla
+			tableModel.addRow(row);
+		}
+		
+		InformationTable template = new InformationTable(frame, tableModel, Color.decode("#555BF6"));
+		JTable clientsTable = template.createTable();
+		
+		TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+            	int selectedRow = row;
+            	System.out.println(cc.model.get().get(selectedRow).id);
+                System.out.println("Edit row: " + (row+1));
+                frame.dispose();
+				cc.editClient(selectedRow);
+            }
+
+            @Override
+            public void onDelete(int row) {
+                if(clientsTable.isEditing()) {
+                	clientsTable.getCellEditor().stopCellEditing();
+                }
+                System.out.println("Delete  row : " + (row+1));
+                tableModel.removeRow(row);
+            }
+
+            @Override
+            public void onView(int row) {
+                System.out.println("Viewed row : " + (row+1));
+                frame.remove(mainPnl);
+                frame.dispose();
+				cc.clientHistory();
+            }
+        };
+        
+        clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRenderer());
+		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRenderer());
+		
+		clientsTable.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
+		clientsTable.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
+				
+		JScrollPane scrollPane = new JScrollPane(clientsTable);
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setOpaque(false);
+	    scrollPane.getViewport().setOpaque(false);
+		clientsPnl.add(scrollPane, BorderLayout.CENTER);
+		
 		frame.setVisible(true);	
 	}
 	
