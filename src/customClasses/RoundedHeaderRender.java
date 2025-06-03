@@ -17,6 +17,8 @@ public class RoundedHeaderRender extends JLabel implements TableCellRenderer {
         setOpaque(false);
         setHorizontalAlignment(CENTER);
         setVerticalAlignment(CENTER);
+        
+        this.tableHeader = tableHeader;
     }
 
     @Override

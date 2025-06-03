@@ -277,10 +277,10 @@ public class ClientView {
             }
         };
         
-        clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRenderer());
-		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRenderer());
+        clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRender());
 		
 		clientsTable.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
 		clientsTable.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
