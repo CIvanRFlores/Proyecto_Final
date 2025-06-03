@@ -2,6 +2,7 @@ package models;
 
 public class Client	//Clase cliente
 {
+	public int id;
 	public String name;
 	public String last_Name;
 	public String phone_Number;
@@ -12,8 +13,9 @@ public class Client	//Clase cliente
 	public int postal_Code;
 	public String email;
 	
-	public Client(String name, String last_Name, String phone_Number, String address_1, String address_2, String city, String state, int postal_Code, String email)
+	public Client(int id, String name, String last_Name, String phone_Number, String address_1, String address_2, String city, String state, int postal_Code, String email)
 	{
+		this.id = id;
 		this.name = name;
 		this.last_Name = last_Name;
 		this.phone_Number = phone_Number;

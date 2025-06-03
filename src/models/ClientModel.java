@@ -27,6 +27,7 @@ public class ClientModel
 			
 			while(rs.next())
 			{
+				int id = rs.getInt(1);
 				String name = rs.getString(2);
 				String last_name = rs.getString(3);
 				String phone_Number= rs.getString(4);
@@ -37,7 +38,7 @@ public class ClientModel
 				Integer postal_Code = rs.getInt(9);
 				String email = rs.getString(10);
 				
-				clients.add(new Client(name, last_name, phone_Number, address_1, address_2, city, state, postal_Code, email));
+				clients.add(new Client(id, name, last_name, phone_Number, address_1, address_2, city, state, postal_Code, email));
 			}
 			rs.close();
 			return clients;
@@ -57,20 +58,77 @@ public class ClientModel
 		return clients;
 	}
 	
-	//Crear nuevo cliente
-	public boolean create(String name, String last_name, String CountryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
+	//Modificar cliente existente
+	public boolean create(String name, String last_Name, String countryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
 	{
-		String query = "INSERT INTO `Client` (name, last_name, phone_number, address_1, address_2, city, state, postal_code, email) "
-				+ "VALUES ('" + name + "','" + last_name + "','" +  CountryCodeCmbBx + phone_Number + "','" + address_1 + "','" + address_2 + "','" + city + "','" + state + "','" + postal_Code + "','" + email +"')";
+		String query = "INSERT INTO Client (name, last_name, phone_number, address_1, address_2, city, state, postal_code, email) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
 		try 
 		{
 			conn = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_Restaurante_El_Manglar", "freedb_civanrflores", "Pm6kE#W!3sQyK5s");
+
 			ps = conn.prepareStatement(query);
+			ps.setString(1, name);
+			ps.setString(2, last_Name);
+			ps.setString(3, countryCodeCmbBx + phone_Number);
+			ps.setString(4, address_1);
+			ps.setString(5, address_2);
+			ps.setString(6, city);
+			ps.setString(7, state);
+			ps.setString(8, postal_Code);
+			ps.setString(9, email);
 			
-			int rs = ps.executeUpdate(query);
+			int rs = ps.executeUpdate();
+			
+			if(rs > 0)
+			{
+				
+				return true;
+			}
+			
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}finally
+		{
+			try
+			{
+				ps.close();
+				conn.close();
+			}catch(Exception e) {}
+		}
+		return false;
+	}
+	
+	//Modificar cliente ya existente
+	public boolean update(int id, String name, String last_Name, String countryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
+	{
+		String query = "UPDATE Client SET "
+				+ "name = ?, last_name = ?, phone_number = ?, address_1 = ?, address_2 = ?, city = ?, state = ?, postal_code = ?, email = ? WHERE id_client = ?";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try 
+		{
+			conn = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_Restaurante_El_Manglar", "freedb_civanrflores", "Pm6kE#W!3sQyK5s");
+
+			ps = conn.prepareStatement(query);
+			ps.setString(1, name);
+			ps.setString(2, last_Name);
+			ps.setString(3, countryCodeCmbBx + phone_Number);
+			ps.setString(4, address_1);
+			ps.setString(5, address_2);
+			ps.setString(6, city);
+			ps.setString(7, state);
+			ps.setString(8, postal_Code);
+			ps.setString(9, email);
+			ps.setInt(10, id);
+			
+			int rs = ps.executeUpdate();
 			
 			if(rs > 0)
 			{

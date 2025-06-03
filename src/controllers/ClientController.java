@@ -28,8 +28,8 @@ public class ClientController {
  		view.newClient(); 
  	}
  	
- 	public void editClient() { 
- 		view.editClient();
+ 	public void editClient(int selectedRow) { 
+ 		view.editClient(selectedRow);
  	}
  	
  	public void clientHistory() { 
@@ -59,5 +59,11 @@ public class ClientController {
  	public void clientCreate(String name, String last_name, String CountryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
  	{
  		model.create(name, last_name, CountryCodeCmbBx, phone_Number, address_1, address_2, city, state, postal_Code, email);
+ 	}
+ 	
+ 	//Funcion para actualizar un cliente ya existente
+ 	public void clientUpdate(int row, String name, String last_Name, String countryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
+ 	{
+ 		model.update(model.get().get(row).id, name, last_Name, countryCodeCmbBx, phone_Number, address_1, address_2, city, state, postal_Code, email);
  	}
 }

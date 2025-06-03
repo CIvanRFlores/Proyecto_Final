@@ -418,9 +418,6 @@ public class ClientFormPanel {
 			
 			return true;
 		}else {
-			//Sentencia para crear nuevo cliente cuando se realize registro
-			ClientController cc = new ClientController(null, 0, 0);
-			cc.clientCreate(name, surname, countryCode, phone, adress1, getAdress2TxtFld(), city, state, code, email);
 			return false;
 		}
 	}

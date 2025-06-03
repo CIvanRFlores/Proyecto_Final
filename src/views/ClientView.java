@@ -162,9 +162,11 @@ public class ClientView {
 		TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
+            	int selectedRow = row;
+            	System.out.println(cc.model.get().get(selectedRow).id);
                 System.out.println("Edit row: " + (row+1));
                 frame.dispose();
-				cc.editClient();
+				cc.editClient(selectedRow);
             }
 
             @Override
@@ -309,6 +311,11 @@ public class ClientView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.clientFormEmptyFields()) {
+					
+					//Sentencia para crear nuevo cliente cuando se realize registro
+					cc.clientCreate(form.getNameTxtFld(), form.getSurnameTxtFld(), form.getCountryCodeCmbBx(), form.getPhoneTxtFld(), form.getAdressTxtFld(), 
+							form.getAdress2TxtFld(), form.getCityTxtFld(), form.getStateTxtFld(), form.getCodeTxtFld(), form.getEmailTxtFld());
+					
 					image = new ImageIcon(ClientView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
 	   				imageIcon = new ImageIcon(image);
 	   				
@@ -334,7 +341,7 @@ public class ClientView {
 		frame.setVisible(true);
 	}
 
-	public void editClient() {
+	public void editClient(int selectedRow) {
 		cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight());
 		
 		mainPnl = new JPanel();
@@ -415,6 +422,9 @@ public class ClientView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.clientFormEmptyFields()) {
+					cc.clientUpdate(selectedRow, form.getNameTxtFld(), form.getSurnameTxtFld(), form.getCountryCodeCmbBx(), form.getPhoneTxtFld(), form.getAdressTxtFld(), 
+							form.getAdress2TxtFld(), form.getCityTxtFld(), form.getStateTxtFld(), form.getCodeTxtFld(), form.getEmailTxtFld());
+					
 					image = new ImageIcon(ClientView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
 	   				imageIcon = new ImageIcon(image);
 	   				
