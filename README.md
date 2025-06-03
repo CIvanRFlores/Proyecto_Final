@@ -63,15 +63,19 @@ Puerto: 3306
 Usuario: freedb_civanrflores
 Contraseña: Pm6kE#W!3sQyK5s
 
-📋 Sistema CRUD de Clientes – Tercera Entrega
+📋 # 🖌️ Tercera entrega - Sistema CRUD de Clientes
+
 🧾 Descripción General
-Este proyecto corresponde a la tercera entrega del sistema de gestión de clientes mediante operaciones CRUD (Crear, Leer, Actualizar, Eliminar). El sistema está diseñado para permitir al administrador gestionar eficientemente los datos de los clientes desde una interfaz amigable y funcional.
+
+Este proyecto corresponde a la tercera entrega del sistema de gestión de clientes mediante operaciones CRUD (Crear, Leer, Actualizar, Eliminar). 
+El sistema está diseñado para permitir al administrador gestionar eficientemente los datos de los clientes desde una interfaz amigable y funcional.
 
 ✅ Funcionalidades principales implementadas
 En esta entrega se trabajó en nuevas funcionalidades que fortalecen la administración y el control sobre los registros de los clientes:
 
 🔍 Ordenamiento de clientes:
-El sistema ahora permite al administrador ordenar los registros de clientes para facilitar su localización y análisis. Este orden puede ser por nombre, ID u otro criterio establecido según las necesidades del sistema.
+El sistema ahora permite al administrador ordenar los registros de clientes para facilitar su localización y análisis. Este orden puede ser por nombre, 
+ID u otro criterio establecido según las necesidades del sistema.
 
 ✏️ Edición de clientes:
 El administrador puede modificar los datos de cualquier cliente registrado, accediendo a una vista con los campos prellenados para su rápida edición.
