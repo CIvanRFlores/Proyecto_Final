@@ -31,6 +31,19 @@ public class OrderView {
 		SideBarPanel sideBar = new SideBarPanel(frame);
 		JPanel buttonPanel = sideBar.createSidePanel();
 		frame.add(buttonPanel, BorderLayout.WEST);
+		
+		frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+            	double aspectRatio = 1.25/1;
+            	
+            	Dimension newSize = frame.getSize();
+                int newWidth = newSize.width;
+                int newHeight = (int) (newWidth/aspectRatio);
+
+                frame.setSize(newWidth, newHeight);
+       			frame.repaint();
+            }
+        });
 	}
 	
 	public void orders() {

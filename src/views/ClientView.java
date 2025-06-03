@@ -37,6 +37,19 @@ public class ClientView {
 		frame.add(buttonPanel, BorderLayout.WEST);
 		
 		buttonPanel.getComponent(3).setBackground(Color.decode("#3C7E3A"));
+		
+		frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+            	double aspectRatio = 1.25/1;
+            	
+            	Dimension newSize = frame.getSize();
+                int newWidth = newSize.width;
+                int newHeight = (int) (newWidth/aspectRatio);
+
+                frame.setSize(newWidth, newHeight);
+       			frame.repaint();
+            }
+        });
 	}
 	
 	public void clients() {
