@@ -190,7 +190,7 @@ public class ClientModel
 	public ArrayList<Client> search(String searchText)	//Obtener lista de clientes especificos de la base de datos
 	{
 		String query = "SELECT * FROM `Client` "
-				+ "WHERE LOWER(name) = ? OR LOWER(last_name) = ? OR phone_number = ? OR LOWER(address_1) = ? OR LOWER(address_2) = ? OR LOWER(city) = ? OR LOWER(state) = ? OR LOWER(postal_code) = ? OR LOWER(email) = ?";
+				+ "WHERE LOWER(id_client) = ? OR LOWER(name) = ? OR LOWER(last_name) = ? OR phone_number = ? OR LOWER(address_1) = ? OR LOWER(address_2) = ? OR LOWER(city) = ? OR LOWER(state) = ? OR LOWER(postal_code) = ? OR LOWER(email) = ?";
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
@@ -201,7 +201,7 @@ public class ClientModel
 			
 			String searchTextLwr = searchText.toLowerCase();
 			
-			for(int i = 1; i <= 9; i++)
+			for(int i = 1; i <= 10; i++)
 			{
 				ps.setString(i, searchTextLwr);
 			}
@@ -236,5 +236,53 @@ public class ClientModel
 			}catch(Exception e) {}
 		}
 		return clients;
+	}
+	
+	public Client getSingle(int row)	//Obtener datos de un cliente de la base de datos
+	{
+		Client client = null;
+		String query = "SELECT * FROM `Client` WHERE id_client = ?";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try 
+		{
+			conn = DBConnection.connected();
+			ps = conn.prepareStatement(query);
+			ps.setInt(1, row);
+			ResultSet rs = ps.executeQuery();
+			
+			
+			if(rs.next())
+			{
+				int id = rs.getInt(1);
+				String name = rs.getString(2);
+				String last_name = rs.getString(3);
+				String phone_Number= rs.getString(4);
+				String address_1 = rs.getString(5);
+				String address_2 = rs.getString(6);
+				String city = rs.getString(7);
+				String state = rs.getString(8);
+				Integer postal_Code = rs.getInt(9);
+				String email = rs.getString(10);
+				
+				client = new Client(id, name, last_name, phone_Number, address_1, address_2, city, state, postal_Code, email);
+			}
+			rs.close();
+			return client;
+			
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}finally
+		{
+			try
+			{
+				ps.close();
+				conn.close();
+			}catch(Exception e) {}
+		}
+		return client;
 	}
 }

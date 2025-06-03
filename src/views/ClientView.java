@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controllers.ClientController;
 import customClasses.*;
+import models.Client;
 
 public class ClientView {
 
@@ -209,7 +210,7 @@ public class ClientView {
                 System.out.println("Viewed row : " + (row+1));
                 frame.remove(mainPnl);
                 frame.dispose();
-				cc.clientHistory();
+				cc.clientHistory(row);
             }
 
         };
@@ -313,7 +314,7 @@ public class ClientView {
                 System.out.println("Viewed row : " + (row+1));
                 frame.remove(mainPnl);
                 frame.dispose();
-				cc.clientHistory();
+				cc.clientHistory(row);
             }
 
         };
@@ -558,7 +559,7 @@ public class ClientView {
 		frame.setVisible(true);
 	}
 	
-	public void clientHistory() {
+	public void clientHistory(int selectedRow) {
 		cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight());
 		
 		mainPnl = new JPanel();
@@ -634,9 +635,20 @@ public class ClientView {
 		
 		String[] columnClient =  {"Nombre", "Dirección", "Número", "Correo"};
 		
-		Object[][] dataClient = {{"Ángel Gabriel", "Del Árbol 169, col. La fuente", "6122170991", "angel@gmail.com"}};
+		System.out.println(selectedRow);
+		Client c = cc.clientRead(selectedRow);
 		
-		DefaultTableModel clientTableModel = new DefaultTableModel(dataClient, columnClient);
+		Object[] info = 
+			{
+					c.name,
+					c.address_1,
+					c.phone_Number,
+					c.email
+			};
+		
+		DefaultTableModel clientTableModel = new DefaultTableModel(columnClient, 0);
+		
+		clientTableModel.addRow(info);
 		
 		InformationTable clientTemplate = new InformationTable(frame, clientTableModel, Color.decode("#555BF6"));
 		JTable clientsTable = clientTemplate.createTable();

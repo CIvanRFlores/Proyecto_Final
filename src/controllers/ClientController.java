@@ -32,8 +32,8 @@ public class ClientController {
  		view.editClient(selectedRow);
  	}
  	
- 	public void clientHistory() { 
- 		view.clientHistory(); 
+ 	public void clientHistory(int selectedRow) { 
+ 		view.clientHistory(selectedRow); 
  	}
  	
  	//Funcion que genera lista de clientes en formato tabla
@@ -90,5 +90,10 @@ public class ClientController {
  	{
  		
  		model.delete(model.get().get(row).id);
+ 	}
+ 	
+ 	public Client clientRead(int row)
+ 	{
+ 		return model.getSingle(model.get().get(row).id);
  	}
 }
