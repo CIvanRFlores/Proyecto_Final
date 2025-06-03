@@ -7,5 +7,26 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="src/libreries/mysql-connector-j-9.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/barcodes-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/bouncy-castle-adapter-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/bouncy-castle-connector-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/bouncy-castle-fips-adapter-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/commons-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/font-asian-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/forms-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/hyph-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/io-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/itextpdf-5.5.13.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/kernel-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/layout-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/mysql-connector-j-9.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/pdfa-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/pdftest-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/pdfua-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/sign-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/slf4j-api-1.7.36.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/slf4j-simple-1.7.36.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/styled-xml-parser-9.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/prank/git/Proyecto_Final/src/libreries/svg-9.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

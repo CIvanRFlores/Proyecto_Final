@@ -92,6 +92,7 @@ public class ClientController {
  		model.delete(model.get().get(row).id);
  	}
  	
+ 	//Funcion para buscar un cliente especifico
  	public Client clientRead(int row)
  	{
  		return model.getSingle(model.get().get(row).id);

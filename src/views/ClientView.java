@@ -2,8 +2,16 @@ package views;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileOutputStream;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import com.itextpdf.*;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import controllers.ClientController;
 import customClasses.*;
@@ -599,6 +607,46 @@ public class ClientView {
 		downloadBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//Sentencia para generar un PDF
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Generar PDF");
+				int userSelection = fileChooser.showSaveDialog(null);
+				if(userSelection == JFileChooser.APPROVE_OPTION)
+				{
+					File saveFile = fileChooser.getSelectedFile();
+					if(!saveFile.getAbsolutePath().endsWith(".pdf"))
+					{
+						saveFile = new File(saveFile.getAbsolutePath() + ".pdf");
+					}
+					
+					Document document = new Document();
+					try
+					{
+						PdfWriter.getInstance(document, new FileOutputStream(saveFile));
+						document.open();
+						
+						document.add(new Paragraph("PDF creado exitosamente"));
+						document.add(new Paragraph("Fecha. " + java.time.LocalDate.now()));
+						
+						image = new ImageIcon(AuthView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+						imageIcon = new ImageIcon(image);
+						message = "Descarga exitosa";
+						
+						JOptionPane.showMessageDialog(null, message, "Descarga", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+					} catch (Exception e1)
+					{
+						e1.printStackTrace();
+						image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+						imageIcon = new ImageIcon(image);
+						message = "Error al generar";
+						
+						JOptionPane.showMessageDialog(null, message, "Descarga", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+					} finally
+					{
+						document.close();
+					}
+				}
+				
 				frame.dispose();
 				cc.clients();
 			}
