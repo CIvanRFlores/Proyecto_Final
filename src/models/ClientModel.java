@@ -57,5 +57,38 @@ public class ClientModel
 		return clients;
 	}
 	
-	
+	//Crear nuevo cliente
+	public boolean create(String name, String last_name, String CountryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
+	{
+		String query = "INSERT INTO `Client` (name, last_name, phone_number, address_1, address_2, city, state, postal_code, email) "
+				+ "VALUES ('" + name + "','" + last_name + "','" +  CountryCodeCmbBx + phone_Number + "','" + address_1 + "','" + address_2 + "','" + city + "','" + state + "','" + postal_Code + "','" + email +"')";
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try 
+		{
+			conn = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_Restaurante_El_Manglar", "freedb_civanrflores", "Pm6kE#W!3sQyK5s");
+			ps = conn.prepareStatement(query);
+			
+			int rs = ps.executeUpdate(query);
+			
+			if(rs > 0)
+			{
+				return true;
+			}
+			
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}finally
+		{
+			try
+			{
+				ps.close();
+				conn.close();
+			}catch(Exception e) {}
+		}
+		return false;
+	}
 }

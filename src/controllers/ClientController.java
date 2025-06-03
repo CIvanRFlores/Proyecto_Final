@@ -1,6 +1,5 @@
 package controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import models.Client;
@@ -37,7 +36,8 @@ public class ClientController {
  		view.clientHistory(); 
  	}
  	
- 	public Object[][] clientsTable()	//Funcion que genera lista de clientes en formato tabla
+ 	//Funcion que genera lista de clientes en formato tabla
+ 	public Object[][] clientsTable()
  	{
  		List<Client> clients = model.get();
  		
@@ -54,4 +54,10 @@ public class ClientController {
 		}
 		return info;
 	}
+ 	
+ 	//Funcion para crear un cliente
+ 	public void clientCreate(String name, String last_name, String CountryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
+ 	{
+ 		model.create(name, last_name, CountryCodeCmbBx, phone_Number, address_1, address_2, city, state, postal_Code, email);
+ 	}
 }

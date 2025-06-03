@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
+import controllers.ClientController;
+
 public class ClientFormPanel {
 	
 	public JFrame frame;
@@ -415,7 +417,10 @@ public class ClientFormPanel {
 			JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.INFORMATION_MESSAGE, imageIcon);
 			
 			return true;
-		}else { 
+		}else {
+			//Sentencia para crear nuevo cliente cuando se realize registro
+			ClientController cc = new ClientController(null, 0, 0);
+			cc.clientCreate(name, surname, countryCode, phone, adress1, getAdress2TxtFld(), city, state, code, email);
 			return false;
 		}
 	}
