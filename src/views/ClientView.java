@@ -184,14 +184,15 @@ public class ClientView {
 						   {"Luis Miguel Pérez", "Del Árbol 169, col. La fuente", "6122170991", "lucatero@gmail.com", null}};*/
 		
 		DefaultTableModel tableModel = new DefaultTableModel(column, 0);
-		
+
 		Object[][] info = cc.clientsTable();
 		for(Object[] row : info) {	//Inserta clientes de la base de datos a la tabla
 			tableModel.addRow(row);
 		}
 		
 		InformationTable template = new InformationTable(frame, tableModel, Color.decode("#555BF6"));
-		JTable clientsTable = template.createTable();
+		JScrollPane scrollPane = template.createTable();
+		JTable clientsTable = template.getTable() ;
 		
 		TableActionEvent event = new TableActionEvent() {
             @Override
@@ -215,7 +216,6 @@ public class ClientView {
             @Override
             public void onView(int row) {
                 System.out.println("Viewed row : " + (row+1));
-                frame.remove(mainPnl);
                 frame.dispose();
 				cc.clientHistory(row);
             }
@@ -229,13 +229,7 @@ public class ClientView {
 		
 		clientsTable.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
 		clientsTable.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
-				
-		JScrollPane scrollPane = new JScrollPane(clientsTable);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setOpaque(false);
-	    scrollPane.getViewport().setOpaque(false);
+		
 		clientsPnl.add(scrollPane, BorderLayout.CENTER);
 	
 		frame.setVisible(true);
@@ -269,33 +263,27 @@ public class ClientView {
 		mainPnl.add(clientsPnl, BorderLayout.CENTER);
 		
 		String[] column =  {"Nombre", "Dirección", "Número", "Correo", "Acción"};
-		/*Object[][] data = {{"José Eduardo Guereque", "Del Árbol 169, col. La fuente", "6128682392", "Gue123@gmail.com", null},
-						   {"Ángel Gabriel Mendoza", "Del Árbol 169, col. La fuente", "6151093321", "litrin@gmail.com", null},
-						   {"Christian Ivan Rivera", "Del Árbol 169, col. La fuente", "6121761317", "civan@gmail.com", null}, 
-						   {"Luis Miguel Pérez", "Del Árbol 169, col. La fuente", "6122170991", "lucatero@gmail.com", null}};*/
-		
 		DefaultTableModel tableModel = new DefaultTableModel(column, 0);
 		
 		Object[][] clients = cc.searchClientsTable(searchText);
 		
-		if(clients.length <= 0)	//Condicional que verifica si se encontraron clientes o no
-		{
+		if(clients.length <= 0)	{ //Condicional que verifica si se encontraron clientes o no
+		
 			image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 			imageIcon = new ImageIcon(image);
 			message = "Cliente no encontrado";
 			
 			JOptionPane.showMessageDialog(null, message, "Cliente", JOptionPane.INFORMATION_MESSAGE, imageIcon);
-		}
-		else
-		{
+		}else {
 			for(Object[] row : clients) {	//Inserta clientes de la base de datos a la tabla
 				tableModel.addRow(row);
 			}			
 		}
 		
 		
-		InformationTable template = new InformationTable(frame, tableModel, Color.decode("#555BF6"));
-		JTable clientsTable = template.createTable();
+		InformationTable clientsTemplate = new InformationTable(frame, tableModel, Color.decode("#555BF6"));
+		JScrollPane clientScrollPane = clientsTemplate.createTable();
+		JTable clientsTable = clientsTemplate.getTable() ;
 		
 		TableActionEvent event = new TableActionEvent() {
             @Override
@@ -333,14 +321,8 @@ public class ClientView {
 		
 		clientsTable.getColumnModel().getColumn(4).setCellRenderer(new TableActionCellRender());
 		clientsTable.getColumnModel().getColumn(4).setCellEditor(new TableActionCellEditor(event));
-				
-		JScrollPane scrollPane = new JScrollPane(clientsTable);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setOpaque(false);
-	    scrollPane.getViewport().setOpaque(false);
-		clientsPnl.add(scrollPane, BorderLayout.CENTER);
+	
+		clientsPnl.add(clientScrollPane, BorderLayout.CENTER);
 		
 		frame.setVisible(true);	
 	}
@@ -646,8 +628,7 @@ public class ClientView {
 						message = "Descarga exitosa";
 						
 						JOptionPane.showMessageDialog(null, message, "Descarga", JOptionPane.INFORMATION_MESSAGE, imageIcon);
-					} catch (Exception e1)
-					{
+					} catch (Exception e1){
 						e1.printStackTrace();
 						image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 						imageIcon = new ImageIcon(image);
@@ -711,21 +692,16 @@ public class ClientView {
 		
 		clientTableModel.addRow(info);
 		
-		InformationTable clientTemplate = new InformationTable(frame, clientTableModel, Color.decode("#555BF6"));
-		JTable clientsTable = clientTemplate.createTable();
+		InformationTable clientsTemplate = new InformationTable(frame, clientTableModel, Color.decode("#555BF6"));
+		JScrollPane clientsScrollPane = clientsTemplate.createTable();
+		JTable clientsTable = clientsTemplate.getTable() ;
 				
 		clientsTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
 		clientsTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		clientsTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		clientsTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRender());
 		
-		JScrollPane clientScrllPn = new JScrollPane(clientsTable);
-		clientScrllPn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-		clientScrllPn.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		clientScrllPn.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		clientScrllPn.setOpaque(false);
-	    clientScrllPn.getViewport().setOpaque(false);
-	    clientTablePnl.add(clientScrllPn, BorderLayout.CENTER);
+	    clientTablePnl.add(clientsScrollPane, BorderLayout.CENTER);
 		
 		
 	    JPanel ordersTablePnl = new JPanel();
@@ -741,25 +717,18 @@ public class ClientView {
 		ordersTablePnl.add(historyLbl, BorderLayout.NORTH);
 		
 		String[] columnOrders =  {"Fecha", "Dirección", "Monto", "Órden"};
-		
-		
 		DefaultTableModel ordersTableModel = new DefaultTableModel(columnOrders, 0);
 		
 		InformationTable ordersTemplate = new InformationTable(frame, ordersTableModel, Color.decode("#555BF6"));
-		JTable ordersTable = ordersTemplate.createTable();
+		JScrollPane ordersScrollPane = ordersTemplate.createTable();
+		JTable ordersTable = ordersTemplate.getTable() ;
 				
 		ordersTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
 		ordersTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		ordersTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		ordersTable.getColumnModel().getColumn(3).setCellRenderer(new TextWrapCellRender());
 		
-		JScrollPane historyScrllPn = new JScrollPane(ordersTable);
-		historyScrllPn.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
-		historyScrllPn.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		historyScrllPn.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		historyScrllPn.setOpaque(false);
-	    historyScrllPn.getViewport().setOpaque(false);
-	    ordersTablePnl.add(historyScrllPn, BorderLayout.CENTER);
+	    ordersTablePnl.add(ordersScrollPane, BorderLayout.CENTER);
 	
 		frame.setVisible(true);
 	}

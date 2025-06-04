@@ -8,11 +8,12 @@ import java.awt.event.ComponentEvent;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class InformationTable extends JTable {
-	
-	private static final long serialVersionUID = -5017157673091151929L;
+public class InformationTable {
 	
 	public JFrame frame;
+	public JTable table;
+	public JScrollPane scrollPane;
+	public Font font;
 	public DefaultTableModel tableModel;
 	public Color tableHeader;
 	
@@ -22,41 +23,50 @@ public class InformationTable extends JTable {
 		this.tableHeader = tableHeader;
 	}
 	
-	public JTable createTable() {
-		Font font = new Font("Caladea Bold", Font.BOLD, 20);
+	public JScrollPane createTable() {
+		font = new Font("Caladea Bold", Font.BOLD, 20);
+		table = new JTable(tableModel);
+	
+		table.setFont(font);
+		table.setDefaultEditor(Object.class, null);
+		table.setRowHeight(40);
+		table.setShowGrid(false);
+		table.setShowHorizontalLines(true);
+		table.setShowVerticalLines(false);
 		
-		setModel(tableModel);
-		setFont(font);
-		setDefaultEditor(Object.class, null);
-		setRowHeight(40);
-		setShowGrid(false);
-		setShowHorizontalLines(true);
-		setShowVerticalLines(false);
+		table.getTableHeader().setDefaultRenderer(new RoundedHeaderRender(tableHeader));
+		table.getTableHeader().setBackground(Color.white);
+		table.getTableHeader().setForeground(Color.white);
+		table.getTableHeader().setFont(font);
+		table.getTableHeader().setReorderingAllowed(false);
+		table.getTableHeader().setResizingAllowed(false);
 		
-		getTableHeader().setDefaultRenderer(new RoundedHeaderRender(tableHeader));
-		getTableHeader().setBackground(Color.white);
-		getTableHeader().setForeground(Color.white);
-		getTableHeader().setFont(font);
-		getTableHeader().setReorderingAllowed(false);
-		getTableHeader().setResizingAllowed(false);
+		table.setOpaque(false);
+		table.setForeground(Color.decode("#244E23"));
+		table.setSelectionBackground(Color.white);
+		table.setSelectionForeground(Color.decode("#2EA623"));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		setOpaque(false);
-		setForeground(Color.decode("#244E23"));
-		setSelectionBackground(Color.white);
-		setSelectionForeground(Color.decode("#2EA623"));
-		setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ColoredScrollPaneBar coloredScrollPane = new ColoredScrollPaneBar(table, tableHeader);
+	
+		scrollPane = coloredScrollPane.createScrollPane();
+	    
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-            	getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.02))));
-            	setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.02))));
+            	table.getTableHeader().setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.02))));
+            	table.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getHeight()*0.02))));
             	
        			frame.repaint();
             }
         });
 		
-		return this;
+		return scrollPane;
+	}
+	
+	public JTable getTable() {
+		return table;
 	}
 
 }

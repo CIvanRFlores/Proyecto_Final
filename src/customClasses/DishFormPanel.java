@@ -11,22 +11,23 @@ import views.ClientView;
 
 public class DishFormPanel {
 	
-	public JFrame frame;
-	public JTextField nameTxtFld;
-	public JTextField priceTxtFld;
-	public JTextArea dishDescText;
+	JFrame frame;
+	JTextField nameTxtFld;
+	JTextField priceTxtFld;
+	JTextArea dishDescText;
 
+	ColoredScrollPaneBar coloredScrollPane;
 	JList<String> topLeftCmbBx;
 	JList<String> topRightCmbBx;
 	JList<String> bottomLeftCmbBx;
 	JList<String> bottomRightCmbBx;
 
-	public ImageIcon imageIcon;
-	public Image image;
-	public int relativeXSize;
-	public int relativeYSize;
-	public Font font;
-	public String dishType;
+	ImageIcon imageIcon;
+	Image image;
+	int relativeXSize;
+	int relativeYSize;
+	Font font;
+	String dishType;
 	
 	public DishFormPanel(JFrame frame, String dishType) {
 		this.frame = frame;
@@ -264,13 +265,16 @@ public class DishFormPanel {
 		String ingredients[] = { "Maíz", "Camarón", "Papa", "Mantequilla", "Aceite", "Camote", "Tomate", "Agua"};
 		
 		topLeftCmbBx = new JList<>(ingredients);
-		topLeftCmbBx.setBorder(BorderFactory.createLineBorder(Color.decode("#244E23"), 2));
 		topLeftCmbBx.setForeground(Color.decode("#244E23")); 
 		topLeftCmbBx.setFont(new Font("Caladea Regular", Font.PLAIN, 30)); 
 		topLeftCmbBx.setOpaque(false);
 		topLeftCmbBx.setVisibleRowCount(3);
 		topLeftCmbBx.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		topLeftPnl.add(new JScrollPane(topLeftCmbBx), BorderLayout.CENTER);
+		
+		coloredScrollPane = new ColoredScrollPaneBar(topLeftCmbBx, Color.decode("#244E23"));
+		JScrollPane topLeftScrollPane = coloredScrollPane.createScrollPane();
+		
+		topLeftPnl.add(topLeftScrollPane, BorderLayout.CENTER);
 		
 		
 		JPanel topRightPnl = new JPanel();
@@ -285,13 +289,16 @@ public class DishFormPanel {
 		topRightPnl.add(topRightLbl, BorderLayout.NORTH);
 		
 		topRightCmbBx = new JList<>(ingredients);
-		topRightCmbBx.setBorder(BorderFactory.createLineBorder(Color.decode("#244E23"), 2));
 		topRightCmbBx.setForeground(Color.decode("#244E23")); 
 		topRightCmbBx.setFont(new Font("Caladea Regular", Font.PLAIN, 30)); 
 		topRightCmbBx.setOpaque(false);
 		topRightCmbBx.setVisibleRowCount(3);
 		topRightCmbBx.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		topRightPnl.add(new JScrollPane(topRightCmbBx), BorderLayout.CENTER);
+		
+		coloredScrollPane = new ColoredScrollPaneBar(topRightCmbBx, Color.decode("#244E23"));
+		JScrollPane topRightScrollPane = coloredScrollPane.createScrollPane();
+		
+		topRightPnl.add(topRightScrollPane, BorderLayout.CENTER);
 		
 		
 		JPanel bottomLeftPnl = new JPanel();
@@ -306,13 +313,16 @@ public class DishFormPanel {
 		bottomLeftPnl.add(bottomLeftLbl, BorderLayout.NORTH);
 		
 		bottomLeftCmbBx = new JList<>(ingredients);
-		bottomLeftCmbBx.setBorder(BorderFactory.createLineBorder(Color.decode("#244E23"), 2));
 		bottomLeftCmbBx.setForeground(Color.decode("#244E23")); 
 		bottomLeftCmbBx.setFont(new Font("Caladea Regular", Font.PLAIN, 30)); 
 		bottomLeftCmbBx.setOpaque(false);
 		bottomLeftCmbBx.setVisibleRowCount(3);
 		bottomLeftCmbBx.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		bottomLeftPnl.add(new JScrollPane(bottomLeftCmbBx), BorderLayout.CENTER);
+		
+		coloredScrollPane = new ColoredScrollPaneBar(bottomLeftCmbBx, Color.decode("#244E23"));
+		JScrollPane bottomLeftScrollPane = coloredScrollPane.createScrollPane();
+
+		bottomLeftPnl.add(bottomLeftScrollPane, BorderLayout.CENTER);
 		
 		
 		JPanel bottomRightPnl = new JPanel();
@@ -327,13 +337,17 @@ public class DishFormPanel {
 		bottomRightPnl.add(bottomRightLbl, BorderLayout.NORTH);
 		
 		bottomRightCmbBx = new JList<>(ingredients);
-		bottomRightCmbBx.setBorder(BorderFactory.createLineBorder(Color.decode("#244E23"), 2));
 		bottomRightCmbBx.setForeground(Color.decode("#244E23")); 
 		bottomRightCmbBx.setFont(new Font("Caladea Regular", Font.PLAIN, 30)); 
 		bottomRightCmbBx.setOpaque(false);
 		bottomRightCmbBx.setVisibleRowCount(3);
 		bottomRightCmbBx.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		bottomRightPnl.add(new JScrollPane(bottomRightCmbBx), BorderLayout.CENTER);
+		
+		coloredScrollPane = new ColoredScrollPaneBar(bottomRightCmbBx, Color.decode("#244E23"));
+		JScrollPane bottomRightScrollPane = coloredScrollPane.createScrollPane();
+		
+		bottomRightPnl.add(bottomRightScrollPane, BorderLayout.CENTER);
+		
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
 		frame.addComponentListener(new ComponentAdapter() {
