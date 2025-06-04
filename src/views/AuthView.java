@@ -196,6 +196,17 @@ public class AuthView {
 		});
 		
 		
+		usernameTxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if(c=='\n') {
+		        	passwordFld.requestFocus();
+		        	passwordFld.setFocusable(true);;
+		    }
+		}});
+		
+		
 		RoundButton loginBttn = new RoundButton(30);
 		loginBttn.setBackground(Color.decode("#306572"));
 		loginBttn.setFont(new Font("Caladea Bold", Font.BOLD, 30));
