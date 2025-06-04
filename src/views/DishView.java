@@ -2,6 +2,8 @@ package views;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
@@ -164,21 +166,33 @@ public class DishView {
 		
 		JPanel dishesPnl = new JPanel();
 		dishesPnl.setBackground(Color.white);
-		dishesPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 15));
-		dishesPnl.setLayout(new GridLayout(18, 3, 30, 30));	
+		dishesPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 30));
+		//dishesPnl.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		dishesPnl.setLayout(new GridBagLayout());	
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.insets = new Insets(15, 15, 15, 15);
 		
-		for(int i=0; i<27; i++) {
-			DishCard dishCard = new DishCard(30, DishView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
+		ArrayList<RoundPanel> elements = new ArrayList<>();
+        for(int i=1; i<=10; i++) {
+        	DishCard dishCard = new DishCard(30, DishView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
 			RoundPanel dish = dishCard.createCard();
-			
-			dishesPnl.add(dish);
-		}
+            elements.add(dish);
+        }
+		
+		for(int i=0; i<elements.size(); i++) {
+            int row = i/3; 
+            int col = i%3;  
+
+            gbc.gridx = col;
+            gbc.gridy = row;
+
+            dishesPnl.add(elements.get(i), gbc);
+        }
 	
-		JScrollPane scrollPane = new JScrollPane(dishesPnl);
+		ColoredScrollPaneBar coloredScrollPane = new ColoredScrollPaneBar(dishesPnl, Color.decode("#244E23"));
+		JScrollPane scrollPane = coloredScrollPane.createScrollPane();
 		scrollPane.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setOpaque(false);
 		mainPnl.add(scrollPane, BorderLayout.CENTER);
 		
 		frame.setVisible(true);
