@@ -3,6 +3,8 @@ package views;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.table.DefaultTableModel;
 
 import controllers.InventoryController;
 import customClasses.*;
@@ -61,7 +63,7 @@ public class InventoryView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new BorderLayout(20, 15));
+		headerPnl.setLayout(new BorderLayout(15, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -91,17 +93,17 @@ public class InventoryView {
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld, BorderLayout.CENTER);
 		
-		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 3, 20, 0));
-		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl, BorderLayout.EAST);
+		JPanel searchBarBttnPnl = new JPanel();
+		searchBarBttnPnl.setLayout(new GridLayout(1, 3, 20, 0));
+		searchBarBttnPnl.setOpaque(false); 
+		headerPnl.add(searchBarBttnPnl, BorderLayout.EAST);
 		
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
 		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		searchBttn.setForeground(Color.white);
 		searchBttn.setText("Buscar");
-		actionPnl.add(searchBttn);
+		searchBarBttnPnl.add(searchBttn);
 		
 		searchBttn.addActionListener(new ActionListener() {
 			@Override
@@ -119,9 +121,70 @@ public class InventoryView {
 		    	searchBttn.setBackground(Color.decode("#244E23"));
 		    }
 		});
+		
+		RoundPanel searchByBttnPnl = new RoundPanel(30);  
+		searchByBttnPnl.setBackground(Color.white);
+		searchByBttnPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
+		searchByBttnPnl.setForeground(Color.decode("#244E23")); 
+		searchByBttnPnl.setLayout(new BorderLayout(15, 0));
+		searchBarBttnPnl.add(searchByBttnPnl);
+		
+		String type[] = {"Código", "Nombre", "Cantidad"};
+		
+		JComboBox<String> searchByCmbBx = new JComboBox<>(type);
+		searchByCmbBx.setBorder(null); 
+		searchByCmbBx.setForeground(Color.decode("#244E23")); 
+		searchByCmbBx.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
+		searchByCmbBx.setOpaque(false);
+		searchByCmbBx.setUI(new BasicComboBoxUI());
+		searchByBttnPnl.add(searchByCmbBx);
+		
+		searchBarBttnPnl.add(Box.createHorizontalStrut(0));
+		
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 6, 15, 0));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl, BorderLayout.SOUTH);
+		
+		actionPnl.add(Box.createHorizontalStrut(0));
+		actionPnl.add(Box.createHorizontalStrut(0));
+		actionPnl.add(Box.createHorizontalStrut(0));
+		
+		RoundButton deleteBttn = new RoundButton(30);
+		deleteBttn.setBackground(Color.decode("#EF2D2D"));
+		deleteBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		deleteBttn.setForeground(Color.white);
+		deleteBttn.setText("Eliminar");
+		actionPnl.add(deleteBttn);
+		
+		deleteBttn.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
 				
+				Object[] options = {"Volver", "Eliminar"};
+				
+				image = new ImageIcon(DishView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				String message = "Esta acción no se puede deshacer.";
+				int opc = JOptionPane.showOptionDialog(null, message, "Borrar inventario", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				
+				if(opc==1) {
+				}
+			}
+		});
+		
+		deleteBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				deleteBttn.setBackground(Color.decode("#ED5C5C"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	deleteBttn.setBackground(Color.decode("#EF2D2D"));
+		    }
+		});
+		
 		RoundButton editBttn = new RoundButton(30);
-		editBttn.setBackground(Color.decode("#3C7E3A"));
+		editBttn.setBackground(Color.decode("#367181"));
 		editBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		editBttn.setForeground(Color.white);
 		editBttn.setText("Editar");
@@ -137,11 +200,11 @@ public class InventoryView {
 		
 		editBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
-				editBttn.setBackground(Color.decode("#39C82C"));
+				editBttn.setBackground(Color.decode("#264F59"));
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	editBttn.setBackground(Color.decode("#2EA623"));
+		    	editBttn.setBackground(Color.decode("#367181"));
 		    }
 		});
 		
@@ -171,12 +234,83 @@ public class InventoryView {
 		});
 		
 		JPanel inventoryPnl = new JPanel();
-		inventoryPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0)); 
-		inventoryPnl.setLayout(new FlowLayout());	
-		inventoryPnl.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		inventoryPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0)); 
+		inventoryPnl.setLayout(new GridLayout(1, 2, 30, 30));	
 		inventoryPnl.setOpaque(false); 
 		mainPnl.add(inventoryPnl, BorderLayout.CENTER);
 	
+		JPanel leftPnl = new JPanel();
+		leftPnl.setLayout(new GridLayout(4, 1, 30, 30));
+		leftPnl.setOpaque(false);	
+		inventoryPnl.add(leftPnl, BorderLayout.WEST);
+		
+		JLabel inventoryTableLbl = new JLabel("Inventario");
+		inventoryTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
+		inventoryTableLbl.setForeground(Color.decode("#244E23"));
+		inventoryTableLbl.setHorizontalAlignment(JLabel.LEFT); 
+		inventoryTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
+		leftPnl.add(inventoryTableLbl);
+		
+		String[] tableColumns =  {"Nombre", "Cantidad", "Código"};
+		DefaultTableModel invTableModel = new DefaultTableModel(tableColumns, 0);
+		
+		InformationTable invTemplate = new InformationTable(frame, invTableModel, Color.decode("#555BF6"));
+		JScrollPane invScrollPane = invTemplate.createTable();
+		JTable invTable = invTemplate.getTable() ;
+				
+		invTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
+		invTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
+		invTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		
+		leftPnl.add(invScrollPane);
+		
+		JLabel missingInvTableLbl = new JLabel("Faltantes");
+		missingInvTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
+		missingInvTableLbl.setForeground(Color.decode("#244E23"));
+		missingInvTableLbl.setHorizontalAlignment(JLabel.LEFT); 
+		missingInvTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
+		leftPnl.add(missingInvTableLbl);
+		
+		DefaultTableModel noStockTableModel = new DefaultTableModel(tableColumns, 0);
+		
+		InformationTable noStockTemplate = new InformationTable(frame, noStockTableModel, Color.decode("#EF2D2D"));
+		JScrollPane noStockScrollPane = noStockTemplate.createTable();
+		JTable noStockTable = invTemplate.getTable() ;
+				
+		noStockTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
+		noStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
+		noStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		
+		leftPnl.add(noStockScrollPane);
+		
+		
+		JPanel rightPnl = new JPanel();
+		rightPnl.setLayout(new GridLayout(4, 1, 30, 30));
+		rightPnl.setOpaque(false);	
+		inventoryPnl.add(rightPnl, BorderLayout.EAST);
+		
+		JLabel lowStockTableLbl = new JLabel("Stock bajo");
+		lowStockTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
+		lowStockTableLbl.setForeground(Color.decode("#244E23"));
+		lowStockTableLbl.setHorizontalAlignment(JLabel.LEFT); 
+		lowStockTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
+		rightPnl.add(lowStockTableLbl);
+		
+		DefaultTableModel lowStockTableModel = new DefaultTableModel(tableColumns, 0);
+		
+		InformationTable lowStockTemplate = new InformationTable(frame, lowStockTableModel, Color.decode("#C07A00"));
+		JScrollPane lowStockScrollPane = lowStockTemplate.createTable();
+		JTable lowStockTable = lowStockTemplate.getTable();
+				
+		lowStockTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
+		lowStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
+		lowStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		
+		rightPnl.add(lowStockScrollPane);
+		
+		rightPnl.add(Box.createHorizontalStrut(0));
+		rightPnl.add(Box.createHorizontalStrut(0));
+		
 		frame.setVisible(true);
 	}
 	
