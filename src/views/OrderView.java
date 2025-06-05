@@ -2,6 +2,8 @@ package views;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import controllers.OrderController;
@@ -166,15 +168,45 @@ public class OrderView {
 		    }
 		});
 		
-		JPanel ordersPnl = new JPanel();
-		ordersPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));  
-		ordersPnl.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 30));	
-		ordersPnl.setOpaque(false); 
-		mainPnl.add(ordersPnl, BorderLayout.CENTER);
 		
-		OrderCard orderCard = new OrderCard(30, "1", "$1200.00 MXN", "Luis", 1, 25+"min", frame, mainPnl);
-		RoundPanel order = orderCard.createCard();
-		ordersPnl.add(order);
+		JPanel ordersPnl = new JPanel();
+		ordersPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+		ordersPnl.setLayout(new GridBagLayout());	
+		ordersPnl.setOpaque(false); 
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;	
+		
+		ArrayList<RoundPanel> ordersArray = new ArrayList<>();
+        for(int i=1; i<=15; i++) {
+        	
+        	//simular que las ordenes son de tipos diferente
+        	if(i%2==0) {
+        		OrderCard orderCard = new OrderCard(30, i+"", "$1200.00 MXN", "Luis", 2, 25+"min", frame, mainPnl);
+        		RoundPanel order = orderCard.createCard();
+        		ordersArray.add(order);
+        	}else {
+        		OrderCard orderCard = new OrderCard(30, i+"", "$1200.00 MXN", "Luis", 1, 25+"min", frame, mainPnl);
+        		RoundPanel order = orderCard.createCard();
+        		ordersArray.add(order);
+        	}
+        }
+		
+		for(int i=0; i<ordersArray.size(); i++) {
+            int row = i/2; 
+            int col = i%2;  
+
+            gbc.gridx = col;
+            gbc.gridy = row;
+            
+            gbc.insets = new Insets(30, 40, 30, 40);
+
+            ordersPnl.add(ordersArray.get(i), gbc);
+        }
+		
+		ColoredScrollPaneBar coloredScrollPane = new ColoredScrollPaneBar(ordersPnl, Color.decode("#244E23"));
+		JScrollPane scrollPane = coloredScrollPane.createScrollPane();
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+		mainPnl.add(scrollPane, BorderLayout.CENTER);
 		
 		frame.setVisible(true);
 	}

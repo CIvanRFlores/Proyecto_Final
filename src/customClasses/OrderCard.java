@@ -142,6 +142,32 @@ public class OrderCard {
 		editBttn.setBackground(Color.white);
 		cardPnl.add(editBttn, BorderLayout.EAST);
 		
+		editBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				image = new ImageIcon(OrderCard.class.getResource("/images/editOrderClick.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				editBttn.setIcon(imageIcon);
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	image = new ImageIcon(OrderCard.class.getResource("/images/editOrder.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				editBttn.setIcon(imageIcon);
+		    }
+		});
+		
+		editBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+				imageIcon = new ImageIcon(image);
+				
+				message = "Editar orden";
+				JOptionPane.showMessageDialog(null, message, "Orden de Mesa "+table, JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+			}
+		});
+		
+		
 		
 		Color text = null;
 		Color footer = null;
@@ -200,31 +226,6 @@ public class OrderCard {
             	image = new ImageIcon(OrderCard.class.getResource("/images/editOrder.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
         		imageIcon = new ImageIcon(image);
        			editBttn.setIcon(imageIcon);  
-       			
-       			editBttn.addMouseListener(new MouseAdapter() {
-       				public void mouseEntered(MouseEvent evt) {
-       					image = new ImageIcon(OrderCard.class.getResource("/images/editOrderClick.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
-       					imageIcon = new ImageIcon(image);
-       					editBttn.setIcon(imageIcon);
-       			    }
-
-       			    public void mouseExited(MouseEvent evt) {
-       			    	image = new ImageIcon(OrderCard.class.getResource("/images/editOrder.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
-       					imageIcon = new ImageIcon(image);
-       					editBttn.setIcon(imageIcon);
-       			    }
-       			});
-       			
-       			editBttn.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-						imageIcon = new ImageIcon(image);
-						
-						message = "Editar orden";
-						JOptionPane.showMessageDialog(null, message, "Orden de Mesa 1", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
-					}
-       			});
        		
     			if(orderType==1) {
     				image = new ImageIcon(OrderCard.class.getResource("/images/blueClock.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
