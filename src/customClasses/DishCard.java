@@ -10,16 +10,16 @@ import controllers.DishController;
 
 public class DishCard {
 	
-	public JFrame frame;
-	public int radius;
-	public URL dishImageURL;
-	public String type;
-	public String text;
-	public Image image;
-	public ImageIcon imageIcon;
-	public int relativeXSize;
-	public int relativeYSize;
-	public DishController dc;
+	JFrame frame;
+	int radius;
+	URL dishImageURL;
+	String type;
+	String text;
+	Image image;
+	ImageIcon imageIcon;
+	int relativeXSize;
+	int relativeYSize;
+	DishController dc;
 
 	public DishCard(int radius, URL dishImageURL, String type, String text, JFrame frame) {
 		this.frame = frame;
@@ -42,6 +42,14 @@ public class DishCard {
 		imageIcon = new ImageIcon(image);
 		JLabel dishImage = new JLabel(this.imageIcon);
 		cardPnl.add(dishImage);
+		
+		dishImage.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				frame.dispose();
+				dc.dishPage(type);
+			}
+		});
+		
 		
 		JLabel dishNameLbl = new JLabel(adjustText(text));
 		dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 20));

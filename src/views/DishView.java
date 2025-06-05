@@ -173,21 +173,21 @@ public class DishView {
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.insets = new Insets(15, 15, 15, 15);
 		
-		ArrayList<RoundPanel> elements = new ArrayList<>();
-        for(int i=1; i<=10; i++) {
+		ArrayList<RoundPanel> dishesArray = new ArrayList<>();
+        for(int i=1; i<=20; i++) {
         	DishCard dishCard = new DishCard(30, DishView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
 			RoundPanel dish = dishCard.createCard();
-            elements.add(dish);
+			dishesArray.add(dish);
         }
 		
-		for(int i=0; i<elements.size(); i++) {
+		for(int i=0; i<dishesArray.size(); i++) {
             int row = i/3; 
             int col = i%3;  
 
             gbc.gridx = col;
             gbc.gridy = row;
 
-            dishesPnl.add(elements.get(i), gbc);
+            dishesPnl.add(dishesArray.get(i), gbc);
         }
 	
 		ColoredScrollPaneBar coloredScrollPane = new ColoredScrollPaneBar(dishesPnl, Color.decode("#244E23"));

@@ -15,13 +15,14 @@ import models.AuthModel;
 
 public class AuthView {
 
-	public boolean passwordVisible = false;
-	public JFrame frame;
-	public Image image;
-	public ImageIcon imageIcon;
-	public int relativeXSize;
-	public int relativeYSize;
-	public DishController dc;
+	boolean passwordVisible = false;
+	JFrame frame;
+	Image image;
+	ImageIcon imageIcon;
+	ActionListener validate;
+	int relativeXSize;
+	int relativeYSize;
+	DishController dc;
 	
 	public AuthView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -196,17 +197,6 @@ public class AuthView {
 		});
 		
 		
-		usernameTxtFld.addKeyListener(new KeyAdapter() {
-		    @Override
-		    public void keyTyped(KeyEvent e) {
-		        char c = e.getKeyChar();
-		        if(c=='\n') {
-		        	passwordFld.requestFocus();
-		        	passwordFld.setFocusable(true);;
-		    }
-		}});
-		
-		
 		RoundButton loginBttn = new RoundButton(30);
 		loginBttn.setBackground(Color.decode("#306572"));
 		loginBttn.setFont(new Font("Caladea Bold", Font.BOLD, 30));
@@ -214,7 +204,7 @@ public class AuthView {
 		loginBttn.setText("Iniciar sesión");
 		infoPnl.add(loginBttn);
 		
-		loginBttn.addActionListener(new ActionListener() {
+		validate = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
@@ -265,7 +255,9 @@ public class AuthView {
 				
 			}
 			
-		});
+		};
+		
+		loginBttn.addActionListener(validate);
 		
 		//efecto hover
 		loginBttn.addMouseListener(new MouseAdapter() {
@@ -275,6 +267,31 @@ public class AuthView {
 
 		    public void mouseExited(MouseEvent evt) {
 		    	loginBttn.setBackground(Color.decode("#367181"));
+		    }
+		});
+		
+		
+		//dar enter a campos de texto
+		usernameTxtFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if(c=='\n') {
+		        	passwordFld.requestFocus();
+		        	passwordFld.setFocusable(true);
+		        }
+		    }
+		});
+		
+		passwordFld.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if(c=='\n') {
+		        	loginBttn.doClick();
+			        usernameTxtFld.requestFocus();
+			        usernameTxtFld.setFocusable(true);
+		        }
 		    }
 		});
 		
