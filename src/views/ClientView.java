@@ -119,7 +119,7 @@ public class ClientView {
 			public void actionPerformed(ActionEvent e) {
 				if(searchTxtFld.getText().equals(""))
 				{
-					image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+					image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 					imageIcon = new ImageIcon(image);
 					message = "Campo no llenado";
 					
@@ -269,7 +269,7 @@ public class ClientView {
 		
 		if(clients.length <= 0)	{ //Condicional que verifica si se encontraron clientes o no
 		
-			image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+			image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 			imageIcon = new ImageIcon(image);
 			message = "Cliente no encontrado";
 			
@@ -479,7 +479,7 @@ public class ClientView {
 			public void actionPerformed(ActionEvent e) {
 				Object[] options = {"Volver", "Salir"};
 				
-				image = new ImageIcon(ActionButtonPanel.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				image = new ImageIcon(ClientView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 				imageIcon = new ImageIcon(image);
 				
 				String message = "Todos los cambios se perderán.";
@@ -623,14 +623,14 @@ public class ClientView {
 								+ "\nNumero de telefono: " + c.phone_Number + "\nDireccion: " + c.address_1 + "\nDireccion 2: " + c.address_2 + "\nCiudad: " + c.city 
 								+ "\nEstado: " + c.state + "\nCodigo postal: " + c.postal_Code + "\nCorreo electronico: " + c.email));
 						
-						image = new ImageIcon(AuthView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+						image = new ImageIcon(ClientView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 						imageIcon = new ImageIcon(image);
 						message = "Descarga exitosa";
 						
 						JOptionPane.showMessageDialog(null, message, "Descarga", JOptionPane.INFORMATION_MESSAGE, imageIcon);
 					} catch (Exception e1){
 						e1.printStackTrace();
-						image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+						image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 						imageIcon = new ImageIcon(image);
 						message = "Error al generar";
 						

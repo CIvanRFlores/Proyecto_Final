@@ -63,7 +63,7 @@ public class InventoryView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new BorderLayout(15, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -124,7 +124,7 @@ public class InventoryView {
 		
 		RoundPanel searchByBttnPnl = new RoundPanel(30);  
 		searchByBttnPnl.setBackground(Color.white);
-		searchByBttnPnl.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15)); 
+		searchByBttnPnl.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); 
 		searchByBttnPnl.setForeground(Color.decode("#244E23")); 
 		searchByBttnPnl.setLayout(new BorderLayout());
 		searchBarBttnPnl.add(searchByBttnPnl);
@@ -363,8 +363,18 @@ public class InventoryView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				ic.inventory();
+				Object[] options = {"Volver","Salir"};
+				
+				image = new ImageIcon(InventoryView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				message = "Todos los cambios se perderán.";
+				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				
+				if(opc==1) {
+					frame.dispose();
+					ic.inventory();
+				}
 			}
 		});
 		
@@ -377,7 +387,12 @@ public class InventoryView {
 		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		    }
 		});
-				
+		
+		
+		InventoryFormPanel form = new InventoryFormPanel(frame);
+		JPanel formPanel = form.createInventoryForm();
+		mainPnl.add(formPanel, BorderLayout.CENTER); 
+		
 		
 		RoundButton newInv = new RoundButton(30);
 		newInv.setBackground(Color.decode("#2EA623"));
@@ -389,8 +404,10 @@ public class InventoryView {
 		newInv.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				ic.inventory();
+				if(!form.invFormEmptyFields()) {
+					frame.dispose();
+					ic.inventory();
+				}
 			}
 		});
 		
@@ -403,12 +420,6 @@ public class InventoryView {
 		    	newInv.setBackground(Color.decode("#2EA623"));
 		    }
 		});
-		
-		
-		InventoryFormPanel form = new InventoryFormPanel(frame);
-		JPanel formPanel = form.createInventoryForm();
-		mainPnl.add(formPanel, BorderLayout.CENTER); 
-		
 	
 		frame.setVisible(true);
 	}
@@ -424,7 +435,7 @@ public class InventoryView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -433,12 +444,12 @@ public class InventoryView {
 		inventoryLbl.setForeground(Color.decode("#244E23")); 
 		inventoryLbl.setHorizontalAlignment(JLabel.LEFT); 
 		inventoryLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(inventoryLbl);
+		headerPnl.add(inventoryLbl, BorderLayout.NORTH);
 				
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(actionPnl, BorderLayout.EAST);
 		
 		actionPnl.add(Box.createHorizontalStrut(0));
 		actionPnl.add(Box.createHorizontalStrut(0));
@@ -453,8 +464,18 @@ public class InventoryView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				ic.inventory();
+				Object[] options = {"Volver","Salir"};
+				
+				image = new ImageIcon(InventoryView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				imageIcon = new ImageIcon(image);
+				
+				message = "Todos los cambios se perderán.";
+				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				
+				if(opc==1) {
+					frame.dispose();
+					ic.inventory();
+				}
 			}
 		});
 		
@@ -467,7 +488,12 @@ public class InventoryView {
 		    	cancelBttn.setBackground(Color.decode("#EF2D2D"));
 		    }
 		});
-				
+		
+		
+		InventoryFormPanel form = new InventoryFormPanel(frame);
+		JPanel formPanel = form.createInventoryForm();
+		mainPnl.add(formPanel, BorderLayout.CENTER); 
+		
 		
 		RoundButton saveBttn = new RoundButton(30);
 		saveBttn.setBackground(Color.decode("#555BF6"));
@@ -479,8 +505,10 @@ public class InventoryView {
 		saveBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				ic.inventory();
+				if(!form.invFormEmptyFields()) {
+					frame.dispose();
+					ic.inventory();
+				}
 			}
 		});
 		
@@ -493,7 +521,6 @@ public class InventoryView {
 		    	saveBttn.setBackground(Color.decode("#555BF6"));
 		    }
 		});
-		
 		
 		frame.setVisible(true);
 	}
