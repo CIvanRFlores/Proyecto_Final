@@ -11,14 +11,14 @@ import customClasses.*;
 
 public class InventoryView {
 
-	public JFrame frame;
-	public JPanel mainPnl;
-	public Image image;
-	public ImageIcon imageIcon;
-	public String message;
-	public int relativeXSize;
-	public int relativeYSize;
-	public InventoryController ic;
+	JFrame frame;
+	JPanel mainPnl;
+	Image image;
+	ImageIcon imageIcon;
+	String message;
+    int relativeXSize;
+	int relativeYSize;
+	InventoryController ic;
 	
 	public InventoryView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
@@ -81,7 +81,7 @@ public class InventoryView {
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
 		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
 		
-		image = new ImageIcon(DishView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		image = new ImageIcon(InventoryView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
@@ -124,25 +124,27 @@ public class InventoryView {
 		
 		RoundPanel searchByBttnPnl = new RoundPanel(30);  
 		searchByBttnPnl.setBackground(Color.white);
-		searchByBttnPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
+		searchByBttnPnl.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15)); 
 		searchByBttnPnl.setForeground(Color.decode("#244E23")); 
-		searchByBttnPnl.setLayout(new BorderLayout(15, 0));
+		searchByBttnPnl.setLayout(new BorderLayout());
 		searchBarBttnPnl.add(searchByBttnPnl);
 		
 		String type[] = {"Código", "Nombre", "Cantidad"};
 		
 		JComboBox<String> searchByCmbBx = new JComboBox<>(type);
 		searchByCmbBx.setBorder(null); 
+		searchByCmbBx.setBackground(Color.white);
 		searchByCmbBx.setForeground(Color.decode("#244E23")); 
-		searchByCmbBx.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
+		searchByCmbBx.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
 		searchByCmbBx.setOpaque(false);
 		searchByCmbBx.setUI(new BasicComboBoxUI());
-		searchByBttnPnl.add(searchByCmbBx);
+		searchByBttnPnl.add(searchByCmbBx, BorderLayout.CENTER);
 		
 		searchBarBttnPnl.add(Box.createHorizontalStrut(0));
 		
+		
 		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 6, 15, 0));
+		actionPnl.setLayout(new GridLayout(1, 6, 20, 0));
 		actionPnl.setOpaque(false); 
 		headerPnl.add(actionPnl, BorderLayout.SOUTH);
 		
@@ -162,7 +164,7 @@ public class InventoryView {
 				
 				Object[] options = {"Volver", "Eliminar"};
 				
-				image = new ImageIcon(DishView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+				image = new ImageIcon(InventoryView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 				imageIcon = new ImageIcon(image);
 				
 				String message = "Esta acción no se puede deshacer.";
@@ -315,7 +317,7 @@ public class InventoryView {
 	}
 	
 	public void searchIngredient() {
-		image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
+		image = new ImageIcon(InventoryView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
 			imageIcon = new ImageIcon(image);
 			
 		message = "Ingrediente no encontrado";
@@ -332,7 +334,7 @@ public class InventoryView {
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
 		JPanel headerPnl = new JPanel();
-		headerPnl.setLayout(new GridLayout(2, 1, 0, 15));
+		headerPnl.setLayout(new BorderLayout(20, 15));
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
@@ -341,12 +343,12 @@ public class InventoryView {
 		inventoryLbl.setForeground(Color.decode("#244E23")); 
 		inventoryLbl.setHorizontalAlignment(JLabel.LEFT); 
 		inventoryLbl.setHorizontalAlignment(SwingConstants.LEFT); 
-		headerPnl.add(inventoryLbl);
+		headerPnl.add(inventoryLbl, BorderLayout.NORTH);
 				
 		JPanel actionPnl = new JPanel();
 		actionPnl.setLayout(new GridLayout(1, 4, 20, 0));
 		actionPnl.setOpaque(false); 
-		headerPnl.add(actionPnl);
+		headerPnl.add(actionPnl, BorderLayout.EAST);
 		
 		actionPnl.add(Box.createHorizontalStrut(0));
 		actionPnl.add(Box.createHorizontalStrut(0));
@@ -401,6 +403,12 @@ public class InventoryView {
 		    	newInv.setBackground(Color.decode("#2EA623"));
 		    }
 		});
+		
+		
+		InventoryFormPanel form = new InventoryFormPanel(frame);
+		JPanel formPanel = form.createInventoryForm();
+		mainPnl.add(formPanel, BorderLayout.CENTER); 
+		
 	
 		frame.setVisible(true);
 	}
@@ -485,7 +493,8 @@ public class InventoryView {
 		    	saveBttn.setBackground(Color.decode("#555BF6"));
 		    }
 		});
-	
+		
+		
 		frame.setVisible(true);
 	}
 	
