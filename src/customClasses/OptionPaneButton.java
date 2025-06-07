@@ -33,6 +33,17 @@ public class OptionPaneButton {
 		JOptionPane optionPane = new JOptionPane(optionPaneMessage, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon);
 		JDialog dialog = optionPane.createDialog(null, dialogTitle);
 
+		dialog.requestFocus();
+		dialog.setFocusable(true);
+		dialog.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c=='\n'){
+		        	dialog.dispose();
+		    }
+		}});
+		
 		
 		RoundButton cancelBttn = new RoundButton(30);
 		cancelBttn.setBackground(Color.decode("#999999"));
@@ -102,6 +113,17 @@ public class OptionPaneButton {
 		JOptionPane optionPane = new JOptionPane(optionPaneMessage, JOptionPane.INFORMATION_MESSAGE, JOptionPane.PLAIN_MESSAGE, imageIcon);
 		JDialog dialog = optionPane.createDialog(null, dialogTitle);
 
+		dialog.requestFocus();
+		dialog.setFocusable(true);
+		dialog.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c=='\n'){
+		        	dialog.dispose();
+		    }
+		}});
+		
 		
 		RoundButton okBttn = new RoundButton(30);
 		okBttn.setBackground(Color.decode("#999999"));
@@ -140,6 +162,17 @@ public class OptionPaneButton {
 		JOptionPane optionPane = new JOptionPane(optionPaneMessage, JOptionPane.INFORMATION_MESSAGE, JOptionPane.PLAIN_MESSAGE, imageIcon);
 		JDialog dialog = optionPane.createDialog(null, dialogTitle);
 
+		dialog.requestFocus();
+		dialog.setFocusable(true);
+		dialog.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c=='\n'){
+		        	dialog.dispose();
+		    }
+		}});
+		
 		
 		RoundButton dishBttn = new RoundButton(30);
 		dishBttn.setBackground(Color.decode("#244E23"));
@@ -170,7 +203,7 @@ public class OptionPaneButton {
 		drinkBttn.setBackground(Color.decode("#306572"));
 		drinkBttn.setFont(new Font("Caladea Bold", Font.BOLD, 12));
 		drinkBttn.setForeground(Color.white);
-		drinkBttn.setText("Bebida");
+		drinkBttn.setText(" Bebida ");
 		
 		drinkBttn.addActionListener(new ActionListener() {
 			@Override
@@ -206,6 +239,17 @@ public class OptionPaneButton {
 		JOptionPane optionPane = new JOptionPane(optionPaneMessage, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon);
 		JDialog dialog = optionPane.createDialog(null, dialogTitle);
 
+		dialog.requestFocus();
+		dialog.setFocusable(true);
+		dialog.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c=='\n'){
+		        	dialog.dispose();
+		    }
+		}});
+		
 		
 		RoundButton cancelBttn = new RoundButton(30);
 		cancelBttn.setBackground(Color.decode("#999999"));
@@ -275,6 +319,17 @@ public class OptionPaneButton {
 		JOptionPane optionPane = new JOptionPane(optionPaneMessage, JOptionPane.INFORMATION_MESSAGE, JOptionPane.PLAIN_MESSAGE, imageIcon);
 		JDialog dialog = optionPane.createDialog(null, dialogTitle);
 
+		dialog.requestFocus();
+		dialog.setFocusable(true);
+		dialog.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c=='\n'){
+		        	dialog.dispose();
+		    }
+		}});
+		
 		
 		RoundButton noBttn = new RoundButton(30);
 		noBttn.setBackground(Color.decode("#999999"));
@@ -345,6 +400,17 @@ public class OptionPaneButton {
 		JOptionPane optionPane = new JOptionPane(optionPaneMessage, JOptionPane.INFORMATION_MESSAGE, JOptionPane.PLAIN_MESSAGE, imageIcon);
 		JDialog dialog = optionPane.createDialog(null, dialogTitle);
 
+		dialog.requestFocus();
+		dialog.setFocusable(true);
+		dialog.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c=='\n'){
+		        	dialog.dispose();
+		    }
+		}});
+		
 		
 		RoundButton okBttn = new RoundButton(30);
 		okBttn.setBackground(Color.decode("#999999"));
@@ -383,6 +449,17 @@ public class OptionPaneButton {
 		JOptionPane optionPane = new JOptionPane(optionPaneMessage, JOptionPane.INFORMATION_MESSAGE, JOptionPane.PLAIN_MESSAGE, imageIcon);
 		JDialog dialog = optionPane.createDialog(null, dialogTitle);
 
+		dialog.requestFocus();
+		dialog.setFocusable(true);
+		dialog.addKeyListener(new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c=='\n'){
+		        	dialog.dispose();
+		    }
+		}});
+		
 		
 		RoundButton okBttn = new RoundButton(30);
 		okBttn.setBackground(Color.decode("#999999"));

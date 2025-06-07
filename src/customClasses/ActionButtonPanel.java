@@ -74,15 +74,10 @@ public class ActionButtonPanel extends JPanel{
 		deleteBttn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	Object[] options = {"Volver", "Eliminar"};
+            	OptionPaneButton option = new OptionPaneButton("Borrar cliente", "Esta acción no se puede deshacer.", "Eliminar");
+				int opt = option.destructiveOptionPane();
 				
-				image = new ImageIcon(ActionButtonPanel.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				String message = "Esta acción no se puede deshacer.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Borrar cliente", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1)
+				if(opt==1)
 					event.onDelete(row);
             }
         });

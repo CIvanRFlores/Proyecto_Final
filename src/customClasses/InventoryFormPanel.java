@@ -126,15 +126,22 @@ public class InventoryFormPanel {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
 		        char c = e.getKeyChar();
-		        if (!Character.isDigit(c)) {
+		        if(!Character.isDigit(c) || getQuantityTxtFld().substring(0).equals("0")) {
 		            e.consume();
+		            
+		           if(getQuantityTxtFld().substring(0).equals("0")) {
+		        	   setQuantityTxtFld("");
+		           }
+		        }
+		        	
 		    }
-		}});
+		});
 		
 		inventoryPnl.add(Box.createHorizontalStrut(0));
 		
 		inventoryPnl.add(Box.createHorizontalStrut(0));
 		inventoryPnl.add(Box.createHorizontalStrut(0));
+		
 		inventoryPnl.add(Box.createHorizontalStrut(0));
 		inventoryPnl.add(Box.createHorizontalStrut(0));
 		
@@ -169,12 +176,9 @@ public class InventoryFormPanel {
 		String code = getCodeTxtFld();
 		String quantity = getQuantityTxtFld(); 
 		
-		if(name.equals("") || code.equals("") || quantity.equals("")) {
-			image = new ImageIcon(ClientFormPanel.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-			imageIcon = new ImageIcon(image);
-				
-			String message = "Complete los campos para guardar la información.";
-			JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+		if(name.equals("") || code.equals("") || quantity.equals("") || quantity.equals("0")) {
+			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");
+			option.warningOptionPane();
 			
 			return true;
 		}else {
@@ -204,8 +208,8 @@ public class InventoryFormPanel {
 		this.codeTxtFld.setText(code);
 	}
 	
-	public void setquantityTxtFld(int quantity) {
-		this.quantityTxtFld.setText(Integer.toString(quantity));
+	public void setQuantityTxtFld(String quantity) {
+		this.quantityTxtFld.setText(quantity);
 	}
 	
 }

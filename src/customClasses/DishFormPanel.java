@@ -7,8 +7,6 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import views.ClientView;
-
 public class DishFormPanel {
 	
 	JFrame frame;
@@ -37,6 +35,7 @@ public class DishFormPanel {
 	public JPanel createDishForm() {
 		JPanel newDishPnl = new JPanel();
 		newDishPnl.setBackground(Color.white);
+		newDishPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
 		newDishPnl.setLayout(new GridLayout(2, 1, 30, 30));
 		
 		JPanel infoPnl = new JPanel();
@@ -80,7 +79,7 @@ public class DishFormPanel {
 		
 		nameTxtFld = new JTextField("");
 		nameTxtFld.setBorder(null);
-		nameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
+		nameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 20)); 
 		nameTxtFld.setForeground(Color.decode("#244E23"));
 		nameTxtFld.setOpaque(false); 
 		nameTxtFldPnl.add(nameTxtFld, BorderLayout.CENTER);
@@ -110,7 +109,7 @@ public class DishFormPanel {
 		
 		priceTxtFld = new JTextField("");
 		priceTxtFld.setBorder(null);
-		priceTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 16)); 
+		priceTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 20)); 
 		priceTxtFld.setForeground(Color.decode("#244E23"));
 		priceTxtFld.setOpaque(false); 
 		priceTxtFldPnl.add(priceTxtFld, BorderLayout.CENTER);
@@ -119,10 +118,15 @@ public class DishFormPanel {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
 		        char c = e.getKeyChar();
-		        if (!Character.isDigit(c)) {
+		        if(!Character.isDigit(c) || getPriceTxtFld().substring(0).equals("0")) {
 		            e.consume();
+		            
+		           if(getPriceTxtFld().substring(0).equals("0")) {
+		        	   setPriceTxtFld("");
+		           }
+		        }
 		    }
-		}});
+		});
 		
 		
 		JPanel rightInfoPnl = new JPanel();
@@ -187,7 +191,7 @@ public class DishFormPanel {
 		
 		dishDescText = new JTextArea("");
 		dishDescText.setForeground(Color.decode("#244E23"));
-		dishDescText.setFont(new Font("Caladea Bold", Font.BOLD, 16));
+		dishDescText.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		dishDescText.setLineWrap(true); 
 		dishDescText.setWrapStyleWord(true); 
 		dishDescText.setOpaque(false);
@@ -213,7 +217,7 @@ public class DishFormPanel {
             	priceLbl.setFont(font);
             	descriptionLbl.setFont(font);
             	
-            	relativeXSize = (int) (frame.getHeight()*0.016);
+            	relativeXSize = (int) (frame.getHeight()*0.02);
             	font = new Font("Caladea Bold", Font.BOLD, relativeXSize);
             	nameTxtFld.setFont(font); 
             	priceTxtFld.setFont(font); 
@@ -248,19 +252,31 @@ public class DishFormPanel {
 	public JPanel createIngredientsForm() {
 		JPanel newDishPnl = new JPanel();
 		newDishPnl.setBackground(Color.white);
-		newDishPnl.setLayout(new GridLayout(2, 2, 30, 30));
+		newDishPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
+		newDishPnl.setLayout(new GridLayout(4, 2, 30, 10));
 		
-		
-		JPanel topLeftPnl = new JPanel();
-		topLeftPnl.setLayout(new BorderLayout(0, 20));
-		topLeftPnl.setOpaque(false);
-		newDishPnl.add(topLeftPnl);
 		
 		JLabel topLeftLbl = new JLabel(dishType.equals("platillo")?"Proteínas:" : "Base:");
 		topLeftLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		topLeftLbl.setForeground(Color.decode("#244E23")); 
 		topLeftLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		topLeftPnl.add(topLeftLbl, BorderLayout.NORTH);
+		topLeftLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
+		newDishPnl.add(topLeftLbl, BorderLayout.NORTH);
+		
+		JLabel topRightLbl = new JLabel(dishType.equals("platillo")?"Vegetales:" : "Jugo:");
+		topRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
+		topRightLbl.setForeground(Color.decode("#244E23")); 
+		topRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		topRightLbl.setVerticalAlignment(SwingConstants.BOTTOM);
+		newDishPnl.add(topRightLbl, BorderLayout.NORTH);
+		
+		
+		RoundPanel topLeftPnl = new RoundPanel(30);  
+		topLeftPnl.setBackground(Color.white);
+		topLeftPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		topLeftPnl.setForeground(Color.decode("#244E23")); 
+		topLeftPnl.setLayout(new BorderLayout());
+		newDishPnl.add(topLeftPnl);
 		
 		String ingredients[] = { "Maíz", "Camarón", "Papa", "Mantequilla", "Aceite", "Camote", "Tomate", "Agua"};
 		
@@ -277,16 +293,12 @@ public class DishFormPanel {
 		topLeftPnl.add(topLeftScrollPane, BorderLayout.CENTER);
 		
 		
-		JPanel topRightPnl = new JPanel();
-		topRightPnl.setLayout(new BorderLayout(0, 20));
-		topRightPnl.setOpaque(false);
+		RoundPanel topRightPnl = new RoundPanel(30);  
+		topRightPnl.setBackground(Color.white);
+		topRightPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		topRightPnl.setForeground(Color.decode("#244E23")); 
+		topRightPnl.setLayout(new BorderLayout());
 		newDishPnl.add(topRightPnl);
-		
-		JLabel topRightLbl = new JLabel(dishType.equals("platillo")?"Vegetales:" : "Jugo:");
-		topRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
-		topRightLbl.setForeground(Color.decode("#244E23")); 
-		topRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		topRightPnl.add(topRightLbl, BorderLayout.NORTH);
 		
 		topRightCmbBx = new JList<>(ingredients);
 		topRightCmbBx.setForeground(Color.decode("#244E23")); 
@@ -301,16 +313,27 @@ public class DishFormPanel {
 		topRightPnl.add(topRightScrollPane, BorderLayout.CENTER);
 		
 		
-		JPanel bottomLeftPnl = new JPanel();
-		bottomLeftPnl.setLayout(new BorderLayout(0, 20));
-		bottomLeftPnl.setOpaque(false);
-		newDishPnl.add(bottomLeftPnl);
-		
 		JLabel bottomLeftLbl = new JLabel(dishType.equals("platillo")?"Carbohidratos:" : "Licor:");
 		bottomLeftLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		bottomLeftLbl.setForeground(Color.decode("#244E23")); 
 		bottomLeftLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		bottomLeftPnl.add(bottomLeftLbl, BorderLayout.NORTH);
+		bottomLeftLbl.setVerticalAlignment(SwingConstants.BOTTOM);
+		newDishPnl.add(bottomLeftLbl, BorderLayout.NORTH);
+		
+		JLabel bottomRightLbl = new JLabel(dishType.equals("platillo")?"Especias:" : "Extra:");
+		bottomRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
+		bottomRightLbl.setForeground(Color.decode("#244E23")); 
+		bottomRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		bottomRightLbl.setVerticalAlignment(SwingConstants.BOTTOM);
+		newDishPnl.add(bottomRightLbl, BorderLayout.NORTH);
+		
+		
+		RoundPanel bottomLeftPnl = new RoundPanel(30);  
+		bottomLeftPnl.setBackground(Color.white);
+		bottomLeftPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		bottomLeftPnl.setForeground(Color.decode("#244E23")); 
+		bottomLeftPnl.setLayout(new BorderLayout());
+		newDishPnl.add(bottomLeftPnl);
 		
 		bottomLeftCmbBx = new JList<>(ingredients);
 		bottomLeftCmbBx.setForeground(Color.decode("#244E23")); 
@@ -325,16 +348,12 @@ public class DishFormPanel {
 		bottomLeftPnl.add(bottomLeftScrollPane, BorderLayout.CENTER);
 		
 		
-		JPanel bottomRightPnl = new JPanel();
-		bottomRightPnl.setLayout(new BorderLayout(0, 20));
-		bottomRightPnl.setOpaque(false);
+		RoundPanel bottomRightPnl = new RoundPanel(30);  
+		bottomRightPnl.setBackground(Color.white);
+		bottomRightPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		bottomRightPnl.setForeground(Color.decode("#244E23")); 
+		bottomRightPnl.setLayout(new BorderLayout());
 		newDishPnl.add(bottomRightPnl);
-		
-		JLabel bottomRightLbl = new JLabel(dishType.equals("platillo")?"Especias:" : "Extra:");
-		bottomRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
-		bottomRightLbl.setForeground(Color.decode("#244E23")); 
-		bottomRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		bottomRightPnl.add(bottomRightLbl, BorderLayout.NORTH);
 		
 		bottomRightCmbBx = new JList<>(ingredients);
 		bottomRightCmbBx.setForeground(Color.decode("#244E23")); 
@@ -362,7 +381,14 @@ public class DishFormPanel {
             	topLeftCmbBx.setFont(font);
             	topRightCmbBx.setFont(font);
             	bottomLeftCmbBx.setFont(font);
-            	bottomRightCmbBx.setFont(font);    
+            	bottomRightCmbBx.setFont(font); 
+            	
+            	relativeXSize = (int) (frame.getHeight()*0.01);
+       			Border border = BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize);
+       			topLeftPnl.setBorder(border);
+       			topRightPnl.setBorder(border);
+       			bottomLeftPnl.setBorder(border);
+       			bottomRightPnl.setBorder(border);
        			
        			frame.repaint();
             }
@@ -377,12 +403,10 @@ public class DishFormPanel {
 		String price = getPriceTxtFld();
 		String description = getDishDescText(); 
 		
-		if(name.equals("") || price.equals("") || description.equals("")) {
-			image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-			imageIcon = new ImageIcon(image);
-				
-			String message = "Complete los campos para guardar la información.";
-			JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+		if(name.equals("") || price.equals("") || price.equals("0") || description.equals("")) {
+			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");
+			option.warningOptionPane();
+			
 			return true;
 		}else { 
 			return false;
@@ -396,11 +420,8 @@ public class DishFormPanel {
 		String bottomRight = getBottomRightCmbBx(); 
 		
 		if(topLeft.equals("[]") || topRight.equals("[]") || bottomLeft.equals("[]") || bottomRight.equals("[]")) {
-			image = new ImageIcon(DishFormPanel.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-			imageIcon = new ImageIcon(image);
-				
-			String message = "Seleccione los ingredientes para guardar la información.";
-			JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Seleccione los ingredientes para guardar la información.");
+			option.warningOptionPane();
 			
 			return true;
 		}else { 

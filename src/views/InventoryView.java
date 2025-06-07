@@ -19,6 +19,8 @@ public class InventoryView {
     int relativeXSize;
 	int relativeYSize;
 	InventoryController ic;
+	OptionPaneButton optionPane;
+	int opt;
 	
 	public InventoryView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); //crear JFrame	
@@ -51,6 +53,7 @@ public class InventoryView {
        			frame.repaint();
             }
         });
+		
 	}
 	
 	public void inventory() {
@@ -161,16 +164,12 @@ public class InventoryView {
 		
 		deleteBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				optionPane = new OptionPaneButton("Borrar inventario", "Esta acción no se puede deshacer.", "Eliminar");
+				opt = optionPane.destructiveOptionPane();
 				
-				Object[] options = {"Volver", "Eliminar"};
-				
-				image = new ImageIcon(InventoryView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				String message = "Esta acción no se puede deshacer.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Borrar inventario", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				//simular eliminado
+				if(opt==1) {
+					System.out.println("Registro eliminado");
 				}
 			}
 		});
@@ -317,11 +316,8 @@ public class InventoryView {
 	}
 	
 	public void searchIngredient() {
-		image = new ImageIcon(InventoryView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-			imageIcon = new ImageIcon(image);
-			
-		message = "Ingrediente no encontrado";
-		JOptionPane.showMessageDialog(null, message, "Inventario", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+		optionPane = new OptionPaneButton("Inventario no encontrado", "No se ha encontrado ningún Inventario.");
+		optionPane.warningOptionPane();
 	}
 	
 	public void newInventory() {
@@ -329,7 +325,7 @@ public class InventoryView {
 		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
-		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
+		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45));   
 		mainPnl.setLayout(new BorderLayout());
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
@@ -363,15 +359,10 @@ public class InventoryView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object[] options = {"Volver","Salir"};
+				optionPane = new OptionPaneButton("Volver a menú", "Todos los cambios se perderán.", "  Salir  ");
+				opt = optionPane.destructiveOptionPane();
 				
-				image = new ImageIcon(InventoryView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				message = "Todos los cambios se perderán.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				if(opt==1) {
 					frame.dispose();
 					ic.inventory();
 				}
@@ -464,15 +455,10 @@ public class InventoryView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object[] options = {"Volver","Salir"};
+				optionPane = new OptionPaneButton("Volver a menú", "Todos los cambios se perderán.", "  Salir  ");
+				opt = optionPane.destructiveOptionPane();
 				
-				image = new ImageIcon(InventoryView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				message = "Todos los cambios se perderán.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				if(opt==1) {
 					frame.dispose();
 					ic.inventory();
 				}

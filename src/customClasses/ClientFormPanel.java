@@ -148,7 +148,7 @@ public class ClientFormPanel {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
 		        char c = e.getKeyChar();
-		        if (!Character.isDigit(c)) {
+		        if (!Character.isDigit(c) || getPhoneTxtFld().length()+1>10) {
 		            e.consume();
 		    }
 		}});
@@ -408,11 +408,8 @@ public class ClientFormPanel {
 		
 		if(name.equals("") || surname.equals("") || countryCode.equals("") || phone.equals("") || email.equals("") || 
 		   adress1.equals("") || city.equals("") || state.equals("") || code.equals("")) {
-			image = new ImageIcon(ClientFormPanel.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-			imageIcon = new ImageIcon(image);
-				
-			String message = "Complete los campos para guardar la información.";
-			JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");
+			option.warningOptionPane();
 			
 			return true;
 		}else {

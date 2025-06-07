@@ -11,15 +11,17 @@ import controllers.DishController;
 import customClasses.*;
 
 public class DishView {
-	public JFrame frame;
-	public JPanel mainPnl;
-	public Image image;
-	public ImageIcon imageIcon;
-	public String message;
-	public String currentWindow;
-	public int relativeXSize;
-	public int relativeYSize;
-	public DishController dc;
+	JFrame frame;
+	JPanel mainPnl;
+	Image image;
+	ImageIcon imageIcon;
+	String message;
+	String currentWindow;
+	int relativeXSize;
+	int relativeYSize;
+	DishController dc;
+	OptionPaneButton optionPane;
+	int opt;
 	
 	public DishView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -134,19 +136,14 @@ public class DishView {
 		addBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object[] options = {"Platillo", "Bebida"};
+				optionPane = new OptionPaneButton("Alimentos y bebidas", "¿Desea crear un platillo o bebida?");
+				opt = optionPane.dishOptionPane();
 				
-				image = new ImageIcon(DishView.class.getResource("/images/questionMark.png")).getImage().getScaledInstance(25, 45, Image.SCALE_SMOOTH); //imagen
-				imageIcon = new ImageIcon(image);
-				
-				message = "¿Desea crear un platillo o bebida?";
-				int opc = JOptionPane.showOptionDialog(null, message, "Alimentos y bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null); //ventana emergente
-				
-				if(opc==0) {
+				if(opt==1) {
 					frame.dispose();
 					dc.newDish("platillo");
 				} 
-				else if(opc==1){
+				else if(opt==2){
 					frame.dispose();
 					dc.newDish("bebida");
 				}
@@ -237,15 +234,10 @@ public class DishView {
 		
 		cancelBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				Object[] options = {"Volver", "Salir"};
+				optionPane = new OptionPaneButton("Volver a menú", "Todos los cambios se perderán.", "  Salir  ");
+				opt = optionPane.destructiveOptionPane();
 				
-				image = new ImageIcon(ActionButtonPanel.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				String message = "Todos los cambios se perderán.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				if(opt==1) {
 					frame.dispose();
 					dc.dishes();
 				}
@@ -278,13 +270,8 @@ public class DishView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.ingredientFormEmptyFields()) {
-					System.out.println(form.getTopLeftCmbBx());
-					image = new ImageIcon(AuthView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-	   				imageIcon = new ImageIcon(image);
-	   				
-					message = type.equals("platillo")?type+" creado correctamente." : type+" creada correctamente.";
-					message = message.substring(0, 1).toUpperCase() + message.substring(1);
-					JOptionPane.showMessageDialog(null, message, "Acción exitosa", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+					optionPane = new OptionPaneButton("Acción exitosa", type.equals("platillo")? "Platillo creado correctamente." : "Bebida creada correctamente.");
+					optionPane.checkOptionPane();
 					
 					frame.dispose();
 					dc.dishes();
@@ -341,12 +328,9 @@ public class DishView {
 		frame.setVisible(true);
 	}
 	
-	public void searchDish() {
-		image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-			imageIcon = new ImageIcon(image);
-			
-		message = "Platillo no encontrado";
-		JOptionPane.showMessageDialog(null, message, "Platillo", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+	public void searchDish() { 
+		optionPane = new OptionPaneButton("Platillo no encontrado", "No se ha encontrado ningún platillo.");
+		optionPane.warningOptionPane();
 	}
 	
 	public void dishPage(String type) {
@@ -386,16 +370,10 @@ public class DishView {
 		
 		deleteBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				optionPane = new OptionPaneButton("Borrar "+type, "Esta acción no se puede deshacer.", "Eliminar");
+				opt = optionPane.destructiveOptionPane();
 				
-				Object[] options = {"Volver", "Eliminar"};
-				
-				image = new ImageIcon(DishView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				String message = "Esta acción no se puede deshacer.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Borrar "+type, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				if(opt==1) {
 					frame.dispose();
 					dc.dishes();
 				}
@@ -595,15 +573,10 @@ public class DishView {
 		
 		cancelBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				Object[] options = {"Volver", "Salir"};
+				optionPane = new OptionPaneButton("Volver a menú", "Todos los cambios se perderán.", "  Salir  ");
+				opt = optionPane.destructiveOptionPane();
 				
-				image = new ImageIcon(ActionButtonPanel.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				String message = "Todos los cambios se perderán.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				if(opt==1) {
 					frame.dispose();
 					dc.dishes();
 				}
@@ -623,7 +596,6 @@ public class DishView {
 		
 		DishFormPanel form = new DishFormPanel(frame, type);
 		JPanel formPanel = form.createDishForm();
-		formPanel.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
 		mainPnl.add(formPanel, BorderLayout.CENTER);
 		
 		RoundButton saveBttn = new RoundButton(30);
@@ -636,12 +608,8 @@ public class DishView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.ingredientFormEmptyFields()) {
-					System.out.println(form.getTopLeftCmbBx());
-					image = new ImageIcon(AuthView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-	   				imageIcon = new ImageIcon(image);
-	   				
-					message = type.equals("platillo")?type+" actualizado correctamente." : type+" actualizado correctamente.";
-					JOptionPane.showMessageDialog(null, message, "Acción exitosa", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+					optionPane = new OptionPaneButton("Acción exitosa", type.equals("platillo")? "Platillo actualizado correctamente." : "Bebida actualizada correctamente.");
+	   				optionPane.checkOptionPane();
 					
 					frame.dispose();
 					dc.dishes();
@@ -670,7 +638,6 @@ public class DishView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JPanel formPanel2 = form.createIngredientsForm();
-				formPanel2.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0));
 				
 				if(!form.dishFormEmptyFields()) {
 					mainPnl.remove(formPanel);

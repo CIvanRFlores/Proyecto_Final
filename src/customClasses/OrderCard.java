@@ -84,13 +84,12 @@ public class OrderCard {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-   				Object[] options = {"Volver","Eliminar"};
+				OptionPaneButton option = new OptionPaneButton("Eliminar pedido", "Esta acción no se puede deshacer.", "Eliminar");
+				int opt = option.destructiveOptionPane();
 				
-				image = new ImageIcon("src/images/errorCircle.png").getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				message = "Esta acción no se puede deshacer.";
-				JOptionPane.showOptionDialog(null, message,"Cancelar órden", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				if(opt==1) {
+					
+				}
 			}
 		});
 		 
@@ -115,13 +114,12 @@ public class OrderCard {
 		payBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-   				Object[] options = {"No","Descargar"};
+				OptionPaneButton option = new OptionPaneButton("Pago exitoso", "¿Desea descargar detalles de la órden?");
+				int opt = option.downloadOptionPane();
 				
-				image = new ImageIcon("src/images/checkCircle.png").getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				message = "¿Desea descargar detalles de la órden?";
-				JOptionPane.showOptionDialog(null, message,"Pago exitoso", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
+				if(opt==1) {
+					
+				}
 			}
 		});
 		

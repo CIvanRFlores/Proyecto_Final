@@ -11,14 +11,15 @@ import customClasses.*;
 
 public class OrderView {
 
-	public JFrame frame;
-	public JPanel mainPnl;
-	public Image image;
-	public ImageIcon imageIcon;
-	public String message;
-	public int relativeXSize;
-	public int relativeYSize;
-	public OrderController oc;
+	JFrame frame;
+	JPanel mainPnl;
+	Image image;
+	ImageIcon imageIcon;
+	
+	String message;
+	int relativeXSize;
+	int relativeYSize;
+	OrderController oc;
 	
 	public OrderView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -212,11 +213,8 @@ public class OrderView {
 	}
 	
 	public void searchOrder() {
-		image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-		imageIcon = new ImageIcon(image);
-			
-		message = "Mesa no encontrada";
-		JOptionPane.showMessageDialog(null, message, "Orden", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+		OptionPaneButton optionPane = new OptionPaneButton("Órden no encontrada", "No se ha encontrado ninguna órden.");
+		optionPane.warningOptionPane();
 	}
 	
 	public void newOrder() {

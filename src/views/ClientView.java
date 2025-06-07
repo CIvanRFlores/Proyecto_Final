@@ -18,15 +18,17 @@ import models.Client;
 
 public class ClientView {
 
-	public JFrame frame; 
-	public JPanel mainPnl;
-	public Image image;
-	public ImageIcon imageIcon;
-	public String message;
-	public String currentWindow;
-	public int relativeXSize;
-	public int relativeYSize;
-	public ClientController cc;
+	JFrame frame; 
+	JPanel mainPnl;
+	Image image;
+	ImageIcon imageIcon;
+	String message;
+	String currentWindow;
+	int relativeXSize;
+	int relativeYSize;
+	ClientController cc;
+	OptionPaneButton optionPane;
+	int opt;
 	
 	public ClientView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -117,16 +119,11 @@ public class ClientView {
 		searchBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(searchTxtFld.getText().equals(""))
-				{
-					image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-					imageIcon = new ImageIcon(image);
-					message = "Campo no llenado";
-					
-					JOptionPane.showMessageDialog(null, message, "Cliente", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+				if(searchTxtFld.getText().equals("")) {
+					optionPane = new OptionPaneButton("Cliente", "Campo sin completar.");
+					optionPane.errorOptionPane();
 				}
-				else
-				{
+				else{
 					frame.dispose();
 					cc.searchClient(searchTxtFld.getText());					
 				}
@@ -268,12 +265,8 @@ public class ClientView {
 		Object[][] clients = cc.searchClientsTable(searchText);
 		
 		if(clients.length <= 0)	{ //Condicional que verifica si se encontraron clientes o no
-		
-			image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-			imageIcon = new ImageIcon(image);
-			message = "Cliente no encontrado";
-			
-			JOptionPane.showMessageDialog(null, message, "Cliente", JOptionPane.INFORMATION_MESSAGE, imageIcon);
+			optionPane = new OptionPaneButton("Cliente no encontrado", "No se ha encontrado ningún cliente.");
+			optionPane.warningOptionPane();
 		}else {
 			for(Object[] row : clients) {	//Inserta clientes de la base de datos a la tabla
 				tableModel.addRow(row);
@@ -366,15 +359,10 @@ public class ClientView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object[] options = {"Volver","Salir"};
+				optionPane = new OptionPaneButton("Volver a menú", "Todos los cambios se perderán.", "  Salir  ");
+				opt = optionPane.destructiveOptionPane();
 				
-				image = new ImageIcon(ClientView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				message = "Todos los cambios se perderán.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				if(opt==1) {
 					frame.dispose();
 					cc.clients();
 				}
@@ -408,16 +396,12 @@ public class ClientView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.clientFormEmptyFields()) {
-					
 					//Sentencia para crear nuevo cliente cuando se realize registro
 					cc.clientCreate(form.getNameTxtFld(), form.getSurnameTxtFld(), form.getCountryCodeCmbBx(), form.getPhoneTxtFld(), form.getAdressTxtFld(), 
 							form.getAdress2TxtFld(), form.getCityTxtFld(), form.getStateTxtFld(), form.getCodeTxtFld(), form.getEmailTxtFld());
-					
-					image = new ImageIcon(ClientView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-	   				imageIcon = new ImageIcon(image);
-	   				
-					message = "Cliente creado correctamente.";
-					JOptionPane.showMessageDialog(null, message, "Acción exitosa", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+		
+					optionPane = new OptionPaneButton("Acción exitosa", "Cliente creado correctamente.");
+					optionPane.checkOptionPane();
 					
 					frame.dispose();
 					cc.clients();
@@ -477,15 +461,10 @@ public class ClientView {
 		cancelBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object[] options = {"Volver", "Salir"};
+				optionPane = new OptionPaneButton("Volver a menú", "Todos los cambios se perderán.", "  Salir  ");
+				opt = optionPane.destructiveOptionPane();
 				
-				image = new ImageIcon(ClientView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				String message = "Todos los cambios se perderán.";
-				int opc = JOptionPane.showOptionDialog(null, message, "Cancelar acción", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				if(opt==1) {
 					frame.dispose();
 					cc.clients();
 				}
@@ -530,12 +509,9 @@ public class ClientView {
 				if(!form.clientFormEmptyFields()) {
 					cc.clientUpdate(selectedRow, form.getNameTxtFld(), form.getSurnameTxtFld(), form.getCountryCodeCmbBx(), form.getPhoneTxtFld(), form.getAdressTxtFld(), 
 							form.getAdress2TxtFld(), form.getCityTxtFld(), form.getStateTxtFld(), form.getCodeTxtFld(), form.getEmailTxtFld());
-					
-					image = new ImageIcon(ClientView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-	   				imageIcon = new ImageIcon(image);
 	   				
-					message = "Cliente actualizado correctamente.";
-					JOptionPane.showMessageDialog(null, message, "Acción exitosa", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+	   				optionPane = new OptionPaneButton("Acción exitosa", "Cliente actualizado correctamente.");
+	   				optionPane.checkOptionPane();
 					
 					frame.dispose();
 					cc.clients();
@@ -610,8 +586,7 @@ public class ClientView {
 					}
 					
 					Document document = new Document();
-					try
-					{
+					try {
 						PdfWriter.getInstance(document, new FileOutputStream(saveFile));
 						document.open();
 						
@@ -623,20 +598,16 @@ public class ClientView {
 								+ "\nNumero de telefono: " + c.phone_Number + "\nDireccion: " + c.address_1 + "\nDireccion 2: " + c.address_2 + "\nCiudad: " + c.city 
 								+ "\nEstado: " + c.state + "\nCodigo postal: " + c.postal_Code + "\nCorreo electronico: " + c.email));
 						
-						image = new ImageIcon(ClientView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-						imageIcon = new ImageIcon(image);
-						message = "Descarga exitosa";
+						optionPane = new OptionPaneButton("Descarga", "Descarga exitosa.");
+						optionPane.checkOptionPane();
 						
-						JOptionPane.showMessageDialog(null, message, "Descarga", JOptionPane.INFORMATION_MESSAGE, imageIcon);
-					} catch (Exception e1){
+					}catch(Exception e1) {
 						e1.printStackTrace();
-						image = new ImageIcon(ClientView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-						imageIcon = new ImageIcon(image);
-						message = "Error al generar";
 						
-						JOptionPane.showMessageDialog(null, message, "Descarga", JOptionPane.INFORMATION_MESSAGE, imageIcon);
-					} finally
-					{
+						OptionPaneButton option = new OptionPaneButton("Descarga", "Error al generar.");
+						option.errorOptionPane();
+						
+					}finally {
 						document.close();
 					}
 				}

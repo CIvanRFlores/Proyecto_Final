@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.*;
 
 import controllers.DishController;
+import customClasses.OptionPaneButton;
 import customClasses.RoundButton;
 import customClasses.RoundPanel;
 import models.AuthModel;
@@ -220,37 +221,26 @@ public class AuthView {
 					flag2 = true;
 				}
 				
-				String message;
 				//validar si los dos campos han sido completados
 				if(flag1 && flag2) {
 					AuthModel am = new AuthModel();
 					//cuando ambos campos coinciden con los datos de la cuenta del usuario
 					if(am.login(username, passTxt)) {
-						image = new ImageIcon(AuthView.class.getResource("/images/checkCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-	       				imageIcon = new ImageIcon(image);
-	       				
-						message = "Sesión iniciada correctamente.";
-						JOptionPane.showMessageDialog(null, message, "Datos correctos", JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+						OptionPaneButton option = new OptionPaneButton("Datos correctos", "Sesión iniciada correctamente.");
+						option.checkOptionPane();
 						
 						frame.dispose(); //destruir ventana actual
 						dc = new DishController("Platillos", frame.getWidth(), frame.getHeight()); 
 						dc.dishes(); 
 					}
 					else { //cuando alguno de los dos campos no es correcto
-						image = new ImageIcon(AuthView.class.getResource("/images/errorCircle.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-	       				imageIcon = new ImageIcon(image);
-	       				
-						message = "Datos erróneos. Por favor, inténtelo otra vez.";
-						JOptionPane.showMessageDialog(null, message, "Error al iniciar sesión", JOptionPane.ERROR_MESSAGE, imageIcon); 
+						OptionPaneButton option = new OptionPaneButton("Error al iniciar sesión", "Datos erróneos. Por favor, inténtelo otra vez.");
+						option.errorOptionPane();
 					}
 					
 				}else { //uno o los dos componentes se encuentran vacíos
-					
-					image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-       				imageIcon = new ImageIcon(image);
-					
-					message = "Uno o más campos se encuentran vacíos.";
-					JOptionPane.showMessageDialog(null, message, "Campos vacíos", JOptionPane.WARNING_MESSAGE, imageIcon); 
+					OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Uno o más campos se encuentran vacíos.");
+					option.warningOptionPane();
 				}
 				
 			}
@@ -266,7 +256,7 @@ public class AuthView {
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	loginBttn.setBackground(Color.decode("#367181"));
+		    	loginBttn.setBackground(Color.decode("#306572"));
 		    }
 		});
 		

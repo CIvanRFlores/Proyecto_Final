@@ -194,15 +194,10 @@ public class SideBarPanel {
 		returnBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object[] options = {"Volver", "Salir"};
+				OptionPaneButton optionPane = new OptionPaneButton("Cerrar sesión", "¿Desea cerrar sesión?", " Salir ");
+				int opt = optionPane.logoutOptionPane();
 				
-				image = new ImageIcon(SideBarPanel.class.getResource("/images/questionMark.png")).getImage().getScaledInstance(25, 45, Image.SCALE_SMOOTH);
-				imageIcon = new ImageIcon(image);
-				
-				message = "¿Desea cerrar sesión?";
-				int opc = JOptionPane.showOptionDialog(null, message, "Salir", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon, options, null);
-				
-				if(opc==1) {
+				if(opt==1) {
 					frame.dispose();
 					ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); 
 					ac.login(); 
