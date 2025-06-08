@@ -396,6 +396,9 @@ public class InventoryView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.invFormEmptyFields()) {
+					optionPane = new OptionPaneButton("Acción exitosa", "Inventario creado correctamente.");
+					optionPane.checkOptionPane();
+					
 					frame.dispose();
 					ic.inventory();
 				}
@@ -492,6 +495,9 @@ public class InventoryView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.invFormEmptyFields()) {
+					optionPane = new OptionPaneButton("Acción exitosa", "Inventario actualizado correctamente.");
+	   				optionPane.checkOptionPane();
+					
 					frame.dispose();
 					ic.inventory();
 				}

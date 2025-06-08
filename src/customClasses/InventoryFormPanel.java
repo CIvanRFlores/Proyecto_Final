@@ -67,10 +67,10 @@ public class InventoryFormPanel {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
 		        char c = e.getKeyChar();
-		        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+		        if (!Character.isLetter(c) && !Character.isWhitespace(c)) 
 		            e.consume();
 		    }
-		}});
+		});
 		
 		
 		RoundPanel codeTxtFldPnl = new RoundPanel(30);  
@@ -91,10 +91,10 @@ public class InventoryFormPanel {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
 		        char c = e.getKeyChar();
-		        if (!Character.isLetter(c) && !Character.isDigit(c)) {
+		        if (!Character.isLetter(c) && !Character.isDigit(c)) 
 		            e.consume();
 		    }
-		}});
+		});
 		
 		
 		JLabel quantityLbl = new JLabel("Cantidad:");
@@ -120,7 +120,7 @@ public class InventoryFormPanel {
 		quantityTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 20)); 
 		quantityTxtFld.setForeground(Color.decode("#244E23")); 
 		quantityTxtFld.setOpaque(false);
-		quantityTxtFldPnl.add(codeTxtFld, BorderLayout.CENTER);
+		quantityTxtFldPnl.add(quantityTxtFld, BorderLayout.CENTER);
 		
 		quantityTxtFld.addKeyListener((KeyListener) new KeyAdapter() {
 		    @Override

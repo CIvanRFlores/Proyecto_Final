@@ -148,10 +148,17 @@ public class ClientFormPanel {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
 		        char c = e.getKeyChar();
-		        if (!Character.isDigit(c) || getPhoneTxtFld().length()+1>10) {
+		        if (!Character.isDigit(c) || getPhoneTxtFld().length()+1>10 || getPhoneTxtFld().substring(0).equals("0")) {
 		            e.consume();
+		            
+		            if(getPhoneTxtFld().substring(0).equals("0")) {
+		            	setPhoneTxtFld("");
+			        }else {
+			        	phoneTxtFld.setForeground(Color.decode("#244E23"));
+					}
+		        }
 		    }
-		}});
+		});
 		phoneTxtFldPnl.add(phoneTxtFld, BorderLayout.CENTER);
 		
 		clientsPnl.add(Box.createHorizontalStrut(0));
@@ -340,10 +347,17 @@ public class ClientFormPanel {
 		    @Override
 		    public void keyTyped(KeyEvent e) {
 		        char c = e.getKeyChar();
-		        if (!Character.isDigit(c)) {
+		        if (!Character.isDigit(c) || getCodeTxtFld().length()+1>5 || getCodeTxtFld().substring(0).equals("0")) {
 		            e.consume();
+		            
+		            if(getCodeTxtFld().substring(0).equals("0")) {
+		            	setCodeTxtFld("");
+			        }else {
+						codeTxtFld.setForeground(Color.decode("#244E23"));
+					}
+		        }
 		    }
-		}});
+		});
 		codeTxtFldPnl.add(codeTxtFld, BorderLayout.CENTER);
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
@@ -406,8 +420,17 @@ public class ClientFormPanel {
 		String state = getStateTxtFld();
 		String code = getCodeTxtFld();
 		
-		if(name.equals("") || surname.equals("") || countryCode.equals("") || phone.equals("") || email.equals("") || 
-		   adress1.equals("") || city.equals("") || state.equals("") || code.equals("")) {
+		if(name.equals("") || surname.equals("") || countryCode.equals("") || phone.equals("") || email.equals("") || phone.equals("0") || getPhoneTxtFld().length()+1<10 ||
+		   adress1.equals("") || city.equals("") || state.equals("") || code.equals("") || code.equals("0") || getCodeTxtFld().length()+1<5) {
+			
+			if(code.equals("0") || getCodeTxtFld().length()+1<5) { 
+				codeTxtFld.setForeground(Color.decode("#EF2D2D"));
+			}
+			
+			if(phone.equals("0") || getPhoneTxtFld().length()+1<10) { 
+				phoneTxtFld.setForeground(Color.decode("#EF2D2D"));
+			}
+			
 			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");
 			option.warningOptionPane();
 			

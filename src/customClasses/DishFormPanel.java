@@ -124,7 +124,9 @@ public class DishFormPanel {
 		           if(getPriceTxtFld().substring(0).equals("0")) {
 		        	   setPriceTxtFld("");
 		           }
-		        }
+		        }else {
+					priceTxtFld.setForeground(Color.decode("#244E23"));
+				}
 		    }
 		});
 		
@@ -253,33 +255,30 @@ public class DishFormPanel {
 		JPanel newDishPnl = new JPanel();
 		newDishPnl.setBackground(Color.white);
 		newDishPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
-		newDishPnl.setLayout(new GridLayout(4, 2, 30, 10));
+		newDishPnl.setLayout(new GridLayout(2, 2, 30, 30));
 		
+		String ingredients[] = { "Maíz", "Camarón", "Papa", "Mantequilla", "Aceite", "Camote", "Tomate", "Agua"};
+		
+		//panel superior izquierdo
+		JPanel topLeftPnl = new JPanel();
+		topLeftPnl.setLayout(new BorderLayout(0, 20));
+		topLeftPnl.setOpaque(false);
+		newDishPnl.add(topLeftPnl);
 		
 		JLabel topLeftLbl = new JLabel(dishType.equals("platillo")?"Proteínas:" : "Base:");
 		topLeftLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		topLeftLbl.setForeground(Color.decode("#244E23")); 
 		topLeftLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		topLeftLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
-		newDishPnl.add(topLeftLbl, BorderLayout.NORTH);
+		topLeftPnl.add(topLeftLbl, BorderLayout.NORTH);
 		
-		JLabel topRightLbl = new JLabel(dishType.equals("platillo")?"Vegetales:" : "Jugo:");
-		topRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
-		topRightLbl.setForeground(Color.decode("#244E23")); 
-		topRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		topRightLbl.setVerticalAlignment(SwingConstants.BOTTOM);
-		newDishPnl.add(topRightLbl, BorderLayout.NORTH);
-		
-		
-		RoundPanel topLeftPnl = new RoundPanel(30);  
-		topLeftPnl.setBackground(Color.white);
-		topLeftPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-		topLeftPnl.setForeground(Color.decode("#244E23")); 
-		topLeftPnl.setLayout(new BorderLayout());
-		newDishPnl.add(topLeftPnl);
-		
-		String ingredients[] = { "Maíz", "Camarón", "Papa", "Mantequilla", "Aceite", "Camote", "Tomate", "Agua"};
-		
+		RoundPanel topleftCmbBxPanel = new RoundPanel(30);  
+		topleftCmbBxPanel.setBackground(Color.white);
+		topleftCmbBxPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		topleftCmbBxPanel.setForeground(Color.decode("#244E23")); 
+		topleftCmbBxPanel.setLayout(new BorderLayout());
+		topLeftPnl.add(topleftCmbBxPanel, BorderLayout.CENTER);
+	
 		topLeftCmbBx = new JList<>(ingredients);
 		topLeftCmbBx.setForeground(Color.decode("#244E23")); 
 		topLeftCmbBx.setFont(new Font("Caladea Regular", Font.PLAIN, 30)); 
@@ -290,15 +289,28 @@ public class DishFormPanel {
 		coloredScrollPane = new ColoredScrollPaneBar(topLeftCmbBx, Color.decode("#244E23"));
 		JScrollPane topLeftScrollPane = coloredScrollPane.createScrollPane();
 		
-		topLeftPnl.add(topLeftScrollPane, BorderLayout.CENTER);
+		topleftCmbBxPanel.add(topLeftScrollPane, BorderLayout.CENTER);
 		
 		
-		RoundPanel topRightPnl = new RoundPanel(30);  
-		topRightPnl.setBackground(Color.white);
-		topRightPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-		topRightPnl.setForeground(Color.decode("#244E23")); 
-		topRightPnl.setLayout(new BorderLayout());
+		//panel superior derecho 
+		JPanel topRightPnl = new JPanel();
+		topRightPnl.setLayout(new BorderLayout(0, 20));
+		topRightPnl.setOpaque(false);
 		newDishPnl.add(topRightPnl);
+		
+		JLabel topRightLbl = new JLabel(dishType.equals("platillo")?"Vegetales:" : "Jugo:");
+		topRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
+		topRightLbl.setForeground(Color.decode("#244E23")); 
+		topRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		topRightLbl.setVerticalAlignment(SwingConstants.BOTTOM);
+		topRightPnl.add(topRightLbl, BorderLayout.NORTH);
+		
+		RoundPanel topRightCmbBxPanel = new RoundPanel(30);  
+		topRightCmbBxPanel.setBackground(Color.white);
+		topRightCmbBxPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		topRightCmbBxPanel.setForeground(Color.decode("#244E23")); 
+		topRightCmbBxPanel.setLayout(new BorderLayout());
+		topRightPnl.add(topRightCmbBxPanel, BorderLayout.CENTER);
 		
 		topRightCmbBx = new JList<>(ingredients);
 		topRightCmbBx.setForeground(Color.decode("#244E23")); 
@@ -310,30 +322,28 @@ public class DishFormPanel {
 		coloredScrollPane = new ColoredScrollPaneBar(topRightCmbBx, Color.decode("#244E23"));
 		JScrollPane topRightScrollPane = coloredScrollPane.createScrollPane();
 		
-		topRightPnl.add(topRightScrollPane, BorderLayout.CENTER);
+		topRightCmbBxPanel.add(topRightScrollPane, BorderLayout.CENTER);
+				
 		
+		//panel inferior izquierdo
+		JPanel bottomLeftPnl = new JPanel();
+		bottomLeftPnl.setLayout(new BorderLayout(0, 20));
+		bottomLeftPnl.setOpaque(false);
+		newDishPnl.add(bottomLeftPnl);
 		
 		JLabel bottomLeftLbl = new JLabel(dishType.equals("platillo")?"Carbohidratos:" : "Licor:");
 		bottomLeftLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
 		bottomLeftLbl.setForeground(Color.decode("#244E23")); 
 		bottomLeftLbl.setHorizontalAlignment(SwingConstants.LEFT);
 		bottomLeftLbl.setVerticalAlignment(SwingConstants.BOTTOM);
-		newDishPnl.add(bottomLeftLbl, BorderLayout.NORTH);
+		bottomLeftPnl.add(bottomLeftLbl, BorderLayout.NORTH);
 		
-		JLabel bottomRightLbl = new JLabel(dishType.equals("platillo")?"Especias:" : "Extra:");
-		bottomRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
-		bottomRightLbl.setForeground(Color.decode("#244E23")); 
-		bottomRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
-		bottomRightLbl.setVerticalAlignment(SwingConstants.BOTTOM);
-		newDishPnl.add(bottomRightLbl, BorderLayout.NORTH);
-		
-		
-		RoundPanel bottomLeftPnl = new RoundPanel(30);  
-		bottomLeftPnl.setBackground(Color.white);
-		bottomLeftPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-		bottomLeftPnl.setForeground(Color.decode("#244E23")); 
-		bottomLeftPnl.setLayout(new BorderLayout());
-		newDishPnl.add(bottomLeftPnl);
+		RoundPanel bottomLeftCmbBxPnl = new RoundPanel(30);  
+		bottomLeftCmbBxPnl.setBackground(Color.white);
+		bottomLeftCmbBxPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		bottomLeftCmbBxPnl.setForeground(Color.decode("#244E23")); 
+		bottomLeftCmbBxPnl.setLayout(new BorderLayout());
+		bottomLeftPnl.add(bottomLeftCmbBxPnl, BorderLayout.CENTER);
 		
 		bottomLeftCmbBx = new JList<>(ingredients);
 		bottomLeftCmbBx.setForeground(Color.decode("#244E23")); 
@@ -345,15 +355,28 @@ public class DishFormPanel {
 		coloredScrollPane = new ColoredScrollPaneBar(bottomLeftCmbBx, Color.decode("#244E23"));
 		JScrollPane bottomLeftScrollPane = coloredScrollPane.createScrollPane();
 
-		bottomLeftPnl.add(bottomLeftScrollPane, BorderLayout.CENTER);
+		bottomLeftCmbBxPnl.add(bottomLeftScrollPane, BorderLayout.CENTER);
 		
 		
-		RoundPanel bottomRightPnl = new RoundPanel(30);  
-		bottomRightPnl.setBackground(Color.white);
-		bottomRightPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-		bottomRightPnl.setForeground(Color.decode("#244E23")); 
-		bottomRightPnl.setLayout(new BorderLayout());
+		//panel inferior derecho
+		JPanel bottomRightPnl = new JPanel();
+		bottomRightPnl.setLayout(new BorderLayout(0, 20));
+		bottomRightPnl.setOpaque(false);
 		newDishPnl.add(bottomRightPnl);
+		
+		JLabel bottomRightLbl = new JLabel(dishType.equals("platillo")?"Especias:" : "Extra:");
+		bottomRightLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
+		bottomRightLbl.setForeground(Color.decode("#244E23")); 
+		bottomRightLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		bottomRightLbl.setVerticalAlignment(SwingConstants.BOTTOM);
+		bottomRightPnl.add(bottomRightLbl, BorderLayout.NORTH);
+		
+		RoundPanel bottomRightCmbBxPnl = new RoundPanel(30);  
+		bottomRightCmbBxPnl.setBackground(Color.white);
+		bottomRightCmbBxPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		bottomRightCmbBxPnl.setForeground(Color.decode("#244E23")); 
+		bottomRightCmbBxPnl.setLayout(new BorderLayout());
+		bottomRightPnl.add(bottomRightCmbBxPnl, BorderLayout.CENTER);
 		
 		bottomRightCmbBx = new JList<>(ingredients);
 		bottomRightCmbBx.setForeground(Color.decode("#244E23")); 
@@ -365,7 +388,7 @@ public class DishFormPanel {
 		coloredScrollPane = new ColoredScrollPaneBar(bottomRightCmbBx, Color.decode("#244E23"));
 		JScrollPane bottomRightScrollPane = coloredScrollPane.createScrollPane();
 		
-		bottomRightPnl.add(bottomRightScrollPane, BorderLayout.CENTER);
+		bottomRightCmbBxPnl.add(bottomRightScrollPane, BorderLayout.CENTER);
 		
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
@@ -404,6 +427,11 @@ public class DishFormPanel {
 		String description = getDishDescText(); 
 		
 		if(name.equals("") || price.equals("") || price.equals("0") || description.equals("")) {
+			
+			if(price.equals("0")) { 
+				priceTxtFld.setForeground(Color.decode("#EF2D2D"));
+			}
+			
 			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");
 			option.warningOptionPane();
 			
