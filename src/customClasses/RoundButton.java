@@ -22,25 +22,6 @@ public class RoundButton extends JButton {
         setContentAreaFilled(false); 
 	}
 	
-	public RoundButton(int radius, ImageIcon imageIcon, Color borderColor) { 
-		this.imageIcon = imageIcon;
-		this.radius = radius; 
-		this.borderColor = borderColor;
-		setOpaque(false); 
-        setFocusPainted(false); 
-        setBorderPainted(false); 
-        setContentAreaFilled(false); 
-	}
-	
-	public RoundButton(int radius, Color borderColor) { 
-		this.radius = radius; 
-		this.borderColor = borderColor;
-		setOpaque(false); 
-        setFocusPainted(false); 
-        setBorderPainted(false); 
-        setContentAreaFilled(false); 
-	}
-	
 	public RoundButton(int radius) { 
 		this.radius = radius; 
 		setOpaque(false); 
@@ -68,6 +49,7 @@ public class RoundButton extends JButton {
 			 g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
 		}
         
+		
 		if(imageIcon!=null) { 
 			
 		    int iconWidth = imageIcon.getIconWidth(); 
@@ -98,6 +80,9 @@ public class RoundButton extends JButton {
 		this.imageIcon = imageIcon;
 	}
 	
+	public void setButtonBorder(Color borderColor) {
+		this.borderColor = borderColor;
+	}
 	
 
 }

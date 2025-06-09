@@ -43,10 +43,10 @@ public class ClientView {
 		frame.setTitle(title); 
 		
 		SideBarPanel sideBar = new SideBarPanel(frame);
-		JPanel buttonPanel = sideBar.createSidePanel();
-		frame.add(buttonPanel, BorderLayout.WEST);
+		JPanel buttonPnl = sideBar.createSidePanel();
+		frame.add(buttonPnl, BorderLayout.WEST);
 		
-		buttonPanel.getComponent(3).setBackground(Color.decode("#3C7E3A"));
+		buttonPnl.getComponent(3).setBackground(Color.decode("#3C7E3A"));
 		sideBar.removeClientListener();
 		
 		frame.addComponentListener(new ComponentAdapter() {

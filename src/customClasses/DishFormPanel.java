@@ -121,12 +121,11 @@ public class DishFormPanel {
 		        if(!Character.isDigit(c) || getPriceTxtFld().substring(0).equals("0")) {
 		            e.consume();
 		            
-		           if(getPriceTxtFld().substring(0).equals("0")) {
-		        	   setPriceTxtFld("");
-		           }
-		        }else {
-					priceTxtFld.setForeground(Color.decode("#244E23"));
-				}
+		            if(getPriceTxtFld().substring(0).equals("0")) 
+		            	setPriceTxtFld("");
+		           
+		        }else 
+		        	priceTxtFld.setForeground(Color.decode("#244E23"));
 		    }
 		});
 		
@@ -426,17 +425,16 @@ public class DishFormPanel {
 		String price = getPriceTxtFld();
 		String description = getDishDescText(); 
 		
+		if(price.equals("0")) 
+			priceTxtFld.setForeground(Color.decode("#EF2D2D"));
+		
 		if(name.equals("") || price.equals("") || price.equals("0") || description.equals("")) {
-			
-			if(price.equals("0")) { 
-				priceTxtFld.setForeground(Color.decode("#EF2D2D"));
-			}
 			
 			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");
 			option.warningOptionPane();
 			
 			return true;
-		}else { 
+		}else {
 			return false;
 		}
 	}

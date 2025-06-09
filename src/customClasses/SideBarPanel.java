@@ -48,7 +48,7 @@ public class SideBarPanel {
 		JLabel restaurantNameLbl = new JLabel(imageIcon);
 		buttonPnl.add(restaurantNameLbl);
 		
-		image = new ImageIcon("src/images/food.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		image = new ImageIcon("src/images/food.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		dishBttn = new RoundButton(30); 
 		dishBttn.setBackground(Color.decode("#244E23"));
@@ -63,7 +63,7 @@ public class SideBarPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				dc = new DishController("Platillos", frame.getWidth(), frame.getHeight()); 
+				dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 				dc.dishes(); 
 			}
 		});
@@ -81,7 +81,7 @@ public class SideBarPanel {
 		dishBttn.addMouseListener(mouseDish);
 		
 		
-		image = new ImageIcon(SideBarPanel.class.getResource("/images/order.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/order.png")).getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		orderBttn = new RoundButton(30); 
 		orderBttn.setBackground(Color.decode("#244E23"));
@@ -96,7 +96,7 @@ public class SideBarPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				oc = new OrderController("Ordenes", frame.getWidth(), frame.getHeight()); 
+				oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 				oc.orders(); 
 			}
 		});
@@ -114,7 +114,7 @@ public class SideBarPanel {
 		orderBttn.addMouseListener(mouseOrder);
 		
 		
-		image = new ImageIcon(SideBarPanel.class.getResource("/images/client.png")).getImage().getScaledInstance(30, 35, Image.SCALE_SMOOTH);
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/client.png")).getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		clientBttn = new RoundButton(30); 
 		clientBttn.setBackground(Color.decode("#244E23"));
@@ -129,7 +129,7 @@ public class SideBarPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				cc = new ClientController("Clientes", frame.getWidth(), frame.getHeight()); 
+				cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 				cc.clients(); 
 			}
 		});
@@ -147,7 +147,7 @@ public class SideBarPanel {
 		clientBttn.addMouseListener(mouseClient);
 		
 		
-		image = new ImageIcon(SideBarPanel.class.getResource("/images/inventory.png")).getImage().getScaledInstance(30, 28, Image.SCALE_SMOOTH);
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/inventory.png")).getImage().getScaledInstance(40, 38, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		inventoryBttn = new RoundButton(30); 
 		inventoryBttn.setBackground(Color.decode("#244E23"));
@@ -162,7 +162,7 @@ public class SideBarPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				ic = new InventoryController("Inventario", frame.getWidth(), frame.getHeight()); 
+				ic = new InventoryController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 				ic.inventory(); 
 			}
 		});
@@ -180,7 +180,7 @@ public class SideBarPanel {
 		inventoryBttn.addMouseListener(mouseInventory);
 		
 		
-		image = new ImageIcon(SideBarPanel.class.getResource("/images/return.png")).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/return.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		returnBttn = new RoundButton(30); 
 		returnBttn.setBackground(Color.decode("#EF2D2D"));
@@ -199,7 +199,7 @@ public class SideBarPanel {
 				
 				if(opt==1) {
 					frame.dispose();
-					ac = new AuthController("Login", frame.getWidth(), frame.getHeight()); 
+					ac = new AuthController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 					ac.login(); 
 				}
 			}
@@ -224,37 +224,35 @@ public class SideBarPanel {
        			imageIcon = new ImageIcon(image);
        			restaurantNameLbl.setIcon(imageIcon);  
        			
-       			relativeXSize = (int) (frame.getWidth()*0.03);
-            	relativeYSize = (int) (frame.getWidth()*0.03);
-       			image = new ImageIcon(SideBarPanel.class.getResource("/images/food.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+       			image = new ImageIcon(SideBarPanel.class.getResource("/images/food.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			dishBttn.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.028) + (int) (frame.getHeight()*0.028))/2 ));
        			dishBttn.setIcon(imageIcon);
        			
-       			relativeXSize = (int) (frame.getWidth()*0.03);
-            	relativeYSize = (int) (frame.getWidth()*0.035);
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+            	relativeYSize = (int) (frame.getWidth()*0.045);
        			image = new ImageIcon(SideBarPanel.class.getResource("/images/order.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			orderBttn.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.028) + (int) (frame.getHeight()*0.028))/2 ));
        			orderBttn.setIcon(imageIcon);
        			
-       			relativeXSize = (int) (frame.getWidth()*0.03);
-            	relativeYSize = (int) (frame.getWidth()*0.035);
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+            	relativeYSize = (int) (frame.getWidth()*0.045);
        			image = new ImageIcon(SideBarPanel.class.getResource("/images/client.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			clientBttn.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.028) + (int) (frame.getHeight()*0.028))/2 ));
        			clientBttn.setIcon(imageIcon);
        			
-       			relativeXSize = (int) (frame.getWidth()*0.03);
-            	relativeYSize = (int) (frame.getWidth()*0.028);
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+            	relativeYSize = (int) (frame.getWidth()*0.038);
             	image = new ImageIcon(SideBarPanel.class.getResource("/images/inventory.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
             	imageIcon = new ImageIcon(image);
             	inventoryBttn.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.028) + (int) (frame.getHeight()*0.028))/2 ));
        			inventoryBttn.setIcon(imageIcon);
        			
-       			relativeXSize = (int) (frame.getWidth()*0.03);
-            	relativeYSize = (int) (frame.getWidth()*0.03);
-            	image = new ImageIcon(SideBarPanel.class.getResource("/images/return.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+            	image = new ImageIcon(SideBarPanel.class.getResource("/images/return.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
             	imageIcon = new ImageIcon(image);
             	returnBttn.setFont(new Font("Caladea Bold", Font.BOLD, ((int) (frame.getWidth()*0.028) + (int) (frame.getHeight()*0.028))/2 ));
             	returnBttn.setIcon(imageIcon);
@@ -265,6 +263,209 @@ public class SideBarPanel {
 		
 		return buttonPnl;
 	}
+	
+	public JPanel createReducedSidePanel() {
+		JPanel buttonPnl = new JPanel();
+		buttonPnl.setBackground(Color.decode("#DEFFDB"));
+		buttonPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		buttonPnl.setLayout(new GridLayout(6, 1, 0, 10));
+		
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/elManglarLogo.png")).getImage().getScaledInstance(85, 80, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		JLabel restaurantLogoLbl = new JLabel(imageIcon);
+		buttonPnl.add(restaurantLogoLbl);
+		
+		image = new ImageIcon("src/images/food.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		dishBttn = new RoundButton(30); 
+		dishBttn.setBackground(Color.decode("#244E23"));
+		dishBttn.setIcon(imageIcon);
+		buttonPnl.add(dishBttn);
+		
+		dishBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
+				dc.dishes(); 
+			}
+		});
+		
+		mouseDish = new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				dishBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	dishBttn.setBackground(Color.decode("#244E23"));
+		    }
+		};
+		
+		dishBttn.addMouseListener(mouseDish);
+		
+		
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/order.png")).getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		orderBttn = new RoundButton(30); 
+		orderBttn.setBackground(Color.decode("#244E23"));
+		orderBttn.setIcon(imageIcon);
+		buttonPnl.add(orderBttn);
+		
+		orderBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
+				oc.orders(); 
+			}
+		});
+		
+		mouseOrder = new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				orderBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	orderBttn.setBackground(Color.decode("#244E23"));
+		    }
+		};
+		
+		orderBttn.addMouseListener(mouseOrder);
+		
+		
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/client.png")).getImage().getScaledInstance(40, 45, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		clientBttn = new RoundButton(30); 
+		clientBttn.setBackground(Color.decode("#244E23"));
+		clientBttn.setIcon(imageIcon);
+		buttonPnl.add(clientBttn);
+		
+		clientBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
+				cc.clients(); 
+			}
+		});
+		
+		mouseClient = new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				clientBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	clientBttn.setBackground(Color.decode("#244E23"));
+		    }
+		};
+		
+		clientBttn.addMouseListener(mouseClient);
+		
+		
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/inventory.png")).getImage().getScaledInstance(40, 38, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		inventoryBttn = new RoundButton(30); 
+		inventoryBttn.setBackground(Color.decode("#244E23"));
+		inventoryBttn.setIcon(imageIcon);
+		buttonPnl.add(inventoryBttn);
+		
+		inventoryBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				ic = new InventoryController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
+				ic.inventory(); 
+			}
+		});
+		
+		mouseInventory = new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				inventoryBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	inventoryBttn.setBackground(Color.decode("#244E23"));
+		    }
+		};
+		
+		inventoryBttn.addMouseListener(mouseInventory);
+		
+		
+		image = new ImageIcon(SideBarPanel.class.getResource("/images/return.png")).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		returnBttn = new RoundButton(30); 
+		returnBttn.setBackground(Color.decode("#EF2D2D"));
+		returnBttn.setIcon(imageIcon);
+		buttonPnl.add(returnBttn);
+		
+		returnBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				OptionPaneButton optionPane = new OptionPaneButton("Cerrar sesión", "¿Desea cerrar sesión?", " Salir ");
+				int opt = optionPane.logoutOptionPane();
+				
+				if(opt==1) {
+					frame.dispose();
+					ac = new AuthController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
+					ac.login(); 
+				}
+			}
+		});
+		
+		returnBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				returnBttn.setBackground(Color.decode("#ED5C5C"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+				returnBttn.setBackground(Color.decode("#EF2D2D"));
+		    }
+		});
+		
+		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
+		frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+            	relativeXSize = (int) (frame.getWidth()*0.085);
+            	relativeYSize = (int) (frame.getWidth()*0.08);
+               	image = new ImageIcon(SideBarPanel.class.getResource("/images/elManglarLogo.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			imageIcon = new ImageIcon(image);
+       			restaurantLogoLbl.setIcon(imageIcon);  
+       			
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+       			image = new ImageIcon(SideBarPanel.class.getResource("/images/food.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
+       			imageIcon = new ImageIcon(image);
+       			dishBttn.setIcon(imageIcon);
+       			
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+            	relativeYSize = (int) (frame.getWidth()*0.045);
+       			image = new ImageIcon(SideBarPanel.class.getResource("/images/order.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			imageIcon = new ImageIcon(image);
+       			orderBttn.setIcon(imageIcon);
+       			
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+            	relativeYSize = (int) (frame.getWidth()*0.045);
+       			image = new ImageIcon(SideBarPanel.class.getResource("/images/client.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+       			imageIcon = new ImageIcon(image);
+       			clientBttn.setIcon(imageIcon);
+       			
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+            	relativeYSize = (int) (frame.getWidth()*0.038);
+            	image = new ImageIcon(SideBarPanel.class.getResource("/images/inventory.png")).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+            	imageIcon = new ImageIcon(image);
+       			inventoryBttn.setIcon(imageIcon);
+       			
+       			relativeXSize = (int) (frame.getWidth()*0.04);
+            	image = new ImageIcon(SideBarPanel.class.getResource("/images/return.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
+            	imageIcon = new ImageIcon(image);
+            	returnBttn.setIcon(imageIcon);
+ 
+       			frame.repaint();
+            }
+        });
+		
+		return buttonPnl;
+	}
+	
 	
 	public void removeDishListener() {
 		if(mouseDish!=null) {

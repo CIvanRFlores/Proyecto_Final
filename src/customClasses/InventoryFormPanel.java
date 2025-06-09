@@ -129,11 +129,11 @@ public class InventoryFormPanel {
 		        if(!Character.isDigit(c) || getQuantityTxtFld().substring(0).equals("0")) {
 		            e.consume();
 		            
-		           if(getQuantityTxtFld().substring(0).equals("0")) {
-		        	   setQuantityTxtFld("");
-		           }
-		        }
-		        	
+		            if(getQuantityTxtFld().substring(0).equals("0")) 
+		            	setQuantityTxtFld("");
+		           
+		        }else
+		        	quantityTxtFld.setForeground(Color.decode("#244E23")); 
 		    }
 		});
 		
@@ -175,6 +175,10 @@ public class InventoryFormPanel {
 		String name = getNameTxtFld(); 
 		String code = getCodeTxtFld();
 		String quantity = getQuantityTxtFld(); 
+		
+		if(quantity.equals("0")) 
+			quantityTxtFld.setForeground(Color.decode("#EF2D2D"));
+		
 		
 		if(name.equals("") || code.equals("") || quantity.equals("") || quantity.equals("0")) {
 			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");

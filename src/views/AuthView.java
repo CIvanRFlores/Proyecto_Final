@@ -230,7 +230,7 @@ public class AuthView {
 						option.checkOptionPane();
 						
 						frame.dispose(); //destruir ventana actual
-						dc = new DishController("Platillos", frame.getWidth(), frame.getHeight()); 
+						dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 						dc.dishes(); 
 					}
 					else { //cuando alguno de los dos campos no es correcto

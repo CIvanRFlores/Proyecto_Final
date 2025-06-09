@@ -13,6 +13,8 @@ public class OrderView {
 
 	JFrame frame;
 	JPanel mainPnl;
+	JPanel buttonPnl;
+	SideBarPanel sideBar;
 	Image image;
 	ImageIcon imageIcon;
 	
@@ -33,11 +35,11 @@ public class OrderView {
 		frame.setMinimumSize(new Dimension(350, 350));
 		frame.setTitle(title);
 		
-		SideBarPanel sideBar = new SideBarPanel(frame);
-		JPanel buttonPanel = sideBar.createSidePanel();
-		frame.add(buttonPanel, BorderLayout.WEST);
+		sideBar = new SideBarPanel(frame);
+		buttonPnl = sideBar.createSidePanel();
+		frame.add(buttonPnl, BorderLayout.WEST);
 		
-		buttonPanel.getComponent(2).setBackground(Color.decode("#3C7E3A"));
+		buttonPnl.getComponent(2).setBackground(Color.decode("#3C7E3A"));
 		sideBar.removeOrderListener();
 		
 		frame.addComponentListener(new ComponentAdapter() {
@@ -124,8 +126,9 @@ public class OrderView {
 		    }
 		});		
 		
-		RoundButton newOrderBttn = new RoundButton(30, Color.decode("#244E23"));
+		RoundButton newOrderBttn = new RoundButton(30);
 		newOrderBttn.setBackground(Color.white);
+		newOrderBttn.setButtonBorder(Color.decode("#244E23"));
 		newOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		newOrderBttn.setForeground(Color.decode("#244E23"));
 		newOrderBttn.setText("Nuevo");
@@ -143,29 +146,18 @@ public class OrderView {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				oc.newOrder();
-				
-				newOrderBttn.setBackground(Color.decode("#3C7E3A"));	
-				newOrderBttn.setForeground(Color.white);
-				ongoingOrderBttn.setBackground(Color.white);
-				ongoingOrderBttn.setForeground(Color.decode("#244E23"));
 			}
 		});
 		
 		newOrderBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
-				if(newOrderBttn.getBackground().toString().equals("#3C7E3A")){
-					newOrderBttn.setBackground(Color.decode("#4DA14B"));
-				}else {
-					newOrderBttn.setForeground(Color.decode("#3C7E3A"));
-				}
+				newOrderBttn.setForeground(Color.decode("#3C7E3A"));
+				newOrderBttn.setButtonBorder(Color.decode("#3C7E3A"));
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	if(newOrderBttn.getBackground().toString().equals("#4DA14B")){
-		    		newOrderBttn.setBackground(Color.decode("#3C7E3A"));
-				}else {
-					newOrderBttn.setForeground(Color.decode("#244E23"));
-				}
+				newOrderBttn.setForeground(Color.decode("#244E23"));
+				newOrderBttn.setButtonBorder(Color.decode("#244E23"));
 		    }
 		});
 		
@@ -219,6 +211,12 @@ public class OrderView {
 	
 	public void newOrder() {
 		oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
+		frame.remove(buttonPnl);
+		buttonPnl = sideBar.createReducedSidePanel();
+		buttonPnl.getComponent(2).setBackground(Color.decode("#3C7E3A"));
+		sideBar.removeOrderListener();
+		frame.add(buttonPnl, BorderLayout.WEST);
 		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
@@ -288,8 +286,9 @@ public class OrderView {
 		newOrderBttn.setText("Nuevo");
 		actionPnl.add(newOrderBttn); 
 		
-		RoundButton ongoingOrderBttn = new RoundButton(30, Color.decode("#244E23"));
+		RoundButton ongoingOrderBttn = new RoundButton(30);
 		ongoingOrderBttn.setBackground(Color.white);
+		ongoingOrderBttn.setButtonBorder(Color.decode("#244E23"));
 		ongoingOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		ongoingOrderBttn.setForeground(Color.decode("#244E23"));
 		ongoingOrderBttn.setText("En curso");
@@ -300,30 +299,19 @@ public class OrderView {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				oc.orders();
-				
-				ongoingOrderBttn.setBackground(Color.decode("#3C7E3A"));	
-				ongoingOrderBttn.setForeground(Color.white);
-				newOrderBttn.setBackground(Color.white);
-				newOrderBttn.setForeground(Color.decode("#244E23"));
 			}
 		});
 	
 		
 		ongoingOrderBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
-				if(ongoingOrderBttn.getBackground().toString().equals("#3C7E3A")){
-					ongoingOrderBttn.setBackground(Color.decode("#4DA14B"));
-				}else {
-					ongoingOrderBttn.setForeground(Color.decode("#3C7E3A"));
-				}
+				ongoingOrderBttn.setForeground(Color.decode("#3C7E3A"));
+				ongoingOrderBttn.setButtonBorder(Color.decode("#3C7E3A"));
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	if(ongoingOrderBttn.getBackground().toString().equals("#4DA14B")){
-		    		ongoingOrderBttn.setBackground(Color.decode("#3C7E3A"));
-				}else {
-					ongoingOrderBttn.setForeground(Color.decode("#244E23"));
-				}
+				ongoingOrderBttn.setForeground(Color.decode("#244E23"));
+				ongoingOrderBttn.setButtonBorder(Color.decode("#244E23"));
 		    }
 		});
 		

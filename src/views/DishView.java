@@ -36,10 +36,10 @@ public class DishView {
 		frame.setTitle(title); 
 		
 		SideBarPanel sideBar = new SideBarPanel(frame);
-		JPanel buttonPanel = sideBar.createSidePanel();
-		frame.add(buttonPanel, BorderLayout.WEST);
+		JPanel buttonPnl = sideBar.createSidePanel();
+		frame.add(buttonPnl, BorderLayout.WEST);
 		
-		buttonPanel.getComponent(1).setBackground(Color.decode("#3C7E3A"));
+		buttonPnl.getComponent(1).setBackground(Color.decode("#3C7E3A"));
 		sideBar.removeDishListener();
 		
 		frame.addComponentListener(new ComponentAdapter() {
