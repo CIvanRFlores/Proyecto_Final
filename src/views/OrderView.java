@@ -18,6 +18,9 @@ public class OrderView {
 	Image image;
 	ImageIcon imageIcon;
 	
+	ArrayList<RoundPanel> ordersArray;
+	ArrayList<RoundPanel> dishesArray;
+	
 	String message;
 	int relativeXSize;
 	int relativeYSize;
@@ -70,7 +73,7 @@ public class OrderView {
 		headerPnl.setOpaque(false); 
 		mainPnl.add(headerPnl, BorderLayout.NORTH);
 		
-		JLabel ordersLbl = new JLabel("Ordenes");
+		JLabel ordersLbl = new JLabel("Órdenes");
 		ordersLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
 		ordersLbl.setForeground(Color.decode("#244E23")); 
 		ordersLbl.setHorizontalAlignment(JLabel.LEFT); 
@@ -169,7 +172,7 @@ public class OrderView {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;	
 		
-		ArrayList<RoundPanel> ordersArray = new ArrayList<>();
+		ordersArray = new ArrayList<>();
         for(int i=1; i<=15; i++) {
         	
         	//simular que las ordenes son de tipos diferente
@@ -205,7 +208,7 @@ public class OrderView {
 	}
 	
 	public void searchOrder() {
-		OptionPaneButton optionPane = new OptionPaneButton("Órden no encontrada", "No se ha encontrado ninguna órden.");
+		OptionPaneButton optionPane = new OptionPaneButton("Orden no encontrada", "No se ha encontrado ninguna órden.");
 		optionPane.warningOptionPane();
 	}
 	
@@ -217,6 +220,10 @@ public class OrderView {
 		buttonPnl.getComponent(2).setBackground(Color.decode("#3C7E3A"));
 		sideBar.removeOrderListener();
 		frame.add(buttonPnl, BorderLayout.WEST);
+		
+		OrderTabPanel orderTab = new OrderTabPanel(frame);
+		JPanel orderTabPnl = orderTab.createNewOrderTab();
+		frame.add(orderTabPnl, BorderLayout.EAST);
 		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
@@ -255,65 +262,39 @@ public class OrderView {
 		searchTxtFld.setForeground(Color.decode("#244E23")); 
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
-				
-		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 3, 20, 0));
-		actionPnl.setOpaque(false);
-		headerPnl.add(actionPnl, BorderLayout.EAST);
 		
-		RoundButton searchBttn = new RoundButton(30);
-		searchBttn.setBackground(Color.decode("#244E23"));
-		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		searchBttn.setForeground(Color.white);
-		searchBttn.setText("Buscar");
-		actionPnl.add(searchBttn);
 		
-		searchBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				searchBttn.setBackground(Color.decode("#3C7E3A"));
-		    }
+		JPanel dishesPnl = new JPanel();
+		dishesPnl.setBackground(Color.white);
+		dishesPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 30));
+		dishesPnl.setLayout(new GridBagLayout());	
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.insets = new Insets(15, 15, 15, 15);
+		
+		dishesArray = new ArrayList<>();
+        for(int i=1; i<=20; i++) {
+        	DishCard dishCard = new DishCard(30, OrderCard.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
+			RoundPanel dish = dishCard.createAddableCard();
+			dishesArray.add(dish);
+        }
+		
+		for(int i=0; i<dishesArray.size(); i++) {
+            int row = i/3; 
+            int col = i%3;  
 
-		    public void mouseExited(MouseEvent evt) {
-		    	searchBttn.setBackground(Color.decode("#244E23"));
-		    }
-		});
-				
-		
-		RoundButton newOrderBttn = new RoundButton(30);
-		newOrderBttn.setBackground(Color.decode("#3C7E3A"));
-		newOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		newOrderBttn.setForeground(Color.white);
-		newOrderBttn.setText("Nuevo");
-		actionPnl.add(newOrderBttn); 
-		
-		RoundButton ongoingOrderBttn = new RoundButton(30);
-		ongoingOrderBttn.setBackground(Color.white);
-		ongoingOrderBttn.setButtonBorder(Color.decode("#244E23"));
-		ongoingOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		ongoingOrderBttn.setForeground(Color.decode("#244E23"));
-		ongoingOrderBttn.setText("En curso");
-		actionPnl.add(ongoingOrderBttn); 
+            gbc.gridx = col;
+            gbc.gridy = row;
 
-		ongoingOrderBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				oc.orders();
-			}
-		});
+            dishesPnl.add(dishesArray.get(i), gbc);
+        }
 	
-		
-		ongoingOrderBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				ongoingOrderBttn.setForeground(Color.decode("#3C7E3A"));
-				ongoingOrderBttn.setButtonBorder(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-				ongoingOrderBttn.setForeground(Color.decode("#244E23"));
-				ongoingOrderBttn.setButtonBorder(Color.decode("#244E23"));
-		    }
-		});
+		ColoredScrollPaneBar coloredScrollPane = new ColoredScrollPaneBar(dishesPnl, Color.decode("#244E23"));
+		JScrollPane scrollPane = coloredScrollPane.createScrollPane();
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+		mainPnl.add(scrollPane, BorderLayout.CENTER);
+			
 		
 		frame.setVisible(true);
 	}

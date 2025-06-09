@@ -19,6 +19,9 @@ public class DishView {
 	String currentWindow;
 	int relativeXSize;
 	int relativeYSize;
+	
+	ArrayList<RoundPanel> dishesArray;
+	
 	DishController dc;
 	OptionPaneButton optionPane;
 	int opt;
@@ -164,13 +167,13 @@ public class DishView {
 		JPanel dishesPnl = new JPanel();
 		dishesPnl.setBackground(Color.white);
 		dishesPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 30));
-		//dishesPnl.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		dishesPnl.setLayout(new GridBagLayout());	
+		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.insets = new Insets(15, 15, 15, 15);
 		
-		ArrayList<RoundPanel> dishesArray = new ArrayList<>();
+		dishesArray = new ArrayList<>();
         for(int i=1; i<=20; i++) {
         	DishCard dishCard = new DishCard(30, DishView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
 			RoundPanel dish = dishCard.createCard();
@@ -664,4 +667,5 @@ public class DishView {
 		
 		frame.setVisible(true);
 	}
+	
 }

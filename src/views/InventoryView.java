@@ -77,12 +77,18 @@ public class InventoryView {
 		inventoryLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		headerPnl.add(inventoryLbl, BorderLayout.NORTH);
 		
+		
+		JPanel searchPnl = new JPanel();
+		searchPnl.setLayout(new GridLayout(1, 2, 20, 0));
+		searchPnl.setOpaque(false); 
+		headerPnl.add(searchPnl, BorderLayout.CENTER);
+		
 		RoundPanel searchBarPnl = new RoundPanel(30);  
 		searchBarPnl.setBackground(Color.white);
 		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
 		searchBarPnl.setForeground(Color.decode("#244E23")); 
 		searchBarPnl.setLayout(new BorderLayout(15, 0));
-		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
+		searchPnl.add(searchBarPnl);
 		
 		image = new ImageIcon(InventoryView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
@@ -96,10 +102,11 @@ public class InventoryView {
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld, BorderLayout.CENTER);
 		
+
 		JPanel searchBarBttnPnl = new JPanel();
 		searchBarBttnPnl.setLayout(new GridLayout(1, 3, 20, 0));
 		searchBarBttnPnl.setOpaque(false); 
-		headerPnl.add(searchBarBttnPnl, BorderLayout.EAST);
+		searchPnl.add(searchBarBttnPnl, BorderLayout.EAST);
 		
 		RoundButton searchBttn = new RoundButton(30);
 		searchBttn.setBackground(Color.decode("#244E23"));
@@ -147,20 +154,23 @@ public class InventoryView {
 		
 		
 		JPanel actionPnl = new JPanel();
-		actionPnl.setLayout(new GridLayout(1, 6, 20, 0));
+		actionPnl.setLayout(new GridLayout(1, 2, 20, 0));
 		actionPnl.setOpaque(false); 
 		headerPnl.add(actionPnl, BorderLayout.SOUTH);
 		
-		actionPnl.add(Box.createHorizontalStrut(0));
-		actionPnl.add(Box.createHorizontalStrut(0));
-		actionPnl.add(Box.createHorizontalStrut(0));
+		actionPnl.add(Box.createHorizontalStrut(0), BorderLayout.CENTER);
+		
+		JPanel buttonPnl = new JPanel();
+		buttonPnl.setLayout(new GridLayout(1, 3, 20, 0));
+		buttonPnl.setOpaque(false); 
+		actionPnl.add(buttonPnl, BorderLayout.EAST);
 		
 		RoundButton deleteBttn = new RoundButton(30);
 		deleteBttn.setBackground(Color.decode("#EF2D2D"));
 		deleteBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		deleteBttn.setForeground(Color.white);
 		deleteBttn.setText("Eliminar");
-		actionPnl.add(deleteBttn);
+		buttonPnl.add(deleteBttn);
 		
 		deleteBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
@@ -189,7 +199,7 @@ public class InventoryView {
 		editBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		editBttn.setForeground(Color.white);
 		editBttn.setText("Editar");
-		actionPnl.add(editBttn); 
+		buttonPnl.add(editBttn); 
 		
 		editBttn.addActionListener(new ActionListener() {
 			@Override
@@ -214,7 +224,7 @@ public class InventoryView {
 		newInv.setFont(new Font("Caladea Bold", Font.BOLD, 20));
 		newInv.setForeground(Color.white);
 		newInv.setText("Nuevo");
-		actionPnl.add(newInv); 
+		buttonPnl.add(newInv); 
 
 		newInv.addActionListener(new ActionListener() {
 			@Override
@@ -234,23 +244,30 @@ public class InventoryView {
 		    }
 		});
 		
+		
 		JPanel inventoryPnl = new JPanel();
-		inventoryPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0)); 
+		inventoryPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0)); 
 		inventoryPnl.setLayout(new GridLayout(1, 2, 30, 30));	
 		inventoryPnl.setOpaque(false); 
 		mainPnl.add(inventoryPnl, BorderLayout.CENTER);
 	
+		
 		JPanel leftPnl = new JPanel();
-		leftPnl.setLayout(new GridLayout(4, 1, 30, 30));
-		leftPnl.setOpaque(false);	
+		leftPnl.setLayout(new GridLayout(2, 1, 0, 30));
+		leftPnl.setOpaque(false);
 		inventoryPnl.add(leftPnl, BorderLayout.WEST);
+		
+		JPanel topleftPnl = new JPanel();
+		topleftPnl.setLayout(new BorderLayout(30, 20));
+		topleftPnl.setOpaque(false);	
+		leftPnl.add(topleftPnl);
 		
 		JLabel inventoryTableLbl = new JLabel("Inventario");
 		inventoryTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
 		inventoryTableLbl.setForeground(Color.decode("#244E23"));
 		inventoryTableLbl.setHorizontalAlignment(JLabel.LEFT); 
 		inventoryTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
-		leftPnl.add(inventoryTableLbl);
+		topleftPnl.add(inventoryTableLbl, BorderLayout.NORTH);
 		
 		String[] tableColumns =  {"Nombre", "Cantidad", "Código"};
 		DefaultTableModel invTableModel = new DefaultTableModel(tableColumns, 0);
@@ -263,14 +280,20 @@ public class InventoryView {
 		invTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		invTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		
-		leftPnl.add(invScrollPane);
+		topleftPnl.add(invScrollPane, BorderLayout.CENTER);
+		
+		
+		JPanel bottomLeftPnl = new JPanel();
+		bottomLeftPnl.setLayout(new BorderLayout(30, 20));
+		bottomLeftPnl.setOpaque(false);	
+		leftPnl.add(bottomLeftPnl);
 		
 		JLabel missingInvTableLbl = new JLabel("Faltantes");
 		missingInvTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
 		missingInvTableLbl.setForeground(Color.decode("#244E23"));
 		missingInvTableLbl.setHorizontalAlignment(JLabel.LEFT); 
 		missingInvTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
-		leftPnl.add(missingInvTableLbl);
+		bottomLeftPnl.add(missingInvTableLbl, BorderLayout.NORTH);
 		
 		DefaultTableModel noStockTableModel = new DefaultTableModel(tableColumns, 0);
 		
@@ -282,21 +305,22 @@ public class InventoryView {
 		noStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		noStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		
-		leftPnl.add(noStockScrollPane);
+		bottomLeftPnl.add(noStockScrollPane, BorderLayout.CENTER);
 		
 		
-		JPanel rightPnl = new JPanel();
-		rightPnl.setLayout(new GridLayout(4, 1, 30, 30));
-		rightPnl.setOpaque(false);	
-		inventoryPnl.add(rightPnl, BorderLayout.EAST);
+		
+		JPanel topRightPnl = new JPanel();
+		topRightPnl.setLayout(new BorderLayout(30, 20));
+		topRightPnl.setOpaque(false);	
+		inventoryPnl.add(topRightPnl);
 		
 		JLabel lowStockTableLbl = new JLabel("Stock bajo");
 		lowStockTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
 		lowStockTableLbl.setForeground(Color.decode("#244E23"));
 		lowStockTableLbl.setHorizontalAlignment(JLabel.LEFT); 
 		lowStockTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
-		rightPnl.add(lowStockTableLbl);
-		
+		topRightPnl.add(lowStockTableLbl, BorderLayout.NORTH);
+	
 		DefaultTableModel lowStockTableModel = new DefaultTableModel(tableColumns, 0);
 		
 		InformationTable lowStockTemplate = new InformationTable(frame, lowStockTableModel, Color.decode("#C07A00"));
@@ -307,10 +331,8 @@ public class InventoryView {
 		lowStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		lowStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		
-		rightPnl.add(lowStockScrollPane);
-		
-		rightPnl.add(Box.createHorizontalStrut(0));
-		rightPnl.add(Box.createHorizontalStrut(0));
+		topRightPnl.add(lowStockScrollPane, BorderLayout.CENTER);
+
 		
 		frame.setVisible(true);
 	}

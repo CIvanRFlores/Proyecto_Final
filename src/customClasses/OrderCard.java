@@ -35,6 +35,10 @@ public class OrderCard {
 		this.orderTime = orderTime;
 	}
 	
+	public OrderCard(JFrame frame) {
+		this.frame = frame;
+	}
+	
 	public RoundPanel createCard() {
 		RoundPanel cardPnl = new RoundPanel(radius);  
 		cardPnl.setBackground(Color.white);
@@ -243,6 +247,92 @@ public class OrderCard {
         });
 		
 		return cardPnl; 
+	}
+	
+	public JPanel createDescriptiveCard(String dishName, double price) {
+		JPanel backgroundPnl = new JPanel();
+		backgroundPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		backgroundPnl.setLayout(new GridLayout(1, 4, 10, 0));
+		backgroundPnl.setOpaque(false);
+		
+		JLabel dishNameLbl = new JLabel(dishName);
+		dishNameLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 14));
+		dishNameLbl.setForeground(Color.decode("#244E23")); 
+		dishNameLbl.setHorizontalAlignment(SwingConstants.CENTER); 
+		backgroundPnl.add(dishNameLbl);
+		
+		RoundPanel quantityPnl = new RoundPanel(30);  
+		quantityPnl.setBackground(Color.decode("#555BF6"));
+		quantityPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		quantityPnl.setForeground(Color.decode("#555BF6")); 
+		quantityPnl.setLayout(new GridLayout(1, 3, 5, 0));
+		backgroundPnl.add(quantityPnl);
+		
+		
+		image = new ImageIcon(OrderCard.class.getResource("/images/removeOrderDish.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		RoundButton removeBttn = new RoundButton(20); 
+		removeBttn.setBackground(Color.decode("#555BF6"));
+		removeBttn.setIcon(imageIcon);
+		quantityPnl.add(removeBttn);
+		
+		JLabel quantityLbl = new JLabel("0");
+		quantityLbl.setFont(new Font("Caladea Bold", Font.BOLD, 14));
+		quantityLbl.setForeground(Color.white); 
+		quantityLbl.setHorizontalAlignment(SwingConstants.CENTER); 
+		quantityPnl.add(quantityLbl);
+		
+		image = new ImageIcon(OrderCard.class.getResource("/images/addOrderDish.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		RoundButton addBttn = new RoundButton(20); 
+		addBttn.setBackground(Color.decode("#555BF6"));
+		addBttn.setIcon(imageIcon);
+		quantityPnl.add(addBttn);
+		
+		
+		JLabel priceLbl = new JLabel("$"+price+" MXN");
+		priceLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 14));
+		priceLbl.setForeground(Color.decode("#244E23")); 
+		priceLbl.setHorizontalAlignment(SwingConstants.CENTER); 
+		backgroundPnl.add(priceLbl);
+		
+		
+		image = new ImageIcon(OrderCard.class.getResource("/images/deleteOrderDish.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		RoundButton deleteSelectionBttn = new RoundButton(20); 
+		deleteSelectionBttn.setBackground(Color.white);
+		deleteSelectionBttn.setIcon(imageIcon);
+		backgroundPnl.add(deleteSelectionBttn);
+		
+		
+		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
+		frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+            	dishNameLbl.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.014)));
+            	priceLbl.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.014)));
+            	
+            	relativeXSize = (int) (frame.getWidth()*0.015);
+            	image = new ImageIcon(OrderCard.class.getResource("/images/removeOrderDish.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
+        		imageIcon = new ImageIcon(image);
+       			removeBttn.setIcon(imageIcon);  
+       			
+       			image = new ImageIcon(OrderCard.class.getResource("/images/addOrderDish.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
+        		imageIcon = new ImageIcon(image);
+       			addBttn.setIcon(imageIcon);  
+       			
+       			image = new ImageIcon(OrderCard.class.getResource("/images/deleteOrderDish.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
+        		imageIcon = new ImageIcon(image);
+        		deleteSelectionBttn.setIcon(imageIcon);  
+        		
+        		relativeXSize = (int) (frame.getWidth()*0.01);
+        		quantityPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize));
+        		backgroundPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize));
+        		
+       			frame.repaint();
+            }
+        });
+		
+		return backgroundPnl;
 	}
 
 }
