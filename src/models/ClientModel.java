@@ -190,7 +190,7 @@ public class ClientModel
 	public ArrayList<Client> search(String searchText)	//Obtener lista de clientes especificos de la base de datos
 	{
 		String query = "SELECT * FROM `Client` "
-				+ "WHERE LOWER(id_client) = ? OR LOWER(name) = ? OR LOWER(last_name) = ? OR phone_number = ? OR LOWER(address_1) = ? OR LOWER(address_2) = ? OR LOWER(city) = ? OR LOWER(state) = ? OR LOWER(postal_code) = ? OR LOWER(email) = ?";
+				+ "WHERE LOWER(name) LIKE ? OR LOWER(last_name) LIKE ? OR LOWER(CONCAT(name, ' ', last_name)) LIKE ? OR phone_number LIKE ? OR LOWER(address_1) LIKE ? OR LOWER(address_2) LIKE ? OR LOWER(email) LIKE ?";
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
@@ -199,9 +199,9 @@ public class ClientModel
 			conn = DBConnection.connected();
 			ps = conn.prepareStatement(query);
 			
-			String searchTextLwr = searchText.toLowerCase();
+			String searchTextLwr = "%" + searchText.toLowerCase() + "%";
 			
-			for(int i = 1; i <= 10; i++)
+			for(int i = 1; i <= 7; i++)
 			{
 				ps.setString(i, searchTextLwr);
 			}
