@@ -520,6 +520,7 @@ public class ClientView {
 		//Formulario lleno
 		form.setNameTxtFld(c.name);
 		form.setSurnameTxtFld(c.last_Name);
+		form.setPhoneTxtFld(c.phone_Number);
 		form.setEmailTxtFld(c.email);
 		form.setAdressTxtFld(c.address_1);
 		form.setAdress2TxtFld(c.address_2);
