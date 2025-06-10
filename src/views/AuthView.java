@@ -25,6 +25,8 @@ public class AuthView {
 	int relativeYSize;
 	DishController dc;
 	
+	OptionPaneButton loadingOptPn;
+	
 	public AuthView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
 		imageIcon = new ImageIcon(AuthView.class.getResource("/images/elManglarLogo.png")); //icono de la ventana
@@ -224,11 +226,17 @@ public class AuthView {
 				//validar si los dos campos han sido completados
 				if(flag1 && flag2) {
 					AuthModel am = new AuthModel();
+					
 					//cuando ambos campos coinciden con los datos de la cuenta del usuario
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					
 					if(am.login(username, passTxt)) {
 						OptionPaneButton option = new OptionPaneButton("Datos correctos", "Sesión iniciada correctamente.");
 						option.checkOptionPane();
 						
+						loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+						loadingOptPn.loadingOptionPane(frame, 3000);
 						frame.dispose(); //destruir ventana actual
 						dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 						dc.dishes(); 

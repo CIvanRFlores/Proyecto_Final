@@ -24,6 +24,7 @@ public class DishView {
 	
 	DishController dc;
 	OptionPaneButton optionPane;
+	OptionPaneButton loadingOptPn;
 	int opt;
 	
 	public DishView(String title, int frameWidth, int frameHeight) {
@@ -112,7 +113,15 @@ public class DishView {
 		searchBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				searchDish();
+				if(searchTxtFld.getText().equals("")) {
+					optionPane = new OptionPaneButton("Cliente", "Campo sin completar.");
+					optionPane.errorOptionPane();
+				}
+				else{
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					searchDish();	
+				}
 			}
 		});
 		actionPnl.add(searchBttn);
@@ -143,10 +152,14 @@ public class DishView {
 				opt = optionPane.dishOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 1000);
 					frame.dispose();
 					dc.newDish("platillo");
 				} 
 				else if(opt==2){
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 1000);
 					frame.dispose();
 					dc.newDish("bebida");
 				}
@@ -241,6 +254,8 @@ public class DishView {
 				opt = optionPane.destructiveOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 4000);
 					frame.dispose();
 					dc.dishes();
 				}
@@ -276,6 +291,8 @@ public class DishView {
 					optionPane = new OptionPaneButton("Acción exitosa", type.equals("platillo")? "Platillo creado correctamente." : "Bebida creada correctamente.");
 					optionPane.checkOptionPane();
 					
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					dc.dishes();
 				}
@@ -377,6 +394,8 @@ public class DishView {
 				opt = optionPane.destructiveOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 4000);
 					frame.dispose();
 					dc.dishes();
 				}
@@ -404,6 +423,8 @@ public class DishView {
 		
 		editBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 4000);
 				frame.dispose();
 				dc.editDish(type);
 			}
@@ -580,6 +601,8 @@ public class DishView {
 				opt = optionPane.destructiveOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 4000);
 					frame.dispose();
 					dc.dishes();
 				}
@@ -614,6 +637,8 @@ public class DishView {
 					optionPane = new OptionPaneButton("Acción exitosa", type.equals("platillo")? "Platillo actualizado correctamente." : "Bebida actualizada correctamente.");
 	   				optionPane.checkOptionPane();
 					
+	   				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 4000);
 					frame.dispose();
 					dc.dishes();
 				}

@@ -9,32 +9,34 @@ import controllers.*;
 
 public class SideBarPanel {
 
-	public JFrame frame;
-	public Image image;
-	public ImageIcon imageIcon;
-	public String message;
-	public int relativeXSize;
-	public int relativeYSize;
+	JFrame frame;
+	Image image;
+	ImageIcon imageIcon;
+	String message;
+	int relativeXSize;
+	int relativeYSize;
 	
-	public RoundButton dishBttn;
-	public RoundButton orderBttn;
-	public RoundButton clientBttn;
-	public RoundButton inventoryBttn;
-	public RoundButton returnBttn;
+	RoundButton dishBttn;
+	RoundButton orderBttn;
+	RoundButton clientBttn;
+	RoundButton inventoryBttn;
+	RoundButton returnBttn;
 	
-	public MouseListener mouseDish = null;
-	public MouseListener mouseOrder = null;
-	public MouseListener mouseClient = null;
-	public MouseListener mouseInventory = null;
+	MouseListener mouseDish = null;
+	MouseListener mouseOrder = null;
+	MouseListener mouseClient = null;
+	MouseListener mouseInventory = null;
 	
-	public AuthController ac;
-	public DishController dc;
-	public OrderController oc;
-	public ClientController cc;
-	public InventoryController ic;
+	AuthController ac;
+	DishController dc;
+	OrderController oc;
+	ClientController cc;
+	InventoryController ic;
+	OptionPaneButton loadingOptPn;
 
 	public SideBarPanel(JFrame frame) {
 		this.frame = frame;
+		loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
 	}
 
 	public JPanel createSidePanel() {
@@ -62,6 +64,7 @@ public class SideBarPanel {
 		dishBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn.loadingOptionPane(frame, 5000);
 				frame.dispose();
 				dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 				dc.dishes(); 
@@ -95,6 +98,7 @@ public class SideBarPanel {
 		orderBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn.loadingOptionPane(frame, 4000);
 				frame.dispose();
 				oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 				oc.orders(); 
@@ -128,6 +132,7 @@ public class SideBarPanel {
 		clientBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn.loadingOptionPane(frame, 4000);
 				frame.dispose();
 				cc = new ClientController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 				cc.clients(); 
@@ -161,6 +166,7 @@ public class SideBarPanel {
 		inventoryBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn.loadingOptionPane(frame, 4000);
 				frame.dispose();
 				ic = new InventoryController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 				ic.inventory(); 
@@ -194,10 +200,11 @@ public class SideBarPanel {
 		returnBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				OptionPaneButton optionPane = new OptionPaneButton("Cerrar sesión", "¿Desea cerrar sesión?", " Salir ");
-				int opt = optionPane.logoutOptionPane();
+				OptionPaneButton logoutoptionPane = new OptionPaneButton("Cerrar sesión", "¿Desea cerrar sesión?", " Salir ");
+				int opt = logoutoptionPane.logoutOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn.loadingOptionPane(frame, 4000);
 					frame.dispose();
 					ac = new AuthController(frame.getTitle(), frame.getWidth(), frame.getHeight()); 
 					ac.login(); 

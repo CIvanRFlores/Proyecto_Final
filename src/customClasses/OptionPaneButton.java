@@ -1,6 +1,7 @@
 package customClasses;
 
 import java.awt.*;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ public class OptionPaneButton {
 	int option;
 	String dialogTitle;
 	String optionPaneMessage;
+	RoundButton okBttn;
 	String buttonText = "";
 	int type = 0;
 	ImageIcon imageIcon;
@@ -24,6 +26,22 @@ public class OptionPaneButton {
 	public OptionPaneButton(String dialogTitle, String optionPaneMessage) {
 		this.dialogTitle = dialogTitle;
 		this.optionPaneMessage = optionPaneMessage;
+		
+		okBttn = new RoundButton(30);
+		okBttn.setBackground(Color.decode("#999999"));
+		okBttn.setFont(new Font("Caladea Bold", Font.BOLD, 12));
+		okBttn.setForeground(Color.white);
+		okBttn.setText("Ok");
+		
+		okBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				okBttn.setBackground(Color.decode("#B3B1B1"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	okBttn.setBackground(Color.decode("#999999"));
+		    }
+		});
 	}
 	
 	public int destructiveOptionPane() {
@@ -125,27 +143,11 @@ public class OptionPaneButton {
 		}});
 		
 		
-		RoundButton okBttn = new RoundButton(30);
-		okBttn.setBackground(Color.decode("#999999"));
-		okBttn.setFont(new Font("Caladea Bold", Font.BOLD, 12));
-		okBttn.setForeground(Color.white);
-		okBttn.setText("Ok");
-		
 		okBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dialog.dispose();
 			}
-		});
-		
-		okBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				okBttn.setBackground(Color.decode("#B3B1B1"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	okBttn.setBackground(Color.decode("#999999"));
-		    }
 		});
 		
 		
@@ -412,27 +414,11 @@ public class OptionPaneButton {
 		}});
 		
 		
-		RoundButton okBttn = new RoundButton(30);
-		okBttn.setBackground(Color.decode("#999999"));
-		okBttn.setFont(new Font("Caladea Bold", Font.BOLD, 12));
-		okBttn.setForeground(Color.white);
-		okBttn.setText("Ok");
-		
 		okBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dialog.dispose();
 			}
-		});
-		
-		okBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				okBttn.setBackground(Color.decode("#B3B1B1"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	okBttn.setBackground(Color.decode("#999999"));
-		    }
 		});
 		
 		
@@ -461,12 +447,6 @@ public class OptionPaneButton {
 		}});
 		
 		
-		RoundButton okBttn = new RoundButton(30);
-		okBttn.setBackground(Color.decode("#999999"));
-		okBttn.setFont(new Font("Caladea Bold", Font.BOLD, 12));
-		okBttn.setForeground(Color.white);
-		okBttn.setText("Ok");
-		
 		okBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -474,21 +454,36 @@ public class OptionPaneButton {
 			}
 		});
 		
-		okBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				okBttn.setBackground(Color.decode("#B3B1B1"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-		    	okBttn.setBackground(Color.decode("#999999"));
-		    }
-		});
-		
 		
 		Object[] options = {okBttn};
 		optionPane.setOptions(options);
 
         dialog.setVisible(true);
+	}
+	
+	public void loadingOptionPane(JFrame frame, int time) {
+		image = new ImageIcon(OptionPaneButton.class.getResource("/images/elManglarLogo.png")).getImage().getScaledInstance(45, 40, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		
+		JOptionPane optionPane = new JOptionPane(optionPaneMessage, JOptionPane.INFORMATION_MESSAGE, JOptionPane.PLAIN_MESSAGE, imageIcon);
+        JDialog dialog = optionPane.createDialog(null, dialogTitle);
+        dialog.setModalityType(ModalityType.MODELESS);
+        dialog.setLocation((frame.getX()+frame.getWidth())/2, (frame.getY()+frame.getHeight())/2);
+        
+		Object[] options = {okBttn};
+		optionPane.setOptions(options);
+		
+		optionPane.repaint();
+		optionPane.revalidate();
+		dialog.setVisible(true);
+		dialog.setAlwaysOnTop(true);
+		
+        new Timer(time, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.dispose();
+            }
+        }).start();
 	}
 	
 }

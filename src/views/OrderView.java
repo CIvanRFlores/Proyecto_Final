@@ -25,6 +25,8 @@ public class OrderView {
 	int relativeXSize;
 	int relativeYSize;
 	OrderController oc;
+	OptionPaneButton optionPane;
+	OptionPaneButton loadingOptPn;
 	
 	public OrderView(String title, int frameWidth, int frameHeight) {
 		frame = new JFrame(); 
@@ -114,7 +116,15 @@ public class OrderView {
 		searchBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				searchOrder();
+				if(searchTxtFld.getText().equals("")) {
+					optionPane = new OptionPaneButton("Orden", "Campo sin completar.");
+					optionPane.errorOptionPane();
+				}
+				else{
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					searchOrder();
+				}
 			}
 		});
 		actionPnl.add(searchBttn);
@@ -147,6 +157,8 @@ public class OrderView {
 		newOrderBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
 				frame.dispose();
 				oc.newOrder();
 			}
@@ -208,7 +220,7 @@ public class OrderView {
 	}
 	
 	public void searchOrder() {
-		OptionPaneButton optionPane = new OptionPaneButton("Orden no encontrada", "No se ha encontrado ninguna órden.");
+		OptionPaneButton optionPane = new OptionPaneButton("Orden no encontrada", "No se ha encontrado ninguna orden.");
 		optionPane.warningOptionPane();
 	}
 	
@@ -262,6 +274,42 @@ public class OrderView {
 		searchTxtFld.setForeground(Color.decode("#244E23")); 
 		searchTxtFld.setOpaque(false); 
 		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
+		
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 1));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl, BorderLayout.EAST);
+		
+		RoundButton searchBttn = new RoundButton(30);
+		searchBttn.setBackground(Color.decode("#244E23"));
+		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		searchBttn.setForeground(Color.white);
+		searchBttn.setText("Buscar");
+		searchBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(searchTxtFld.getText().equals("")) {
+					optionPane = new OptionPaneButton("Orden", "Campo sin completar.");
+					optionPane.errorOptionPane();
+				}
+				else{
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					searchOrder();
+				}
+			}
+		});
+		actionPnl.add(searchBttn);
+		
+		searchBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				searchBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	searchBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});	
 		
 		
 		JPanel dishesPnl = new JPanel();

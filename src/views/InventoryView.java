@@ -20,6 +20,7 @@ public class InventoryView {
 	int relativeYSize;
 	InventoryController ic;
 	OptionPaneButton optionPane;
+	OptionPaneButton loadingOptPn;
 	int opt;
 	
 	public InventoryView(String title, int frameWidth, int frameHeight) {
@@ -118,7 +119,15 @@ public class InventoryView {
 		searchBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				searchIngredient();
+				if(searchTxtFld.getText().equals("")) {
+					optionPane = new OptionPaneButton("Inventario", "Campo sin completar.");
+					optionPane.errorOptionPane();
+				}
+				else{
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					searchIngredient();
+				}
 			}
 		});
 		
@@ -179,6 +188,8 @@ public class InventoryView {
 				
 				//simular eliminado
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					System.out.println("Registro eliminado");
 				}
 			}
@@ -204,6 +215,8 @@ public class InventoryView {
 		editBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
 				frame.dispose();
 				ic.editInventory();
 			}
@@ -229,6 +242,8 @@ public class InventoryView {
 		newInv.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 1000);
 				frame.dispose();
 				ic.newInventory();
 			}
@@ -385,6 +400,8 @@ public class InventoryView {
 				opt = optionPane.destructiveOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					ic.inventory();
 				}
@@ -418,9 +435,14 @@ public class InventoryView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.invFormEmptyFields()) {
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					
 					optionPane = new OptionPaneButton("Acción exitosa", "Inventario creado correctamente.");
 					optionPane.checkOptionPane();
 					
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					ic.inventory();
 				}
@@ -484,6 +506,8 @@ public class InventoryView {
 				opt = optionPane.destructiveOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					ic.inventory();
 				}
@@ -517,9 +541,14 @@ public class InventoryView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.invFormEmptyFields()) {
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					
 					optionPane = new OptionPaneButton("Acción exitosa", "Inventario actualizado correctamente.");
 	   				optionPane.checkOptionPane();
 					
+	   				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					ic.inventory();
 				}

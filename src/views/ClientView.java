@@ -28,6 +28,7 @@ public class ClientView {
 	int relativeYSize;
 	ClientController cc;
 	OptionPaneButton optionPane;
+	OptionPaneButton loadingOptPn;
 	int opt;
 	
 	public ClientView(String title, int frameWidth, int frameHeight) {
@@ -124,11 +125,15 @@ public class ClientView {
 					optionPane.errorOptionPane();
 				}
 				else{
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					Object[][] clients = cc.searchClientsTable(searchTxtFld.getText());	//Realiza busqueda de clientes
-					if(clients.length <= 0)	{ //Condicional que verifica si se encontraron clientes o no
+					if(clients.length == 0)	{ //Condicional que verifica si se encontraron clientes o no
 						optionPane = new OptionPaneButton("Cliente no encontrado", "No se ha encontrado ningún cliente.");
 						optionPane.warningOptionPane();
 					}else {
+						loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+						loadingOptPn.loadingOptionPane(frame, 3000);
 						frame.dispose();
 						cc.searchClient(clients);						
 					}
@@ -158,6 +163,8 @@ public class ClientView {
 		newClient.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 1000);
 				frame.dispose();
 				cc.newClient();
 			}
@@ -201,6 +208,9 @@ public class ClientView {
             public void onEdit(int row) {
             	System.out.println(cc.model.get().get(row).id);
                 System.out.println("Edit row: " + (row+1));
+                
+                loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
                 frame.dispose();
 				cc.editClient(row);
             }
@@ -211,6 +221,9 @@ public class ClientView {
                 	clientsTable.getCellEditor().stopCellEditing();
                 }
                 System.out.println("Delete  row : " + (row+1));
+                
+                loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
                 cc.clientDelete(row);
                 tableModel.removeRow(row);
             }
@@ -218,6 +231,9 @@ public class ClientView {
             @Override
             public void onView(int row) {
                 System.out.println("Viewed row : " + (row+1));
+                
+                loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
                 frame.dispose();
 				cc.clientHistory(row);
             }
@@ -280,6 +296,9 @@ public class ClientView {
             public void onEdit(int row) {
             	System.out.println(cc.model.get().get(row).id);
                 System.out.println("Edit row: " + (row+1));
+                
+                loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
                 frame.dispose();
 				cc.editClient(row);
             }
@@ -290,6 +309,9 @@ public class ClientView {
                 	clientsTable.getCellEditor().stopCellEditing();
                 }
                 System.out.println("Delete  row : " + (row+1));
+                
+                loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
                 cc.clientDelete(row);
                 tableModel.removeRow(row);
             }
@@ -297,7 +319,9 @@ public class ClientView {
             @Override
             public void onView(int row) {
                 System.out.println("Viewed row : " + (row+1));
-                frame.remove(mainPnl);
+                
+                loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
                 frame.dispose();
 				cc.clientHistory(row);
             }
@@ -360,6 +384,8 @@ public class ClientView {
 				opt = optionPane.destructiveOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					cc.clients();
 				}
@@ -393,6 +419,9 @@ public class ClientView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.clientFormEmptyFields()) {
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					
 					//Sentencia para crear nuevo cliente cuando se realize registro
 					cc.clientCreate(form.getNameTxtFld(), form.getSurnameTxtFld(), form.getCountryCodeCmbBx(), form.getPhoneTxtFld(), form.getAdressTxtFld(), 
 							form.getAdress2TxtFld(), form.getCityTxtFld(), form.getStateTxtFld(), form.getCodeTxtFld(), form.getEmailTxtFld());
@@ -400,6 +429,8 @@ public class ClientView {
 					optionPane = new OptionPaneButton("Acción exitosa", "Cliente creado correctamente.");
 					optionPane.checkOptionPane();
 					
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					cc.clients();
 				}
@@ -462,6 +493,8 @@ public class ClientView {
 				opt = optionPane.destructiveOptionPane();
 				
 				if(opt==1) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					cc.clients();
 				}
@@ -504,12 +537,16 @@ public class ClientView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!form.clientFormEmptyFields()) {
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					cc.clientUpdate(selectedRow, form.getNameTxtFld(), form.getSurnameTxtFld(), form.getCountryCodeCmbBx(), form.getPhoneTxtFld(), form.getAdressTxtFld(), 
 							form.getAdress2TxtFld(), form.getCityTxtFld(), form.getStateTxtFld(), form.getCodeTxtFld(), form.getEmailTxtFld());
 	   				
 	   				optionPane = new OptionPaneButton("Acción exitosa", "Cliente actualizado correctamente.");
 	   				optionPane.checkOptionPane();
 					
+	   				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					cc.clients();
 				}
@@ -583,6 +620,8 @@ public class ClientView {
 					}
 					
 					Document document = new Document();
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 4000);
 					try {
 						PdfWriter.getInstance(document, new FileOutputStream(saveFile));
 						document.open();
@@ -609,6 +648,8 @@ public class ClientView {
 					}
 				}
 				
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
 				frame.dispose();
 				cc.clients();
 			}

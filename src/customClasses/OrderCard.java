@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import views.AuthView;
-
 public class OrderCard {
 	
 	JFrame frame;
@@ -28,6 +26,7 @@ public class OrderCard {
 	String dishName;
 	int quantity;
 	double price;
+	OptionPaneButton loadingOptPn;
 
 	public OrderCard(int radius, String table, String amount, String clientName, int orderType, String orderTime, JFrame frame, JPanel mainPnl) {
 		this.frame = frame;
@@ -103,7 +102,8 @@ public class OrderCard {
 				int opt = option.destructiveOptionPane();
 				
 				if(opt==1) {
-					
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 				}
 			}
 		});
@@ -133,7 +133,8 @@ public class OrderCard {
 				int opt = option.downloadOptionPane();
 				
 				if(opt==1) {
-					
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 				}
 			}
 		});
@@ -172,11 +173,8 @@ public class OrderCard {
 		editBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				image = new ImageIcon(AuthView.class.getResource("/images/warning.png")).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH); 
-				imageIcon = new ImageIcon(image);
-				
-				message = "Editar orden";
-				JOptionPane.showMessageDialog(null, message, "Orden de Mesa "+table, JOptionPane.INFORMATION_MESSAGE, imageIcon); 
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000); 
 			}
 		});
 		

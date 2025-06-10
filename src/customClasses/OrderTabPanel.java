@@ -35,6 +35,7 @@ public class OrderTabPanel {
 	int orderType;
 	OptionPaneButton optionPane;
 	int opt;
+	OptionPaneButton loadingOptPn;
 	
 	public OrderTabPanel(JFrame frame) {
 		this.frame = frame;
@@ -83,6 +84,8 @@ public class OrderTabPanel {
 		ongoingOrderBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
 				frame.dispose();
 				oc.orders();
 			}
@@ -115,7 +118,10 @@ public class OrderTabPanel {
 				int opt = option.destructiveOptionPane();
 				
 				if(opt==1) {
-					
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					frame.dispose();
+					oc.orders();
 				}
 			}
 		});
@@ -144,6 +150,8 @@ public class OrderTabPanel {
 					optionPane = new OptionPaneButton("Acción exitosa", "Orden creada correctamente.");
 	   				optionPane.checkOptionPane();
 					
+	   				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					oc.orders();
 				//}

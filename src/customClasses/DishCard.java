@@ -20,6 +20,7 @@ public class DishCard {
 	int relativeXSize;
 	int relativeYSize;
 	DishController dc;
+	OptionPaneButton loadingOptPn;
 
 	public DishCard(int radius, URL dishImageURL, String type, String dishName, JFrame frame) {
 		this.frame = frame;
@@ -41,6 +42,8 @@ public class DishCard {
 		
 		cardPnl.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
 				frame.dispose();
 				dc.dishPage(type);
 			}
@@ -54,6 +57,8 @@ public class DishCard {
 		
 		dishImage.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
 				frame.dispose();
 				dc.dishPage(type);
 			}
@@ -74,6 +79,8 @@ public class DishCard {
 		
 		dishNameTxtArea.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000);
 				frame.dispose();
 				dc.dishPage(type);
 			}
