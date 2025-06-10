@@ -526,6 +526,7 @@ public class ClientView {
 		form.setAdress2TxtFld(c.address_2);
 		form.setCityTxtFld(c.city);
 		form.setStateTxtFld(c.state);
+		form.setCodeTxtFld(c.postal_Code+"");
 		
 		RoundButton saveBttn = new RoundButton(30);
 		saveBttn.setBackground(Color.decode("#555BF6"));
