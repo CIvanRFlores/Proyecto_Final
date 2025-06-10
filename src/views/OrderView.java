@@ -227,7 +227,7 @@ public class OrderView {
 		
 		mainPnl = new JPanel();
 		mainPnl.setBackground(Color.white);
-		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 45, 30, 45)); 
+		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); 
 		mainPnl.setLayout(new BorderLayout());
 		frame.add(mainPnl, BorderLayout.CENTER);
 		
@@ -266,7 +266,6 @@ public class OrderView {
 		
 		JPanel dishesPnl = new JPanel();
 		dishesPnl.setBackground(Color.white);
-		dishesPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 30));
 		dishesPnl.setLayout(new GridBagLayout());	
 		
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -275,8 +274,8 @@ public class OrderView {
 		
 		dishesArray = new ArrayList<>();
         for(int i=1; i<=20; i++) {
-        	DishCard dishCard = new DishCard(30, OrderCard.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
-			RoundPanel dish = dishCard.createAddableCard();
+        	DishCard dishCard = new DishCard(30, OrderView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
+			RoundPanel dish = dishCard.createAddableCard(orderTab);
 			dishesArray.add(dish);
         }
 		
