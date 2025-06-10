@@ -21,7 +21,7 @@ public class ClientController {
  	}
  	
  	public void searchClient(Object[][] clients) { 
- 		view.searchClient(clients);; 
+ 		view.searchClient(clients);
  	}
  	
  	public void newClient() { 
@@ -83,8 +83,6 @@ public class ClientController {
  	//Funcion para actualizar un cliente ya existente
  	public void clientUpdate(int row, String name, String last_Name, String countryCodeCmbBx, String phone_Number, String address_1, String address_2, String city, String state, String postal_Code, String email)
  	{
- 		
- 		
  		model.update(model.get().get(row).id, name, last_Name, countryCodeCmbBx, phone_Number, address_1, address_2, city, state, postal_Code, email);
  	}
  	 	

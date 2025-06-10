@@ -9,13 +9,14 @@ import customClasses.DBConnection;
 
 public class ClientModel 
 {
-	private ArrayList<Client> clients = new ArrayList<Client>();
+//	private ArrayList<Client> clients = new ArrayList<Client>();
 	
 	public  ClientModel(){
 	}
 	
 	public ArrayList<Client> get()	//Obtener lista de clientes de la base de datos
 	{
+		ArrayList<Client> clients = new ArrayList<Client>();
 		String query = "SELECT * FROM `Client`";
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -25,6 +26,7 @@ public class ClientModel
 			conn = DBConnection.connected();
 			ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery(query);
+			clients.clear();
 			
 			while(rs.next())
 			{
@@ -85,12 +87,9 @@ public class ClientModel
 			int rs = ps.executeUpdate();
 			
 			if(rs > 0)
-			{
-				
+			{	
 				return true;
 			}
-			
-		
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -135,8 +134,6 @@ public class ClientModel
 			{
 				return true;
 			}
-			
-		
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -253,7 +250,6 @@ public class ClientModel
 			ps.setInt(1, row);
 			ResultSet rs = ps.executeQuery();
 			
-			
 			if(rs.next())
 			{
 				int id = rs.getInt(1);
@@ -271,8 +267,6 @@ public class ClientModel
 			}
 			rs.close();
 			return client;
-			
-		
 		}catch(Exception e)
 		{
 			e.printStackTrace();

@@ -2,15 +2,8 @@ package views;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileOutputStream;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import controllers.ClientController;
 import customClasses.*;
@@ -284,8 +277,8 @@ public class ClientView {
 		DefaultTableModel tableModel = new DefaultTableModel(column, 0);
 		
 		for(Object[] row : clients) {	//Inserta clientes de la base de datos a la tabla
-			tableModel.addRow(row);		
-			}
+			tableModel.addRow(row);
+		}
 
 		InformationTable clientsTemplate = new InformationTable(frame, tableModel, Color.decode("#555BF6"));
 		JScrollPane clientScrollPane = clientsTemplate.createTable();
@@ -520,12 +513,13 @@ public class ClientView {
 		//Formulario lleno
 		form.setNameTxtFld(c.name);
 		form.setSurnameTxtFld(c.last_Name);
-		form.setPhoneTxtFld(c.phone_Number);
+		form.setPhoneTxtFld(c.phone_Number.substring(3));	//Corta el numero de telefono los primeros 3 digitos
 		form.setEmailTxtFld(c.email);
 		form.setAdressTxtFld(c.address_1);
 		form.setAdress2TxtFld(c.address_2);
 		form.setCityTxtFld(c.city);
 		form.setStateTxtFld(c.state);
+		form.setCodeTxtFld(String.valueOf(c.postal_Code));	//Convierte el codigo postal en un String
 		
 		RoundButton saveBttn = new RoundButton(30);
 		saveBttn.setBackground(Color.decode("#555BF6"));
@@ -608,46 +602,9 @@ public class ClientView {
 		downloadBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Sentencia para generar un PDF
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setDialogTitle("Generar PDF");
-				int userSelection = fileChooser.showSaveDialog(null);
-				if(userSelection == JFileChooser.APPROVE_OPTION)
-				{
-					File saveFile = fileChooser.getSelectedFile();
-					if(!saveFile.getAbsolutePath().endsWith(".pdf"))
-					{
-						saveFile = new File(saveFile.getAbsolutePath() + ".pdf");
-					}
-					
-					Document document = new Document();
-					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
-					loadingOptPn.loadingOptionPane(frame, 4000);
-					try {
-						PdfWriter.getInstance(document, new FileOutputStream(saveFile));
-						document.open();
-						
-						//Ingresa informacion dentro del PDF
-						document.add(new Paragraph("Fecha. " + java.time.LocalDate.now()));
-						document.add(new Paragraph("-----| Datos del cliente |-----"));
-						Client c = cc.clientRead(selectedRow);
-						document.add(new Paragraph("Nombre completo: " + c.name + " " + c.last_Name 
-								+ "\nNumero de telefono: " + c.phone_Number + "\nDireccion: " + c.address_1 + "\nDireccion 2: " + c.address_2 + "\nCiudad: " + c.city 
-								+ "\nEstado: " + c.state + "\nCodigo postal: " + c.postal_Code + "\nCorreo electronico: " + c.email));
-						
-						optionPane = new OptionPaneButton("Descarga", "Descarga exitosa.");
-						optionPane.checkOptionPane();
-						
-					}catch(Exception e1) {
-						e1.printStackTrace();
-						
-						OptionPaneButton option = new OptionPaneButton("Descarga", "Error al generar.");
-						option.errorOptionPane();
-						
-					}finally {
-						document.close();
-					}
-				}
+				
+				PdfGenerate pdf = new PdfGenerate();
+				pdf.pdfGenerating(cc.clientRead(selectedRow));
 				
 				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
 				loadingOptPn.loadingOptionPane(frame, 3000);
@@ -692,7 +649,7 @@ public class ClientView {
 		
 		Object[] info = 
 			{
-					c.name,
+					c.name + " " + c.last_Name,
 					c.address_1,
 					c.phone_Number,
 					c.email
