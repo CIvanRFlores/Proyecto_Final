@@ -18,6 +18,10 @@ public class InventoryView {
 	String message;
     int relativeXSize;
 	int relativeYSize;
+	
+	int selectedRow;
+	String selectedTable;
+	
 	InventoryController ic;
 	OptionPaneButton optionPane;
 	OptionPaneButton loadingOptPn;
@@ -41,6 +45,9 @@ public class InventoryView {
 		
 		buttonPnl.getComponent(4).setBackground(Color.decode("#3C7E3A"));
 		sideBar.removeInventoryListener();
+		
+		selectedRow = -1;
+		selectedTable = "";
 		
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
@@ -182,20 +189,6 @@ public class InventoryView {
 		buttonPnl.add(deleteBttn);
 		
 		deleteBttn.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
-				optionPane = new OptionPaneButton("Borrar inventario", "Esta acción no se puede deshacer.", "Eliminar");
-				opt = optionPane.destructiveOptionPane();
-				
-				//simular eliminado
-				if(opt==1) {
-					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
-					loadingOptPn.loadingOptionPane(frame, 3000);
-					System.out.println("Registro eliminado");
-				}
-			}
-		});
-		
-		deleteBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				deleteBttn.setBackground(Color.decode("#ED5C5C"));
 		    }
@@ -211,16 +204,6 @@ public class InventoryView {
 		editBttn.setForeground(Color.white);
 		editBttn.setText("Editar");
 		buttonPnl.add(editBttn); 
-		
-		editBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
-				loadingOptPn.loadingOptionPane(frame, 3000);
-				frame.dispose();
-				ic.editInventory();
-			}
-		});
 		
 		editBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
@@ -285,15 +268,25 @@ public class InventoryView {
 		topleftPnl.add(inventoryTableLbl, BorderLayout.NORTH);
 		
 		String[] tableColumns =  {"Nombre", "Cantidad", "Código"};
-		DefaultTableModel invTableModel = new DefaultTableModel(tableColumns, 0);
+		Object[][] data = {{"José Eduardo Guereque", "Del Árbol 169, col. La fuente", "6128682392"},
+							{"José Guereque", "La fuente", "6128682392"}};
+		
+		DefaultTableModel invTableModel = new DefaultTableModel(data, tableColumns);
 		
 		InformationTable invTemplate = new InformationTable(frame, invTableModel, Color.decode("#555BF6"));
 		JScrollPane invScrollPane = invTemplate.createTable();
-		JTable invTable = invTemplate.getTable() ;
+		JTable inventoryTable = invTemplate.getTable();
 				
-		invTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
-		invTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
-		invTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		inventoryTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
+		inventoryTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
+		inventoryTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		
+		inventoryTable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				selectedRow = inventoryTable.getSelectedRow();
+				selectedTable = "inventoryTable";
+		    }
+		});
 		
 		topleftPnl.add(invScrollPane, BorderLayout.CENTER);
 		
@@ -319,6 +312,13 @@ public class InventoryView {
 		noStockTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
 		noStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		noStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		
+		noStockTable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				selectedRow = noStockTable.getSelectedRow();
+				selectedTable = "noStockTable";
+		    }
+		});
 		
 		bottomLeftPnl.add(noStockScrollPane, BorderLayout.CENTER);
 		
@@ -346,8 +346,49 @@ public class InventoryView {
 		lowStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		lowStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		
+		lowStockTable.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				selectedRow = lowStockTable.getSelectedRow();
+				selectedTable = "lowStockTable";
+		    }
+		});
+		
 		topRightPnl.add(lowStockScrollPane, BorderLayout.CENTER);
 
+		
+		deleteBttn.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				if(selectedRow!=-1 && !selectedTable.equals("")) {
+					optionPane = new OptionPaneButton("Borrar inventario", "Esta acción no se puede deshacer.", "Eliminar");
+					opt = optionPane.destructiveOptionPane();
+					
+					if(opt==1) {
+						loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+						loadingOptPn.loadingOptionPane(frame, 3000);
+						System.out.println("Registro eliminado");
+					}
+				}else {
+					optionPane = new OptionPaneButton("Fila sin seleccionar", "Seleccione la fila de una tabla.");
+					optionPane.warningOptionPane();
+				}
+			}
+		});
+		
+		editBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(selectedRow!=-1 && !selectedTable.equals("")) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					frame.dispose();
+					ic.editInventory();
+				}else {
+					optionPane = new OptionPaneButton("Fila sin seleccionar", "Seleccione la fila de una tabla.");
+					optionPane.warningOptionPane();
+				}
+			}
+		});
+		
 		
 		frame.setVisible(true);
 	}
