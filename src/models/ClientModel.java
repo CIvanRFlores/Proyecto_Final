@@ -189,6 +189,7 @@ public class ClientModel
 	
 	public ArrayList<Client> search(String searchText)	//Obtener lista de clientes especificos de la base de datos
 	{
+		ArrayList<Client> clients = new ArrayList<>();
 		String query = "SELECT * FROM `Client` "
 				+ "WHERE LOWER(name) LIKE ? OR LOWER(last_name) LIKE ? OR LOWER(CONCAT(name, ' ', last_name)) LIKE ? OR phone_number LIKE ? OR LOWER(address_1) LIKE ? OR LOWER(address_2) LIKE ? OR LOWER(email) LIKE ?";
 		Connection conn = null;

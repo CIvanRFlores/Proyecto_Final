@@ -20,8 +20,8 @@ public class ClientController {
  		view.clients(); 
  	}
  	
- 	public void searchClient(String searchText) { 
- 		view.searchClient(searchText);; 
+ 	public void searchClient(Object[][] clients) { 
+ 		view.searchClient(clients);; 
  	}
  	
  	public void newClient() { 
