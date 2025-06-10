@@ -29,7 +29,6 @@ public class OrderTabPanel {
 	JPanel centerDishesPnl;
 	GridBagConstraints gbc;
 	OrderCard orderCard;
-	JPanel order;
 	ArrayList<JPanel> dishesArray;
 	
 	OrderController oc;
@@ -42,7 +41,6 @@ public class OrderTabPanel {
 		
 		dishesArray = new ArrayList<>();
 		gbc = new GridBagConstraints();
-		orderCard = new OrderCard(frame);
 		centerDishesPnl = new JPanel();
 	}
 	
@@ -143,7 +141,7 @@ public class OrderTabPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//if(!form.invFormEmptyFields()) {
-					optionPane = new OptionPaneButton("Acción exitosa", "Órden creada correctamente.");
+					optionPane = new OptionPaneButton("Acción exitosa", "Orden creada correctamente.");
 	   				optionPane.checkOptionPane();
 					
 					frame.dispose();
@@ -315,11 +313,11 @@ public class OrderTabPanel {
 		});
 		
 		JPanel titlePnl = new JPanel();
-		titlePnl.setLayout(new GridLayout(1, 3, 10, 0));
+		titlePnl.setLayout(new GridLayout(1, 4, 5, 0));
 		titlePnl.setOpaque(false);
 		centerHeaderPnl.add(titlePnl);
 		
-		JLabel productLbl = new JLabel("Productos(s)");
+		JLabel productLbl = new JLabel("Producto(s)");
 		productLbl.setFont(new Font("Caladea Bold", Font.BOLD, 16));
 		productLbl.setForeground(Color.decode("#244E23")); 
 		productLbl.setHorizontalAlignment(SwingConstants.CENTER); 
@@ -337,13 +335,16 @@ public class OrderTabPanel {
 		priceLbl.setHorizontalAlignment(SwingConstants.CENTER); 
 		titlePnl.add(priceLbl);
 		
+		titlePnl.add(Box.createHorizontalStrut(0));
+		
 	
 		centerDishesPnl.setLayout(new GridBagLayout());	
-		centerDishesPnl.setOpaque(false);
+		centerDishesPnl.setOpaque(false); 
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;	
 	
 		ColoredScrollPaneBar coloredScrollPane = new ColoredScrollPaneBar(centerDishesPnl, Color.decode("#244E23"));
 		JScrollPane scrollPane = coloredScrollPane.createScrollPane();
-		scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		
 		centerPnl.add(scrollPane, BorderLayout.CENTER);
 		
@@ -473,27 +474,45 @@ public class OrderTabPanel {
 	}
 	
 	
-	public void addDishOrder(String name, Double price) {
-		order = orderCard.createDescriptiveCard(name, price);
-		for(int i=0;i<5;i++) {
-			dishesArray.add(orderCard.createDescriptiveCard(name, price));
+	public boolean duplicateOrder(String name) {
+		boolean validate = true;
+		
+		if(dishesArray.size()==0) {
+			return false;
+		}else {
+			//no repetir órdenes
+			for(int i=0; i<dishesArray.size(); i++) { 
+				JTextArea label = (JTextArea) dishesArray.get(i).getComponent(0);
+				
+				if(!name.equals(label.getText())) {
+					validate = false;
+				}else {
+					validate = true;
+				}
+			}
+			
+			return validate;
 		}
+	}
+	
+	public void addDishOrder(String name, double price) {
+	
+		orderCard = new OrderCard(frame, centerDishesPnl, name, price);
+		dishesArray.add(orderCard.createDescriptiveCard(dishesArray));
 		
+		System.out.println(dishesArray.size());
 		
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.insets = new Insets(15, 15, 15, 15);
-		
-		for(int i=0; i<dishesArray.size(); i++) {
-			int row = i/2; 
-            int col = i%2;  
-
-            gbc.gridx = col;
-            gbc.gridy = row;
+		//añadir paneles al panel principal
+		for(int i=0; i<dishesArray.size(); i++) { 
+            gbc.gridx = 1;
+            gbc.gridy = i;
 
             centerDishesPnl.add(dishesArray.get(i), gbc);
         }
 		
 		centerDishesPnl.repaint();
+		centerDishesPnl.revalidate();
+		
 	}
-	
+
 }

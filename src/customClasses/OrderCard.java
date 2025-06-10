@@ -2,6 +2,7 @@ package customClasses;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -9,20 +10,24 @@ import views.AuthView;
 
 public class OrderCard {
 	
-	public JFrame frame;
-	public JPanel mainPnl;
-	public int radius;
-	public String table;
-	public String amount;
-	public String clientName;
-	public int orderType;
-	public String orderTime;
-	public Image image;
-	public ImageIcon imageIcon;
-	public int relativeXSize;
-	public int relativeYSize;
-	public String message;
-
+	JFrame frame;
+	JPanel mainPnl;
+	int radius;
+	String table;
+	String amount;
+	String clientName;
+	int orderType;
+	String orderTime;
+	Image image;
+	ImageIcon imageIcon;
+	int relativeXSize;
+	int relativeYSize;
+	String message;
+	
+	JPanel centerDishesPnl;
+	String dishName;
+	int quantity;
+	double price;
 
 	public OrderCard(int radius, String table, String amount, String clientName, int orderType, String orderTime, JFrame frame, JPanel mainPnl) {
 		this.frame = frame;
@@ -35,11 +40,17 @@ public class OrderCard {
 		this.orderTime = orderTime;
 	}
 	
-	public OrderCard(JFrame frame) {
+	public OrderCard(JFrame frame, JPanel centerDishesPnl, String dishName, double price) {
 		this.frame = frame;
+		this.centerDishesPnl = centerDishesPnl;
+		this.dishName = dishName;
+		this.price = price;
+		quantity = 1;
 	}
 	
+	
 	public RoundPanel createCard() {
+		
 		RoundPanel cardPnl = new RoundPanel(radius);  
 		cardPnl.setBackground(Color.white);
 		cardPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
@@ -249,69 +260,115 @@ public class OrderCard {
 		return cardPnl; 
 	}
 	
-	public JPanel createDescriptiveCard(String dishName, double price) {
+	public JPanel createDescriptiveCard(ArrayList<JPanel> dishesArray) {
+		
 		JPanel backgroundPnl = new JPanel();
 		backgroundPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
 		backgroundPnl.setLayout(new GridLayout(1, 4, 10, 0));
 		backgroundPnl.setOpaque(false);
+		backgroundPnl.setPreferredSize(new Dimension(centerDishesPnl.getWidth(), (int) (frame.getHeight()*0.07)));
 		
-		JLabel dishNameLbl = new JLabel(dishName);
-		dishNameLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 14));
-		dishNameLbl.setForeground(Color.decode("#244E23")); 
-		dishNameLbl.setHorizontalAlignment(SwingConstants.CENTER); 
-		backgroundPnl.add(dishNameLbl);
+		JTextArea dishNameTxtArea = new JTextArea(dishName);
+		dishNameTxtArea.setBackground(Color.white);
+		dishNameTxtArea.setForeground(Color.decode("#244E23")); 
+		dishNameTxtArea.setEnabled(false);
+		dishNameTxtArea.setDisabledTextColor(Color.decode("#244E23"));
+		dishNameTxtArea.setFont(new Font("Caladea Regular", Font.PLAIN, 14));
+		dishNameTxtArea.setLineWrap(true);
+		dishNameTxtArea.setWrapStyleWord(true);
+		dishNameTxtArea.setOpaque(true);
+		backgroundPnl.add(dishNameTxtArea);
 		
 		RoundPanel quantityPnl = new RoundPanel(30);  
 		quantityPnl.setBackground(Color.decode("#555BF6"));
-		quantityPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
+		quantityPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); 
 		quantityPnl.setForeground(Color.decode("#555BF6")); 
 		quantityPnl.setLayout(new GridLayout(1, 3, 5, 0));
 		backgroundPnl.add(quantityPnl);
 		
 		
-		image = new ImageIcon(OrderCard.class.getResource("/images/removeOrderDish.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		image = new ImageIcon(OrderCard.class.getResource("/images/removeOrderDish.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		RoundButton removeBttn = new RoundButton(20); 
 		removeBttn.setBackground(Color.decode("#555BF6"));
 		removeBttn.setIcon(imageIcon);
 		quantityPnl.add(removeBttn);
 		
-		JLabel quantityLbl = new JLabel("0");
+		JLabel quantityLbl = new JLabel(quantity+"");
 		quantityLbl.setFont(new Font("Caladea Bold", Font.BOLD, 14));
 		quantityLbl.setForeground(Color.white); 
 		quantityLbl.setHorizontalAlignment(SwingConstants.CENTER); 
 		quantityPnl.add(quantityLbl);
 		
-		image = new ImageIcon(OrderCard.class.getResource("/images/addOrderDish.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		image = new ImageIcon(OrderCard.class.getResource("/images/addOrderDish.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		RoundButton addBttn = new RoundButton(20); 
 		addBttn.setBackground(Color.decode("#555BF6"));
 		addBttn.setIcon(imageIcon);
 		quantityPnl.add(addBttn);
 		
+		removeBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(quantity>1) {
+					quantity--;
+					quantityLbl.setText(quantity+"");
+				}
+			}
+		});	
+		
+		addBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				quantity++;
+				quantityLbl.setText(quantity+"");
+			}
+		});	
+		
 		
 		JLabel priceLbl = new JLabel("$"+price+" MXN");
 		priceLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 14));
 		priceLbl.setForeground(Color.decode("#244E23")); 
-		priceLbl.setHorizontalAlignment(SwingConstants.CENTER); 
+		priceLbl.setHorizontalAlignment(SwingConstants.RIGHT); 
 		backgroundPnl.add(priceLbl);
 		
 		
-		image = new ImageIcon(OrderCard.class.getResource("/images/deleteOrderDish.png")).getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		image = new ImageIcon(OrderCard.class.getResource("/images/deleteOrderDish.png")).getImage().getScaledInstance(18, 18, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		RoundButton deleteSelectionBttn = new RoundButton(20); 
 		deleteSelectionBttn.setBackground(Color.white);
 		deleteSelectionBttn.setIcon(imageIcon);
 		backgroundPnl.add(deleteSelectionBttn);
 		
+		deleteSelectionBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				OptionPaneButton optionPane = new OptionPaneButton("Eliminar selección", "Esta acción no se puede deshacer.", "Eliminar");
+				int opt = optionPane.destructiveOptionPane();
+				
+				if(opt==1) {
+					dishesArray.remove(backgroundPnl);
+					centerDishesPnl.remove(backgroundPnl);
+					
+					System.out.println(dishesArray.size());
+					
+					centerDishesPnl.repaint();
+					centerDishesPnl.revalidate();
+				}
+			}
+		});	
+		
 		
 		/**cuando la ventana es redimensionada, los elementos dentro de ella cambian de tamaño**/
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-            	dishNameLbl.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.014)));
+            	backgroundPnl.setPreferredSize(new Dimension(centerDishesPnl.getWidth(), (int) (frame.getHeight()*0.07)));
+            	
+            	dishNameTxtArea.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.014)));
+            	quantityLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));
             	priceLbl.setFont(new Font("Caladea Regular", Font.PLAIN, (int) (frame.getWidth()*0.014)));
             	
-            	relativeXSize = (int) (frame.getWidth()*0.015);
+            	relativeXSize = (int) (frame.getWidth()*0.018);
             	image = new ImageIcon(OrderCard.class.getResource("/images/removeOrderDish.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
         		imageIcon = new ImageIcon(image);
        			removeBttn.setIcon(imageIcon);  
@@ -325,7 +382,7 @@ public class OrderCard {
         		deleteSelectionBttn.setIcon(imageIcon);  
         		
         		relativeXSize = (int) (frame.getWidth()*0.01);
-        		quantityPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize));
+        		quantityPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize/2, relativeXSize/2, relativeXSize/2, relativeXSize/2));
         		backgroundPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize));
         		
        			frame.repaint();
@@ -335,4 +392,61 @@ public class OrderCard {
 		return backgroundPnl;
 	}
 
+	
+	public String getTable() {
+		return table;
+	}
+
+	public void setTable(String table) {
+		this.table = table;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public int getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(int orderType) {
+		this.orderType = orderType;
+	}
+
+	public String getOrderTime() {
+		return orderTime;
+	}
+
+	public void setOrderTime(String orderTime) {
+		this.orderTime = orderTime;
+	}
+
+	public String getDishName() {
+		return dishName;
+	}
+
+	public void setDishName(String dishName) {
+		this.dishName = dishName;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
 }

@@ -29,6 +29,7 @@ public class DishCard {
 		this.dishName = dishName;
 	}
 	
+	
 	public RoundPanel createCard() {
 		dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight());
 		
@@ -58,31 +59,35 @@ public class DishCard {
 			}
 		});
 		
+		JTextArea dishNameTxtArea = new JTextArea(dishName);
+		dishNameTxtArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+		dishNameTxtArea.setBackground(Color.decode("#EDEDED"));
+		dishNameTxtArea.setForeground(Color.decode("#244E23")); 
+		dishNameTxtArea.setEnabled(false);
+		dishNameTxtArea.setDisabledTextColor(Color.decode("#244E23"));
+		dishNameTxtArea.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		dishNameTxtArea.setMargin(new Insets(10, 15, 10, 10));
+		dishNameTxtArea.setLineWrap(true);
+		dishNameTxtArea.setWrapStyleWord(true);
+		dishNameTxtArea.setOpaque(true);
+		cardPnl.add(dishNameTxtArea);
 		
-		JLabel dishNameLbl = new JLabel(adjustText(dishName));
-		dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		dishNameLbl.setForeground(Color.decode("#244E23"));
-		dishNameLbl.setHorizontalAlignment(JLabel.CENTER); 
-		dishNameLbl.setHorizontalAlignment(SwingConstants.CENTER); 
-		cardPnl.add(dishNameLbl);
-		
-		dishNameLbl.addMouseListener(new MouseAdapter() {
+		dishNameTxtArea.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				frame.dispose();
 				dc.dishPage(type);
 			}
 		});
 		
-		dishNameLbl.addMouseListener(new MouseAdapter() {
+		dishNameTxtArea.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
-				dishNameLbl.setForeground(Color.decode("#3C7E3A"));
-				String underlined = "<html><u>" + dishNameLbl.getText() + "</u></html>";
-				dishNameLbl.setText(underlined);
+				dishNameTxtArea.setForeground(Color.decode("#3C7E3A")); 
+				dishNameTxtArea.setDisabledTextColor(Color.decode("#3C7E3A"));
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	dishNameLbl.setForeground(Color.decode("#244E23"));
-				dishNameLbl.setText(adjustText(dishName));
+		    	dishNameTxtArea.setForeground(Color.decode("#244E23")); 
+		    	dishNameTxtArea.setDisabledTextColor(Color.decode("#244E23"));
 		    }
 		});
 		
@@ -99,7 +104,7 @@ public class DishCard {
        			imageIcon = new ImageIcon(image);
        			dishImage.setIcon(imageIcon);  
        		
-       			dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.02)));
+       			dishNameTxtArea.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.02)));
        			
        			frame.repaint();
             }
@@ -108,10 +113,7 @@ public class DishCard {
 		return cardPnl; 
 	}
 	
-	public RoundPanel createAddableCard() {
-		dc = new DishController(frame.getTitle(), frame.getWidth(), frame.getHeight());
-		
-		OrderTabPanel orderTabPnl = new OrderTabPanel(frame);
+	public RoundPanel createAddableCard(OrderTabPanel orderTab) {
 		
 		RoundPanel cardPnl = new RoundPanel(radius);  
 		cardPnl.setBackground(Color.decode("#EDEDED"));
@@ -121,46 +123,54 @@ public class DishCard {
 		
 		cardPnl.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				orderTabPnl.addDishOrder(dishName, 365.00); //enviar nombre y precio
+				if(!orderTab.duplicateOrder(dishName)) 
+					orderTab.addDishOrder(dishName, 365.00); //enviar nombre y precio
 			}
 		});
 		
 		
-		image = new ImageIcon(dishImageURL).getImage().getScaledInstance(140, 90, Image.SCALE_SMOOTH);
+		image = new ImageIcon(dishImageURL).getImage().getScaledInstance(78, 50, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel dishImage = new JLabel(this.imageIcon);
 		cardPnl.add(dishImage);
 		
 		dishImage.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				orderTabPnl.addDishOrder(dishName, 365.00); //enviar nombre y precio
+				if(!orderTab.duplicateOrder(dishName)) 
+					orderTab.addDishOrder(dishName, 365.00); //enviar nombre y precio
 			}
 		});
 		
 		
-		JLabel dishNameLbl = new JLabel(adjustText(dishName));
-		dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		dishNameLbl.setForeground(Color.decode("#244E23"));
-		dishNameLbl.setHorizontalAlignment(JLabel.CENTER); 
-		dishNameLbl.setHorizontalAlignment(SwingConstants.CENTER); 
-		cardPnl.add(dishNameLbl);
+		JTextArea dishNameTxtArea = new JTextArea(dishName);
+		dishNameTxtArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+		dishNameTxtArea.setBackground(Color.decode("#EDEDED"));
+		dishNameTxtArea.setForeground(Color.decode("#244E23")); 
+		dishNameTxtArea.setEnabled(false);
+		dishNameTxtArea.setDisabledTextColor(Color.decode("#244E23"));
+		dishNameTxtArea.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		dishNameTxtArea.setMargin(new Insets(10, 15, 10, 10));
+		dishNameTxtArea.setLineWrap(true);
+		dishNameTxtArea.setWrapStyleWord(true);
+		dishNameTxtArea.setOpaque(true);
+		cardPnl.add(dishNameTxtArea);
 		
-		dishNameLbl.addMouseListener(new MouseAdapter() {
+		dishNameTxtArea.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				orderTabPnl.addDishOrder(dishName, 365.00); //enviar nombre y precio
+				if(!orderTab.duplicateOrder(dishName)) 
+					orderTab.addDishOrder(dishName, 365.00); //enviar nombre y precio
 			}
 		});
 		
-		dishNameLbl.addMouseListener(new MouseAdapter() {
+		dishNameTxtArea.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
-				dishNameLbl.setForeground(Color.decode("#3C7E3A"));
-				String underlined = "<html><u>" + dishNameLbl.getText() + "</u></html>";
-				dishNameLbl.setText(underlined);
+				dishNameTxtArea.setForeground(Color.decode("#3C7E3A")); 
+				dishNameTxtArea.setDisabledTextColor(Color.decode("#3C7E3A"));
 		    }
 
 		    public void mouseExited(MouseEvent evt) {
-		    	dishNameLbl.setForeground(Color.decode("#244E23"));
-				dishNameLbl.setText(adjustText(dishName));
+		    	dishNameTxtArea.setForeground(Color.decode("#244E23")); 
+		    	dishNameTxtArea.setDisabledTextColor(Color.decode("#244E23"));
 		    }
 		});
 		
@@ -171,13 +181,13 @@ public class DishCard {
             	relativeXSize = (int) (frame.getHeight()*0.01);
             	cardPnl.setBorder(BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize)); 
             	
-            	relativeXSize = (int) (frame.getWidth()*0.140);
-            	relativeYSize = (int) (frame.getWidth()*0.09);
+            	relativeXSize = (int) (frame.getWidth()*0.078);
+            	relativeYSize = (int) (frame.getWidth()*0.05);
                	image = new ImageIcon(dishImageURL).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			dishImage.setIcon(imageIcon);  
        		
-       			dishNameLbl.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.02)));
+       			dishNameTxtArea.setFont(new Font("Caladea Bold", Font.BOLD, (int) (frame.getWidth()*0.014)));
        			
        			frame.repaint();
             }
@@ -186,7 +196,7 @@ public class DishCard {
 		return cardPnl; 
 	}
 	
-	public String adjustText(String name) {
+	/*public String adjustText(String name) {
 		String[] separatedText = name.split(" ");
 		String adjustedText = "<html><center>";
 		
@@ -197,6 +207,30 @@ public class DishCard {
 		adjustedText += "</center></html>";
 		
 		return adjustedText;
+	}*/
+
+	public URL getDishImageURL() {
+		return dishImageURL;
+	}
+
+	public void setDishImageURL(URL dishImageURL) {
+		this.dishImageURL = dishImageURL;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getDishName() {
+		return dishName;
+	}
+
+	public void setDishName(String dishName) {
+		this.dishName = dishName;
 	}
 
 }
