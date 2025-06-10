@@ -76,13 +76,13 @@ public class PdfGenerate
 			String datos = String.format(
 					"\n" + java.time.LocalDate.now() + "\n" +
 					"Nombre completo: " + c.name + " " +  c.last_Name + 
-					"\nNumero de telefono: " + c.phone_Number +
-					"\nDireccion principal: " + c.address_1 +
-					"\nDireccion segundaria: " + c.address_2 +
+					"\nNumero de teléfono: " + c.phone_Number +
+					"\nDirección principal: " + c.address_1 +
+					"\nDirección segundaria: " + c.address_2 +
 					"\nCiudad: " + c.city +
 					"\nEstado: " + c.state +
-					"\nCodigo postal: " + c.postal_Code +
-					"\nCorroe electronico: " + c.email);
+					"\nCódigo postal: " + c.postal_Code +
+					"\nCorreo electrónico: " + c.email);
 			doc.add(new Paragraph(datos, text));
 			
 			OptionPaneButton optionPane = new OptionPaneButton("Descarga", "Descarga exitosa.");
@@ -90,9 +90,10 @@ public class PdfGenerate
 		} catch (Exception e) {
 			e.printStackTrace();
 			OptionPaneButton errorPane = new OptionPaneButton("Descarga", "Error al descargar.");
-			errorPane.checkOptionPane();
+			errorPane.errorOptionPane();
 		} finally {
 			doc.close();
 		}
 	}
+	
 }

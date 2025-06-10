@@ -602,6 +602,8 @@ public class ClientView {
 		downloadBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 4000);
 				
 				PdfGenerate pdf = new PdfGenerate();
 				pdf.pdfGenerating(cc.clientRead(selectedRow));

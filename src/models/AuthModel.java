@@ -1,9 +1,10 @@
 package models;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import customClasses.DBConnection;
 
 public class AuthModel {
 
@@ -20,7 +21,7 @@ public class AuthModel {
 	 
 	 try {
 		 //Conexión a la base de datos
-		 conn = DriverManager.getConnection("jdbc:mysql://sql.freedb.tech:3306/freedb_Restaurante_El_Manglar", "freedb_civanrflores", "Pm6kE#W!3sQyK5s");
+		 conn = DBConnection.connected();
 		 
 		 //PreparedStatement para evitar SQL Injection
 		 ps = conn.prepareStatement(query);
