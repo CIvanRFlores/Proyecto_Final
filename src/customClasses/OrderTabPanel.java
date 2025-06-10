@@ -40,12 +40,13 @@ public class OrderTabPanel {
 	int windowType;
 	OptionPaneButton optionPane;
 	int opt;
+	String[] tableNumbers;
 	OptionPaneButton loadingOptPn;
 	
 	public OrderTabPanel(JFrame frame, int windowType) {
 		this.frame = frame;
 		this.windowType = windowType;
-		
+		orderType = 1;
 		dishesArray = new ArrayList<>();
 		gbc = new GridBagConstraints();
 		centerDishesPnl = new JPanel();
@@ -116,7 +117,10 @@ public class OrderTabPanel {
 		saveBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if(!form.invFormEmptyFields()) {
+				if(!orderFormEmptyFields()) {
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					
 					optionPane = new OptionPaneButton("Acción exitosa", "Orden creada correctamente.");
 	   				optionPane.checkOptionPane();
 					
@@ -124,7 +128,7 @@ public class OrderTabPanel {
 					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
 					oc.orders();
-				//}
+				}
 			}
 		});
 		
@@ -157,7 +161,7 @@ public class OrderTabPanel {
 		tableNumberPnl.setLayout(new BorderLayout());
 		centerHeaderPnl.add(tableNumberPnl);
 		
-		String tableNumbers[] = {"Número de mesa", "1", "2", "3", "4", "5", "6"};
+		tableNumbers = new String[] {"Número de mesa", "1", "2", "3", "4", "5", "6"};
 		
 		tableNumberCmbBx = new JComboBox<>(tableNumbers);
 		tableNumberCmbBx.setBorder(null); 
@@ -200,6 +204,16 @@ public class OrderTabPanel {
 		nameTxtFld.setFocusable(true);
 		nameTxtFld.setOpaque(false); 
 		nameTxtFldPnl.add(nameTxtFld, BorderLayout.CENTER);
+		
+		nameTxtFld.addKeyListener((KeyListener) new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if(!Character.isLetter(c) && !Character.isWhitespace(c)) 
+		            e.consume();
+		    }
+		});
+		
 		
 		JPanel buttonPnl = new JPanel();
 		buttonPnl.setLayout(new GridLayout(1, 2, 10, 0));
@@ -351,6 +365,15 @@ public class OrderTabPanel {
 		messageTxtFld.setForeground(Color.decode("#244E23"));
 		messageTxtFld.setOpaque(false); 
 		messageTxtFldPnl.add(messageTxtFld, BorderLayout.CENTER);
+		
+		messageTxtFld.addKeyListener((KeyListener) new KeyAdapter() {
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if(!Character.isLetter(c) && !Character.isWhitespace(c)) 
+		            e.consume();
+		    }
+		});
 		
 		
 		RoundPanel footerPnl = new RoundPanel(30);  
@@ -583,7 +606,7 @@ public class OrderTabPanel {
 		String name = getNameTxtFld(); 
 		String message = getMessageTxtFld(); 
 		
-		if(name.equals("") ||  message.equals("") || orderType==0 || dishesArray.size()==0) {
+		if(name.equals("") ||  message.equals("") || orderType==0 || dishesArray.size()==0 || tableNumberCmbBx.getSelectedItem().toString().equals(tableNumbers[0])) {
 			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");
 			option.warningOptionPane();
 			
