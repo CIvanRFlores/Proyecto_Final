@@ -130,7 +130,7 @@ public class DishCard {
 		
 		cardPnl.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				if(!orderTab.duplicateOrder(dishName)) 
+				if(!orderTab.duplicatedOrder(dishName)) 
 					orderTab.addDishOrder(dishName, 365.00); //enviar nombre y precio
 			}
 		});
@@ -143,7 +143,7 @@ public class DishCard {
 		
 		dishImage.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				if(!orderTab.duplicateOrder(dishName)) 
+				if(!orderTab.duplicatedOrder(dishName)) 
 					orderTab.addDishOrder(dishName, 365.00); //enviar nombre y precio
 			}
 		});
@@ -164,7 +164,7 @@ public class DishCard {
 		
 		dishNameTxtArea.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				if(!orderTab.duplicateOrder(dishName)) 
+				if(!orderTab.duplicatedOrder(dishName)) 
 					orderTab.addDishOrder(dishName, 365.00); //enviar nombre y precio
 			}
 		});

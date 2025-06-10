@@ -22,4 +22,8 @@ public class OrderController {
  		view.newOrder(); 
  	}
  	
+ 	public void editOrder(int editWindow){ 
+ 		view.editOrder(editWindow); 
+ 	}
+ 	
 }

@@ -233,7 +233,129 @@ public class OrderView {
 		sideBar.removeOrderListener();
 		frame.add(buttonPnl, BorderLayout.WEST);
 		
-		OrderTabPanel orderTab = new OrderTabPanel(frame);
+		OrderTabPanel orderTab = new OrderTabPanel(frame, 0);
+		JPanel orderTabPnl = orderTab.createNewOrderTab();
+		frame.add(orderTabPnl, BorderLayout.EAST);
+		
+		mainPnl = new JPanel();
+		mainPnl.setBackground(Color.white);
+		mainPnl.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30)); 
+		mainPnl.setLayout(new BorderLayout());
+		frame.add(mainPnl, BorderLayout.CENTER);
+		
+		JPanel headerPnl = new JPanel();
+		headerPnl.setLayout(new BorderLayout(20, 15));
+		headerPnl.setOpaque(false); 
+		mainPnl.add(headerPnl, BorderLayout.NORTH);
+		
+		JLabel ordersLbl = new JLabel("Ordenes");
+		ordersLbl.setFont(new Font("Caladea Bold", Font.BOLD, 36));
+		ordersLbl.setForeground(Color.decode("#244E23"));
+		ordersLbl.setHorizontalAlignment(JLabel.LEFT); 
+		ordersLbl.setHorizontalAlignment(SwingConstants.LEFT); 
+		headerPnl.add(ordersLbl, BorderLayout.NORTH);
+		
+		RoundPanel searchBarPnl = new RoundPanel(30);  
+		searchBarPnl.setBackground(Color.white);
+		searchBarPnl.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));  
+		searchBarPnl.setForeground(Color.decode("#244E23")); 
+		searchBarPnl.setLayout(new BorderLayout(15, 0));
+		searchBarPnl.setPreferredSize(new Dimension(300, 30));
+		headerPnl.add(searchBarPnl, BorderLayout.CENTER);
+		
+		image = new ImageIcon(OrderView.class.getResource("/images/magnifyingGlass.png")).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+		imageIcon = new ImageIcon(image);
+		JLabel logoTextLbl = new JLabel(imageIcon);
+		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
+		
+		JTextField searchTxtFld = new JTextField();
+		searchTxtFld.setBorder(null);
+		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
+		searchTxtFld.setForeground(Color.decode("#244E23")); 
+		searchTxtFld.setOpaque(false); 
+		searchBarPnl.add(searchTxtFld,  BorderLayout.CENTER);
+		
+		JPanel actionPnl = new JPanel();
+		actionPnl.setLayout(new GridLayout(1, 1));
+		actionPnl.setOpaque(false); 
+		headerPnl.add(actionPnl, BorderLayout.EAST);
+		
+		RoundButton searchBttn = new RoundButton(30);
+		searchBttn.setBackground(Color.decode("#244E23"));
+		searchBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+		searchBttn.setForeground(Color.white);
+		searchBttn.setText("Buscar");
+		searchBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(searchTxtFld.getText().equals("")) {
+					optionPane = new OptionPaneButton("Orden", "Campo sin completar.");
+					optionPane.errorOptionPane();
+				}
+				else{
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					searchOrder();
+				}
+			}
+		});
+		actionPnl.add(searchBttn);
+		
+		searchBttn.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent evt) {
+				searchBttn.setBackground(Color.decode("#3C7E3A"));
+		    }
+
+		    public void mouseExited(MouseEvent evt) {
+		    	searchBttn.setBackground(Color.decode("#244E23"));
+		    }
+		});	
+		
+		
+		JPanel dishesPnl = new JPanel();
+		dishesPnl.setBackground(Color.white);
+		dishesPnl.setLayout(new GridBagLayout());	
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.insets = new Insets(15, 15, 15, 15);
+		
+		dishesArray = new ArrayList<>();
+        for(int i=1; i<=20; i++) {
+        	DishCard dishCard = new DishCard(30, OrderView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
+			RoundPanel dish = dishCard.createAddableCard(orderTab);
+			dishesArray.add(dish);
+        }
+		
+		for(int i=0; i<dishesArray.size(); i++) {
+            int row = i/3; 
+            int col = i%3;  
+
+            gbc.gridx = col;
+            gbc.gridy = row;
+
+            dishesPnl.add(dishesArray.get(i), gbc);
+        }
+	
+		ColoredScrollPaneBar coloredScrollPane = new ColoredScrollPaneBar(dishesPnl, Color.decode("#244E23"));
+		JScrollPane scrollPane = coloredScrollPane.createScrollPane();
+		scrollPane.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+		mainPnl.add(scrollPane, BorderLayout.CENTER);
+			
+		
+		frame.setVisible(true);
+	}
+	
+	public void editOrder(int editWindow) {
+		oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight());
+		
+		frame.remove(buttonPnl);
+		buttonPnl = sideBar.createReducedSidePanel();
+		buttonPnl.getComponent(2).setBackground(Color.decode("#3C7E3A"));
+		sideBar.removeOrderListener();
+		frame.add(buttonPnl, BorderLayout.WEST);
+		
+		OrderTabPanel orderTab = new OrderTabPanel(frame, editWindow);
 		JPanel orderTabPnl = orderTab.createNewOrderTab();
 		frame.add(orderTabPnl, BorderLayout.EAST);
 		

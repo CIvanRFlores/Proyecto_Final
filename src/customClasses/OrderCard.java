@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import controllers.OrderController;
+
 public class OrderCard {
 	
 	JFrame frame;
@@ -22,6 +24,7 @@ public class OrderCard {
 	int relativeYSize;
 	String message;
 	
+	OrderController oc;
 	JPanel centerDishesPnl;
 	String dishName;
 	int quantity;
@@ -49,6 +52,7 @@ public class OrderCard {
 	
 	
 	public RoundPanel createCard() {
+		oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight());
 		
 		RoundPanel cardPnl = new RoundPanel(radius);  
 		cardPnl.setBackground(Color.white);
@@ -102,7 +106,7 @@ public class OrderCard {
 				int opt = option.destructiveOptionPane();
 				
 				if(opt==1) {
-					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);
 				}
 			}
@@ -156,6 +160,16 @@ public class OrderCard {
 		editBttn.setBackground(Color.white);
 		cardPnl.add(editBttn, BorderLayout.EAST);
 		
+		editBttn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+				loadingOptPn.loadingOptionPane(frame, 3000); 
+				frame.dispose();
+				oc.editOrder(1);
+			}
+		});
+		
 		editBttn.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent evt) {
 				image = new ImageIcon(OrderCard.class.getResource("/images/editOrderClick.png")).getImage().getScaledInstance(relativeXSize, relativeXSize, Image.SCALE_SMOOTH);
@@ -169,15 +183,6 @@ public class OrderCard {
 				editBttn.setIcon(imageIcon);
 		    }
 		});
-		
-		editBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
-				loadingOptPn.loadingOptionPane(frame, 3000); 
-			}
-		});
-		
 		
 		
 		Color text = null;
@@ -258,7 +263,7 @@ public class OrderCard {
 		return cardPnl; 
 	}
 	
-	public JPanel createDescriptiveCard(ArrayList<JPanel> dishesArray) {
+	public JPanel createDescriptiveCard(OrderTabPanel orderTab, ArrayList<JPanel> dishesArray) {
 		
 		JPanel backgroundPnl = new JPanel();
 		backgroundPnl.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
@@ -311,6 +316,12 @@ public class OrderCard {
 				if(quantity>1) {
 					quantity--;
 					quantityLbl.setText(quantity+"");
+					
+					orderTab.setSubtotalValueLbl("$"+(price*quantity)+"0 MXN");
+					orderTab.setTotalValueLbl("<html><u>"+orderTab.getSubtotalValueLbl()+"</u></html>");
+					
+					frame.repaint();
+					frame.revalidate();
 				}
 			}
 		});	
@@ -320,6 +331,12 @@ public class OrderCard {
 			public void actionPerformed(ActionEvent e) {
 				quantity++;
 				quantityLbl.setText(quantity+"");
+				
+				orderTab.setSubtotalValueLbl("$"+(price*quantity)+"0 MXN");
+				orderTab.setTotalValueLbl("<html><u>"+orderTab.getSubtotalValueLbl()+"</u></html>");
+				
+				frame.repaint();
+				frame.revalidate();
 			}
 		});	
 		
@@ -348,10 +365,14 @@ public class OrderCard {
 					dishesArray.remove(backgroundPnl);
 					centerDishesPnl.remove(backgroundPnl);
 					
+					orderTab.setSubtotalValueLbl("$00.00 MXN");
+					orderTab.setDiscountValueLbl("$00.00 MXN");
+					orderTab.setTotalValueLbl("<html><u>"+orderTab.getSubtotalValueLbl()+"</u></html>");
+					
 					System.out.println(dishesArray.size());
 					
-					centerDishesPnl.repaint();
-					centerDishesPnl.revalidate();
+					frame.repaint();
+					frame.revalidate();
 				}
 			}
 		});	

@@ -337,7 +337,7 @@ public class OptionPaneButton {
 		noBttn.setBackground(Color.decode("#999999"));
 		noBttn.setFont(new Font("Caladea Bold", Font.BOLD, 12));
 		noBttn.setForeground(Color.white);
-		noBttn.setText("No");
+		noBttn.setText("   No   ");
 		
 		noBttn.addActionListener(new ActionListener() {
 			@Override

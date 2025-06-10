@@ -20,12 +20,16 @@ public class OrderTabPanel {
 	Font font;
 	Border border;
 
+	JPanel headerPnl;
+	RoundButton newOrderBttn, ongoingOrderBttn;
+	
 	JComboBox<String> tableNumberCmbBx;
 	JTextField nameTxtFld;
 	JTextField messageTxtFld;
 	JLabel subtotalLbl, subtotalValueLbl;
 	JLabel discountLbl, discountValueLbl;
 	JLabel totalLbl, totalValueLbl;
+	
 	JPanel centerDishesPnl;
 	GridBagConstraints gbc;
 	OrderCard orderCard;
@@ -33,12 +37,14 @@ public class OrderTabPanel {
 	
 	OrderController oc;
 	int orderType;
+	int windowType;
 	OptionPaneButton optionPane;
 	int opt;
 	OptionPaneButton loadingOptPn;
 	
-	public OrderTabPanel(JFrame frame) {
+	public OrderTabPanel(JFrame frame, int windowType) {
 		this.frame = frame;
+		this.windowType = windowType;
 		
 		dishesArray = new ArrayList<>();
 		gbc = new GridBagConstraints();
@@ -60,49 +66,13 @@ public class OrderTabPanel {
 		tabPnl.setLayout(new BorderLayout(0, 20));
 		backgroundPnl.add(tabPnl);
 		
-		JPanel headerPnl = new JPanel();
+		headerPnl = new JPanel();
 		headerPnl.setBorder(BorderFactory.createEmptyBorder(20, 40, 0, 40)); 
 		headerPnl.setLayout(new GridLayout(2, 2, 20, 10));
 		headerPnl.setOpaque(false);
 		tabPnl.add(headerPnl, BorderLayout.NORTH);
 		
-		RoundButton newOrderBttn = new RoundButton(30);
-		newOrderBttn.setBackground(Color.decode("#3C7E3A"));
-		newOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		newOrderBttn.setForeground(Color.white);
-		newOrderBttn.setText("Nuevo");
-		headerPnl.add(newOrderBttn); 
-		
-		RoundButton ongoingOrderBttn = new RoundButton(30);
-		ongoingOrderBttn.setBackground(Color.white);
-		ongoingOrderBttn.setButtonBorder(Color.decode("#244E23"));
-		ongoingOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
-		ongoingOrderBttn.setForeground(Color.decode("#244E23"));
-		ongoingOrderBttn.setText("En curso");
-		headerPnl.add(ongoingOrderBttn); 
-
-		ongoingOrderBttn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
-				loadingOptPn.loadingOptionPane(frame, 3000);
-				frame.dispose();
-				oc.orders();
-			}
-		});
-	
-		
-		ongoingOrderBttn.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent evt) {
-				ongoingOrderBttn.setForeground(Color.decode("#3C7E3A"));
-				ongoingOrderBttn.setButtonBorder(Color.decode("#3C7E3A"));
-		    }
-
-		    public void mouseExited(MouseEvent evt) {
-				ongoingOrderBttn.setForeground(Color.decode("#244E23"));
-				ongoingOrderBttn.setButtonBorder(Color.decode("#244E23"));
-		    }
-		});
+		selectedButton();
 		
 		RoundButton cancelBttn = new RoundButton(30);
 		cancelBttn.setBackground(Color.decode("#EF2D2D"));
@@ -223,7 +193,7 @@ public class OrderTabPanel {
 		nameLbl.setHorizontalAlignment(SwingConstants.LEFT); 
 		nameTxtFldPnl.add(nameLbl, BorderLayout.WEST);
 		
-		nameTxtFld = new JTextField();
+		nameTxtFld = new JTextField("");
 		nameTxtFld.setBorder(null);
 		nameTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
 		nameTxtFld.setForeground(Color.decode("#244E23"));
@@ -375,7 +345,7 @@ public class OrderTabPanel {
 		messageTxtFldPnl.setLayout(new BorderLayout(5, 0));
 		centerFooterPnl.add(messageTxtFldPnl);
 		
-		messageTxtFld = new JTextField();
+		messageTxtFld = new JTextField("");
 		messageTxtFld.setBorder(null);
 		messageTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
 		messageTxtFld.setForeground(Color.decode("#244E23"));
@@ -481,8 +451,90 @@ public class OrderTabPanel {
 		return backgroundPnl;
 	}
 	
+	public void selectedButton() {
+		
+		if(windowType==0) { //si la ventana es añadir nueva orden
+			newOrderBttn = new RoundButton(30);
+			newOrderBttn.setBackground(Color.decode("#3C7E3A"));
+			newOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+			newOrderBttn.setForeground(Color.white);
+			newOrderBttn.setText("Nuevo");
+			headerPnl.add(newOrderBttn); 
+			
+			ongoingOrderBttn = new RoundButton(30);
+			ongoingOrderBttn.setBackground(Color.white);
+			ongoingOrderBttn.setButtonBorder(Color.decode("#244E23"));
+			ongoingOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+			ongoingOrderBttn.setForeground(Color.decode("#244E23"));
+			ongoingOrderBttn.setText("En curso");
+			headerPnl.add(ongoingOrderBttn); 
+
+			ongoingOrderBttn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					frame.dispose();
+					oc.orders();
+				}
+			});
+		
+			
+			ongoingOrderBttn.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent evt) {
+					ongoingOrderBttn.setForeground(Color.decode("#3C7E3A"));
+					ongoingOrderBttn.setButtonBorder(Color.decode("#3C7E3A"));
+			    }
+
+			    public void mouseExited(MouseEvent evt) {
+					ongoingOrderBttn.setForeground(Color.decode("#244E23"));
+					ongoingOrderBttn.setButtonBorder(Color.decode("#244E23"));
+			    }
+			});
+			
+		}else if(windowType==1){ //editar orden
+			newOrderBttn = new RoundButton(30);
+			newOrderBttn.setBackground(Color.white);
+			newOrderBttn.setButtonBorder(Color.decode("#244E23"));
+			newOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+			newOrderBttn.setForeground(Color.decode("#244E23"));
+			newOrderBttn.setText("Nuevo");
+			headerPnl.add(newOrderBttn); 
+			
+			ongoingOrderBttn = new RoundButton(30);
+			ongoingOrderBttn.setBackground(Color.decode("#3C7E3A"));
+			ongoingOrderBttn.setFont(new Font("Caladea Bold", Font.BOLD, 20));
+			ongoingOrderBttn.setForeground(Color.white);
+			ongoingOrderBttn.setText("En curso");
+			headerPnl.add(ongoingOrderBttn); 
+
+			newOrderBttn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
+					loadingOptPn.loadingOptionPane(frame, 3000);
+					frame.dispose();
+					oc.newOrder();
+				}
+			});
+		
+			
+			newOrderBttn.addMouseListener(new MouseAdapter() {
+				public void mouseEntered(MouseEvent evt) {
+					newOrderBttn.setForeground(Color.decode("#3C7E3A"));
+					newOrderBttn.setButtonBorder(Color.decode("#3C7E3A"));
+			    }
+
+			    public void mouseExited(MouseEvent evt) {
+			    	newOrderBttn.setForeground(Color.decode("#244E23"));
+			    	newOrderBttn.setButtonBorder(Color.decode("#244E23"));
+			    }
+			});
+		}
+	}
 	
-	public boolean duplicateOrder(String name) {
+	
+	public boolean duplicatedOrder(String name) {
 		boolean validate = true;
 		
 		if(dishesArray.size()==0) {
@@ -506,7 +558,7 @@ public class OrderTabPanel {
 	public void addDishOrder(String name, double price) {
 	
 		orderCard = new OrderCard(frame, centerDishesPnl, name, price);
-		dishesArray.add(orderCard.createDescriptiveCard(dishesArray));
+		dishesArray.add(orderCard.createDescriptiveCard(this, dishesArray));
 		
 		System.out.println(dishesArray.size());
 		
@@ -518,9 +570,96 @@ public class OrderTabPanel {
             centerDishesPnl.add(dishesArray.get(i), gbc);
         }
 		
-		centerDishesPnl.repaint();
-		centerDishesPnl.revalidate();
+		setSubtotalValueLbl("$"+(price)+"0 MXN");
+		setDiscountValueLbl("$00.00 MXN");
+		setTotalValueLbl("<html><u>"+getSubtotalValueLbl()+"</u></html>");
 		
+		frame.repaint();
+		frame.revalidate();
+		
+	}
+	
+	public boolean orderFormEmptyFields() {
+		String name = getNameTxtFld(); 
+		String message = getMessageTxtFld(); 
+		
+		if(name.equals("") ||  message.equals("") || orderType==0 || dishesArray.size()==0) {
+			OptionPaneButton option = new OptionPaneButton("Campos vacíos", "Complete los campos para guardar la información.");
+			option.warningOptionPane();
+			
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+
+	public String getTableNumberCmbBx() {
+		return tableNumberCmbBx.getSelectedItem().toString(); 
+	}
+
+	public String getNameTxtFld() {
+		return nameTxtFld.getText();
+	}
+
+	public void setNameTxtFld(String name) {
+		this.nameTxtFld.setText(name);
+	}
+
+	public String getMessageTxtFld() {
+		return messageTxtFld.getText();
+	}
+
+	public void setMessageTxtFld(String message) {
+		this.messageTxtFld.setText(message);
+	}
+
+	public String getSubtotalValueLbl() {
+		return subtotalValueLbl.getText();
+	}
+
+	public void setSubtotalValueLbl(String subtotalValue) {
+		this.subtotalValueLbl.setText(subtotalValue+"");
+	}
+
+	public String getDiscountValueLbl() {
+		return discountValueLbl.getText();
+	}
+
+	public void setDiscountValueLbl(String discountValue) {
+		this.discountValueLbl.setText(discountValue+"");
+	}
+
+	public String getTotalValueLbl() {
+		return totalValueLbl.getText();
+	}
+
+	public void setTotalValueLbl(String totalValue) {
+		this.totalValueLbl.setText(totalValue+"");;
+	}
+
+	public ArrayList<JPanel> getDishesArray() {
+		return dishesArray;
+	}
+
+	public void setDishesArray(ArrayList<JPanel> dishesArray) {
+		this.dishesArray = dishesArray;
+	}
+
+	public int getOrderType() {
+		return orderType;
+	}
+
+	public void setOrderType(int orderType) {
+		this.orderType = orderType;
+	}
+
+	public int getWindowType() {
+		return windowType;
+	}
+
+	public void setWindowType(int windowType) {
+		this.windowType = windowType;
 	}
 
 }
