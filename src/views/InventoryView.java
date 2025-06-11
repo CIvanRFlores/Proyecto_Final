@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import controllers.InventoryController;
@@ -21,7 +22,6 @@ public class InventoryView {
 	int relativeYSize;
 	
 	int selectedRow = -1;
-	String selectedTable = "";
 	
 	InventoryController ic;
 	OptionPaneButton optionPane;
@@ -46,9 +46,6 @@ public class InventoryView {
 		
 		buttonPnl.getComponent(4).setBackground(Color.decode("#3C7E3A"));
 		sideBar.removeInventoryListener();
-		
-//		selectedRow = -1;
-//		selectedTable = "";
 		
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
@@ -255,29 +252,18 @@ public class InventoryView {
 		
 		JPanel inventoryPnl = new JPanel();
 		inventoryPnl.setBorder(BorderFactory.createEmptyBorder(40, 0, 40, 0)); 
-		inventoryPnl.setLayout(new GridLayout(1, 2, 30, 30));	
+		inventoryPnl.setLayout(new BorderLayout(30, 30));	
 		inventoryPnl.setOpaque(false); 
 		mainPnl.add(inventoryPnl, BorderLayout.CENTER);
-	
-		
-		JPanel leftPnl = new JPanel();
-		leftPnl.setLayout(new GridLayout(2, 1, 0, 30));
-		leftPnl.setOpaque(false);
-		inventoryPnl.add(leftPnl, BorderLayout.WEST);
-		
-		JPanel topleftPnl = new JPanel();
-		topleftPnl.setLayout(new BorderLayout(30, 20));
-		topleftPnl.setOpaque(false);	
-		leftPnl.add(topleftPnl);
 		
 		JLabel inventoryTableLbl = new JLabel("Inventario");
 		inventoryTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
 		inventoryTableLbl.setForeground(Color.decode("#244E23"));
 		inventoryTableLbl.setHorizontalAlignment(JLabel.LEFT); 
 		inventoryTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
-		topleftPnl.add(inventoryTableLbl, BorderLayout.NORTH);
+		inventoryPnl.add(inventoryTableLbl, BorderLayout.NORTH);
 		
-		String[] tableColumns =  {"Nombre", "Cantidad", "Código"};
+		String[] tableColumns = {"Nombre", "Cantidad", "Código"};
 		
 		DefaultTableModel invTableModel = new DefaultTableModel(tableColumns, 0);
 
@@ -289,98 +275,29 @@ public class InventoryView {
 		InformationTable invTemplate = new InformationTable(frame, invTableModel, Color.decode("#555BF6"));
 		JScrollPane invScrollPane = invTemplate.createTable();
 		JTable inventoryTable = invTemplate.getTable();
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 				
-		inventoryTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
-		inventoryTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
-		inventoryTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
+		inventoryTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+		inventoryTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+		inventoryTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 		
 		inventoryTable.getSelectionModel().addListSelectionListener(e -> {
 			if(!e.getValueIsAdjusting())
 			{
 				selectedRow = inventoryTable.getSelectedRow();
-				selectedTable = "inventoryTable";
 				
 				System.out.println(selectedRow);
 			}
 		});
 		
-		topleftPnl.add(invScrollPane, BorderLayout.CENTER);
-		
-		
-		JPanel bottomLeftPnl = new JPanel();
-		bottomLeftPnl.setLayout(new BorderLayout(30, 20));
-		bottomLeftPnl.setOpaque(false);	
-		leftPnl.add(bottomLeftPnl);
-		
-		JLabel missingInvTableLbl = new JLabel("Faltantes");
-		missingInvTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
-		missingInvTableLbl.setForeground(Color.decode("#244E23"));
-		missingInvTableLbl.setHorizontalAlignment(JLabel.LEFT); 
-		missingInvTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
-		bottomLeftPnl.add(missingInvTableLbl, BorderLayout.NORTH);
-		
-		DefaultTableModel noStockTableModel = new DefaultTableModel(tableColumns, 0);
-		
-		InformationTable noStockTemplate = new InformationTable(frame, noStockTableModel, Color.decode("#EF2D2D"));
-		JScrollPane noStockScrollPane = noStockTemplate.createTable();
-		JTable noStockTable = noStockTemplate.getTable();
-				
-		noStockTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
-		noStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
-		noStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
-		
-		noStockTable.getSelectionModel().addListSelectionListener(e -> {
-			if(!e.getValueIsAdjusting())
-			{
-				selectedRow = noStockTable.getSelectedRow();
-				selectedTable = "noStockTable";
-				
-				System.out.println(selectedRow);
-			}
-		});
-		
-		bottomLeftPnl.add(noStockScrollPane, BorderLayout.CENTER);
-		
-		JPanel topRightPnl = new JPanel();
-		topRightPnl.setLayout(new BorderLayout(30, 20));
-		topRightPnl.setOpaque(false);	
-		inventoryPnl.add(topRightPnl);
-		
-		JLabel lowStockTableLbl = new JLabel("Stock bajo");
-		lowStockTableLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 24));
-		lowStockTableLbl.setForeground(Color.decode("#244E23"));
-		lowStockTableLbl.setHorizontalAlignment(JLabel.LEFT); 
-		lowStockTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
-		topRightPnl.add(lowStockTableLbl, BorderLayout.NORTH);
+		inventoryPnl.add(invScrollPane, BorderLayout.CENTER);
 	
-		DefaultTableModel lowStockTableModel = new DefaultTableModel(tableColumns, 0);
-		
-		
-		
-		InformationTable lowStockTemplate = new InformationTable(frame, lowStockTableModel, Color.decode("#C07A00"));
-		JScrollPane lowStockScrollPane = lowStockTemplate.createTable();
-		JTable lowStockTable = lowStockTemplate.getTable();
-				
-		lowStockTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
-		lowStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
-		lowStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
-		
-		lowStockTable.getSelectionModel().addListSelectionListener(e -> {
-			if(!e.getValueIsAdjusting())
-			{
-				selectedRow = lowStockTable.getSelectedRow();
-				selectedTable = "lowStockTable";
-				
-				System.out.println(selectedRow);
-			}
-		});
-		
-		topRightPnl.add(lowStockScrollPane, BorderLayout.CENTER);
-
 		
 		deleteBttn.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
-				if(selectedRow!=-1 && !selectedTable.equals("")) {
+				if(selectedRow!=-1) {
 					optionPane = new OptionPaneButton("Borrar inventario", "Esta acción no se puede deshacer.", "Eliminar");
 					opt = optionPane.destructiveOptionPane();
 					
@@ -390,19 +307,7 @@ public class InventoryView {
 						
 						ic.ingredientDelete(selectedRow);
 						System.out.println(selectedRow);
-						if(selectedTable.equals("inventoryTable"))
-						{
-							invTableModel.removeRow(selectedRow);
-						}
-						else if(selectedTable.equals("noStockTable"))
-						{
-							noStockTableModel.removeRow(selectedRow);
-						}
-						else 
-						{
-							lowStockTableModel.removeRow(selectedRow);
-						}
-						
+						invTableModel.removeRow(selectedRow);
 						System.out.println("Registro eliminado");
 					}
 				}else {
@@ -416,7 +321,7 @@ public class InventoryView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(selectedRow != -1 && !selectedTable.equals("")) {
+				if(selectedRow != -1) {
 					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
