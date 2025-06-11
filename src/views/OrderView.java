@@ -218,7 +218,7 @@ public class OrderView {
 		                    " | Instrucciones: " + order.instructions;
 		    button.setToolTipText(tooltip);
 		    
-		    button.addActionListener(e -> {
+		    button.addActionListener(_ -> {
 		        System.out.println("Pedido seleccionado: " + order.id);
 		    });
 		    
@@ -348,9 +348,9 @@ public class OrderView {
 		
 		dishesArray = new ArrayList<>();
         for(int i=1; i<=20; i++) {
-        	DishCard dishCard = new DishCard(30, OrderView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
-			RoundPanel dish = dishCard.createAddableCard(orderTab);
-			dishesArray.add(dish);
+//        	DishCard dishCard = new DishCard(30, OrderView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
+//			RoundPanel dish = dishCard.createAddableCard(orderTab);
+//			dishesArray.add(dish);
         }
 		
 		for(int i=0; i<dishesArray.size(); i++) {
@@ -470,9 +470,9 @@ public class OrderView {
 		
 		dishesArray = new ArrayList<>();
         for(int i=1; i<=20; i++) {
-        	DishCard dishCard = new DishCard(30, OrderView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
-			RoundPanel dish = dishCard.createAddableCard(orderTab);
-			dishesArray.add(dish);
+//        	DishCard dishCard = new DishCard(30, OrderView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
+//			RoundPanel dish = dishCard.createAddableCard(orderTab);
+//			dishesArray.add(dish);
         }
 		
 		for(int i=0; i<dishesArray.size(); i++) {

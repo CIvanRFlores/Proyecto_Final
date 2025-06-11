@@ -1,11 +1,16 @@
 package customClasses;
 
 import java.awt.*;
-import java.awt.event.*; 
+import java.awt.event.*;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import controllers.InventoryController;
 
 public class DishFormPanel {
 	
@@ -23,6 +28,7 @@ public class DishFormPanel {
 	int relativeYSize;
 	Font font;
 	String dishType;
+	byte[] selectedImg;
 	
 	public DishFormPanel(JFrame frame, String dishType) {
 		this.frame = frame;
@@ -154,6 +160,35 @@ public class DishFormPanel {
 		uploadFileBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//Metodo para cargar una imagen desde el dispositivo
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Selecciona una imagen");
+				
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "png", "gif", "bmp");
+				fileChooser.setFileFilter(filter);
+				
+				int result = fileChooser.showOpenDialog(null);
+				if(result == JFileChooser.APPROVE_OPTION)
+				{
+					File selectedFile = fileChooser.getSelectedFile();
+					
+					try
+					{
+						byte[] imgByte = Files.readAllBytes(selectedFile.toPath());		//Convierte la imagen cargada en Bytes
+						ImageIcon img = new ImageIcon(imgByte);
+						Image image = img.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+						ImageIcon scaledIcon = new ImageIcon(image);
+						setSelectedImg(imgByte);	//Se guarda en la variable para ser cargada a la base de datos
+						
+						uploadImageLbl.setIcon(scaledIcon);
+					} catch(Exception ex)
+					{
+						ex.printStackTrace();
+						OptionPaneButton errorPane = new OptionPaneButton("Cargar", "Error al cargar imagen.");
+						errorPane.errorOptionPane();
+					}
+					
+				}
 				
 			}
 		});
@@ -260,7 +295,8 @@ public class DishFormPanel {
 		ingredientsLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
 		newDishPnl.add(ingredientsLbl, BorderLayout.NORTH);
 		
-		String ingredients[] = {"Maíz", "Camarón", "Papa", "Mantequilla", "Aceite", "Camote", "Tomate", "Agua"};
+		InventoryController ic = new InventoryController("", 0, 0);
+		String[] ingredients = ic.extractNames();
 	
 		RoundPanel cmbBxPanel = new RoundPanel(30);  
 		cmbBxPanel.setBackground(Color.white);
@@ -380,6 +416,10 @@ public class DishFormPanel {
 		return selectedValues.toString(); 
 	}
 	
+	public byte[] getSelectedImg() {
+		return selectedImg;
+	}
+	
 	public void setNameTxtFld(String name) {
 		this.nameTxtFld.setText(name);
 	}
@@ -391,5 +431,8 @@ public class DishFormPanel {
 	public void setDishDescText(String description) {
 		this.dishDescText.setText(description);
 	}
-	
+
+	public void setSelectedImg(byte[] selectedImg) {
+		this.selectedImg = selectedImg;
+	}
 }

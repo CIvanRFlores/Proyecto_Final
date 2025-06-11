@@ -37,14 +37,15 @@ public class InventoryController {
  	{
  		List<Ingredient> ingredients= model.get();
  		
-		Object[][] data = new Object[ingredients.size()][3];
+		Object[][] data = new Object[ingredients.size()][4];
 		
 		for(int i = 0; i < ingredients.size(); i++)
 		{
 			Ingredient ingredient = ingredients.get(i);
-			data[i][0] = ingredient.name;
-			data[i][1] = ingredient.ammount;
-			data[i][2] = ingredient.code_Ingredient;
+			data[i][0] = ingredient.id;
+			data[i][1] = ingredient.name;
+			data[i][2] = ingredient.ammount;
+			data[i][3] = ingredient.code_Ingredient;
 		}
 		return data;
 	}
@@ -54,17 +55,31 @@ public class InventoryController {
  	{
  		List<Ingredient> ingredients= model.search(searchText);
  		
-		Object[][] data = new Object[ingredients.size()][5];
+		Object[][] data = new Object[ingredients.size()][4];
 		
 		for(int i = 0; i < ingredients.size(); i++)
 		{
 			Ingredient ingredient = ingredients.get(i);
-			data[i][0] = ingredient.name;
-			data[i][1] = ingredient.ammount;
-			data[i][2] = ingredient.code_Ingredient;
+			data[i][0] = ingredient.id;
+			data[i][1] = ingredient.name;
+			data[i][2] = ingredient.ammount;
+			data[i][3] = ingredient.code_Ingredient;
 		}
 		return data;
 	}
+ 	
+ 	//Metodo para obtener nombres de los ingredientes
+ 	public String[] extractNames()
+ 	{
+ 		Object[][] table = ingredientsTable();
+ 		String[] names = new String[table.length];
+ 		
+ 		for(int i = 0; i < table.length; i++)
+ 		{
+ 			names[i] = (String) table[i][1];
+ 		}
+ 		return names;
+ 	}
 
  	//Funcion para añadir un ingrediente
  	public void ingredientCreate(String code_ingredient, String name, int ammount)
@@ -73,21 +88,26 @@ public class InventoryController {
  	}
  	
  	//Funcion para actualizar un ingrediente ya existente
- 	public void ingredientUpdate(int row, String code_ingredient, String name, int ammount)
+ 	public void ingredientUpdate(int id, String code_ingredient, String name, int ammount)
  	{
- 		model.update(model.get().get(row).id, code_ingredient, name, ammount);
+ 		model.update(id, code_ingredient, name, ammount);
  	}
  	 	
  	//Funcion para eliminar un ingrediente existente
  	public void ingredientDelete(int row)
  	{
- 		
  		model.delete(model.get().get(row).id);
  	}
 
  	//Funcion para buscar un ingrediente especifico
  	public Ingredient ingredientRead(int row)
  	{
- 		return model.getSingle(model.get().get(row).id);
+ 		List<Ingredient> list = model.get();
+ 	    for (Ingredient i : list) {
+ 	        if (i.id == row) {
+ 	            return i;
+ 	        }
+ 	    }
+ 	    return null;
  	}
 }

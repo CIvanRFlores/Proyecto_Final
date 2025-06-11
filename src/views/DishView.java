@@ -186,14 +186,18 @@ public class DishView {
 		gbc.fill = GridBagConstraints.BOTH;
 		gbc.insets = new Insets(15, 15, 15, 15);
 		
+		Object[][] data = dc.dishRecovery();
 		dishesArray = new ArrayList<>();
-        for(int i=1; i<=20; i++) {
-        	DishCard dishCard = new DishCard(30, DishView.class.getResource("/images/shrimps.png"), "platillo", "Camarones (sin cabeza)", frame);
+        for(int i = 0; i < data.length; i++) {
+        	String name = (String) data[i][0];
+        	byte[] imgByte = (byte[]) data[i][3];
+        	
+        	DishCard dishCard = new DishCard(30,  imgByte, "platillo", name, frame);
 			RoundPanel dish = dishCard.createCard();
 			dishesArray.add(dish);
         }
 		
-		for(int i=0; i<dishesArray.size(); i++) {
+		for(int i = 0; i < dishesArray.size(); i++) {
             int row = i/3; 
             int col = i%3;  
 
@@ -290,6 +294,8 @@ public class DishView {
 				if(!form.ingredientFormEmptyFields()) {
 					optionPane = new OptionPaneButton("Acción exitosa", type.equals("platillo")? "Platillo creado correctamente." : "Bebida creada correctamente.");
 					optionPane.checkOptionPane();
+					
+					dc.dishCreate(form.getNameTxtFld(), Double.parseDouble(form.getPriceTxtFld()), form.getDishDescText(), form.getSelectedImg(), false);
 					
 					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);

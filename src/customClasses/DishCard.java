@@ -2,7 +2,6 @@ package customClasses;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.net.URL;
 
 import javax.swing.*;
 
@@ -12,7 +11,6 @@ public class DishCard {
 	
 	JFrame frame;
 	int radius;
-	URL dishImageURL;
 	String type;
 	String dishName;
 	Image image;
@@ -21,11 +19,12 @@ public class DishCard {
 	int relativeYSize;
 	DishController dc;
 	OptionPaneButton loadingOptPn;
+	byte[] imgByte;
 
-	public DishCard(int radius, URL dishImageURL, String type, String dishName, JFrame frame) {
+	public DishCard(int radius, byte[] imgByte, String type, String dishName, JFrame frame) {
 		this.frame = frame;
 		this.radius = radius;
-		this.dishImageURL = dishImageURL;
+		this.imgByte =imgByte;
 		this.type = type;
 		this.dishName = dishName;
 	}
@@ -50,7 +49,7 @@ public class DishCard {
 		});
 		
 		
-		image = new ImageIcon(dishImageURL).getImage().getScaledInstance(140, 90, Image.SCALE_SMOOTH);
+		image = new ImageIcon(imgByte).getImage().getScaledInstance(140, 90, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel dishImage = new JLabel(this.imageIcon);
 		cardPnl.add(dishImage);
@@ -107,7 +106,7 @@ public class DishCard {
             	
             	relativeXSize = (int) (frame.getWidth()*0.140);
             	relativeYSize = (int) (frame.getWidth()*0.09);
-               	image = new ImageIcon(dishImageURL).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+               	image = new ImageIcon(imgByte).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			dishImage.setIcon(imageIcon);  
        		
@@ -136,7 +135,7 @@ public class DishCard {
 		});
 		
 		
-		image = new ImageIcon(dishImageURL).getImage().getScaledInstance(78, 50, Image.SCALE_SMOOTH);
+		image = new ImageIcon(imgByte).getImage().getScaledInstance(78, 50, Image.SCALE_SMOOTH);
 		imageIcon = new ImageIcon(image);
 		JLabel dishImage = new JLabel(this.imageIcon);
 		cardPnl.add(dishImage);
@@ -190,7 +189,7 @@ public class DishCard {
             	
             	relativeXSize = (int) (frame.getWidth()*0.078);
             	relativeYSize = (int) (frame.getWidth()*0.05);
-               	image = new ImageIcon(dishImageURL).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
+               	image = new ImageIcon(imgByte).getImage().getScaledInstance(relativeXSize, relativeYSize, Image.SCALE_SMOOTH);
        			imageIcon = new ImageIcon(image);
        			dishImage.setIcon(imageIcon);  
        		
@@ -215,14 +214,6 @@ public class DishCard {
 		
 		return adjustedText;
 	}*/
-
-	public URL getDishImageURL() {
-		return dishImageURL;
-	}
-
-	public void setDishImageURL(URL dishImageURL) {
-		this.dishImageURL = dishImageURL;
-	}
 
 	public String getType() {
 		return type;
