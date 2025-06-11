@@ -61,4 +61,24 @@ public class DishController {
  	{
  		model.create(name, price, description, image, dish_Type);
  	}
+ 	
+ 	private Object[][] convertDishListToArray(List<Dish> dishes) {
+ 	    Object[][] data = new Object[dishes.size()][6];
+ 	    
+ 	    for (int i = 0; i < dishes.size(); i++) {
+ 	        Dish dish = dishes.get(i);
+ 	        data[i][0] = dish.name;
+ 	        data[i][1] = dish.price;
+ 	        data[i][2] = dish.description;
+ 	        data[i][3] = dish.image;
+ 	        data[i][4] = dish.status;
+ 	        data[i][5] = dish.dish_Type;
+ 	    }
+ 	    return data;
+ 	}
+ 	
+ 	public Object[][] dishSearch(String searchText) {
+ 	    List<Dish> dishes = model.search(searchText);
+ 	    return convertDishListToArray(dishes);
+ 	}
 }

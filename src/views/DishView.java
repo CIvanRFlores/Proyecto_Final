@@ -16,6 +16,8 @@ public class DishView {
 	Image image;
 	ImageIcon imageIcon;
 	String message;
+	JTextField searchTxtFld;
+	JPanel dishesPnl;
 	String currentWindow;
 	int relativeXSize;
 	int relativeYSize;
@@ -93,7 +95,7 @@ public class DishView {
 		JLabel logoTextLbl = new JLabel(imageIcon);
 		searchBarPnl.add(logoTextLbl, BorderLayout.WEST);
 		
-		JTextField searchTxtFld = new JTextField();
+		searchTxtFld = new JTextField();
 		searchTxtFld.setBorder(null);
 		searchTxtFld.setFont(new Font("Caladea Bold", Font.BOLD, 14)); 
 		searchTxtFld.setForeground(Color.decode("#244E23"));
@@ -177,7 +179,7 @@ public class DishView {
 		});
 		
 		
-		JPanel dishesPnl = new JPanel();
+		dishesPnl = new JPanel();
 		dishesPnl.setBackground(Color.white);
 		dishesPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 30));
 		dishesPnl.setLayout(new GridBagLayout());	
@@ -355,8 +357,51 @@ public class DishView {
 	}
 	
 	public void searchDish() { 
-		optionPane = new OptionPaneButton("Platillo no encontrado", "No se ha encontrado ningún platillo.");
-		optionPane.warningOptionPane();
+		String searchText = searchTxtFld.getText().trim();
+	    if (searchText.isEmpty()) {
+	        optionPane = new OptionPaneButton("Campo vacío", "Ingresa un término de búsqueda.");
+	        optionPane.errorOptionPane();
+	        return;
+	    }
+	    
+	    Object[][] searchResults = dc.dishSearch(searchText);
+	    
+	    if (searchResults == null || searchResults.length == 0) {
+	        optionPane = new OptionPaneButton("Platillo no encontrado", "No se encontraron coincidencias.");
+	        optionPane.warningOptionPane();
+	    } else {
+	        // Actualizar el panel con los resultados
+	        showDishes(searchResults);
+	    }
+	}
+	
+	public void showDishes(Object[][] data) {
+	    dishesPnl.removeAll();
+	    dishesArray.clear();
+	    
+	    for (int i = 0; i < data.length; i++) {
+	        String name = (String) data[i][0];
+	        byte[] imgByte = (byte[]) data[i][3];
+	        
+	        DishCard dishCard = new DishCard(30, imgByte, "platillo", name, frame);
+	        RoundPanel dish = dishCard.createCard();
+	        dishesArray.add(dish);
+	    }
+	    
+	    GridBagConstraints gbc = new GridBagConstraints();
+	    gbc.fill = GridBagConstraints.BOTH;
+	    gbc.insets = new Insets(15, 15, 15, 15);
+	    
+	    for (int i = 0; i < dishesArray.size(); i++) {
+	        int row = i / 3;
+	        int col = i % 3;
+	        gbc.gridx = col;
+	        gbc.gridy = row;
+	        dishesPnl.add(dishesArray.get(i), gbc);
+	    }
+	    
+	    dishesPnl.revalidate();
+	    dishesPnl.repaint();
 	}
 	
 	public void dishPage(String type) {
