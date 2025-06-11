@@ -54,7 +54,7 @@ public class InventoryModel
 		return ingredients;
 	}
 	
-	//Ingresar ingrediente neevo
+	//Ingresar ingrediente nuevo
 		public boolean create(String code_Ingredient, String name, int ammount)
 		{
 			String query = "INSERT INTO Inventory (code_ingredient, name, ammount) "
@@ -95,7 +95,7 @@ public class InventoryModel
 		public boolean update(int id, String code_Ingredient, String name, int ammount)
 		{
 			String query = "UPDATE Inventory SET "
-					+ "code_ingredient = ?, name= ?, ammount= ?, WHERE id_ingredient = ?";
+					+ "code_ingredient = ?, name= ?, ammount= ? WHERE id_ingredient = ?";
 			Connection conn = null;
 			PreparedStatement ps = null;
 			
@@ -171,7 +171,7 @@ public class InventoryModel
 		{
 			ArrayList<Ingredient> ingredients = new ArrayList<>();
 			String query = "SELECT * FROM `Inventory` "
-					+ "WHERE code_ingredient LIKE ? OR LOWER(name) LIKE ?";
+					+ "WHERE LOWER(code_ingredient) LIKE ? OR LOWER(name) LIKE ?";
 			Connection conn = null;
 			PreparedStatement ps = null;
 			
@@ -182,6 +182,7 @@ public class InventoryModel
 				
 				String searchTextLwr = "%" + searchText.toLowerCase() + "%";
 				
+				ps.setString(1, searchTextLwr);
 				ps.setString(2, searchTextLwr);
 				
 				ResultSet rs = ps.executeQuery();
@@ -210,7 +211,8 @@ public class InventoryModel
 			return ingredients;
 		}
 		
-		public Ingredient getSingle(int row)	//Obtener datos de un cliente de la base de datos
+		//Obtener datos de un ingrediente de la base de datos
+		public Ingredient getSingle(int row)
 		{
 			Ingredient ingredient= null;
 			String query = "SELECT * FROM `Inventory` WHERE id_ingredient = ?";

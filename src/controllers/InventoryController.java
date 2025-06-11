@@ -28,8 +28,8 @@ public class InventoryController {
  		view.newInventory(); 
  	}
 
- 	public void editInventory() {
- 		view.editInventory(); 
+ 	public void editInventory(int selectedRow) {
+ 		view.editInventory(selectedRow); 
  	}
  	
  	//Funcion que genera lista de clientes en formato tabla
@@ -48,27 +48,44 @@ public class InventoryController {
 		}
 		return data;
 	}
+ 	
+ 	//Funcion que busca ingredientes especificos (filtro)
+ 	public Object[][] searchIngredientTable(String searchText)
+ 	{
+ 		List<Ingredient> ingredients= model.search(searchText);
+ 		
+		Object[][] data = new Object[ingredients.size()][5];
+		
+		for(int i = 0; i < ingredients.size(); i++)
+		{
+			Ingredient ingredient = ingredients.get(i);
+			data[i][0] = ingredient.name;
+			data[i][1] = ingredient.ammount;
+			data[i][2] = ingredient.code_Ingredient;
+		}
+		return data;
+	}
 
- 	//Funcion para crear un cliente
+ 	//Funcion para añadir un ingrediente
  	public void ingredientCreate(String code_ingredient, String name, int ammount)
  	{
  		model.create(code_ingredient, name, ammount);
  	}
  	
- 	//Funcion para actualizar un cliente ya existente
+ 	//Funcion para actualizar un ingrediente ya existente
  	public void ingredientUpdate(int row, String code_ingredient, String name, int ammount)
  	{
  		model.update(model.get().get(row).id, code_ingredient, name, ammount);
  	}
  	 	
- 	//Funcion para eliminar un cliente existente
+ 	//Funcion para eliminar un ingrediente existente
  	public void ingredientDelete(int row)
  	{
  		
  		model.delete(model.get().get(row).id);
  	}
 
- 	//Funcion para buscar un cliente especifico
+ 	//Funcion para buscar un ingrediente especifico
  	public Ingredient ingredientRead(int row)
  	{
  		return model.getSingle(model.get().get(row).id);

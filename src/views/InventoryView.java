@@ -20,8 +20,8 @@ public class InventoryView {
     int relativeXSize;
 	int relativeYSize;
 	
-	int selectedRow;
-	String selectedTable;
+	int selectedRow = -1;
+	String selectedTable = "";
 	
 	InventoryController ic;
 	OptionPaneButton optionPane;
@@ -47,8 +47,8 @@ public class InventoryView {
 		buttonPnl.getComponent(4).setBackground(Color.decode("#3C7E3A"));
 		sideBar.removeInventoryListener();
 		
-		selectedRow = -1;
-		selectedTable = "";
+//		selectedRow = -1;
+//		selectedTable = "";
 		
 		frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
@@ -132,9 +132,18 @@ public class InventoryView {
 					optionPane.errorOptionPane();
 				}
 				else{
-					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
-					loadingOptPn.loadingOptionPane(frame, 3000);
-					searchIngredient();
+					Object[][] ingredients = ic.searchIngredientTable(searchTxtFld.getText());	//Realiza busqueda de ingredientes
+					if(ingredients.length == 0)	{ //Condicional que verifica si se encontraron ingredientes o no
+						optionPane = new OptionPaneButton("Ingrediente no encontrado", "No se ha encontrado ningún ingrediente.");
+						optionPane.warningOptionPane();
+					}
+					else	//else en caso de que si encuentre
+					{
+						loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
+						loadingOptPn.loadingOptionPane(frame, 3000);
+						searchIngredient();
+					}
+					
 				}
 			}
 		});
@@ -285,12 +294,14 @@ public class InventoryView {
 		inventoryTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		inventoryTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		
-		inventoryTable.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
+		inventoryTable.getSelectionModel().addListSelectionListener(e -> {
+			if(!e.getValueIsAdjusting())
+			{
 				selectedRow = inventoryTable.getSelectedRow();
 				selectedTable = "inventoryTable";
+				
 				System.out.println(selectedRow);
-		    }
+			}
 		});
 		
 		topleftPnl.add(invScrollPane, BorderLayout.CENTER);
@@ -318,11 +329,14 @@ public class InventoryView {
 		noStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		noStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		
-		noStockTable.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
+		noStockTable.getSelectionModel().addListSelectionListener(e -> {
+			if(!e.getValueIsAdjusting())
+			{
 				selectedRow = noStockTable.getSelectedRow();
 				selectedTable = "noStockTable";
-		    }
+				
+				System.out.println(selectedRow);
+			}
 		});
 		
 		bottomLeftPnl.add(noStockScrollPane, BorderLayout.CENTER);
@@ -351,11 +365,14 @@ public class InventoryView {
 		lowStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
 		lowStockTable.getColumnModel().getColumn(2).setCellRenderer(new TextWrapCellRender());
 		
-		lowStockTable.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
+		lowStockTable.getSelectionModel().addListSelectionListener(e -> {
+			if(!e.getValueIsAdjusting())
+			{
 				selectedRow = lowStockTable.getSelectedRow();
 				selectedTable = "lowStockTable";
-		    }
+				
+				System.out.println(selectedRow);
+			}
 		});
 		
 		topRightPnl.add(lowStockScrollPane, BorderLayout.CENTER);
@@ -399,11 +416,11 @@ public class InventoryView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				if(selectedRow!=-1 && !selectedTable.equals("")) {
+				if(selectedRow != -1 && !selectedTable.equals("")) {
 					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
-					ic.editInventory();
+					ic.editInventory(selectedRow);
 				}else {
 					optionPane = new OptionPaneButton("Fila sin seleccionar", "Seleccione la fila de una tabla.");
 					optionPane.warningOptionPane();
@@ -529,7 +546,7 @@ public class InventoryView {
 	}
 	
 	
-	public void editInventory() {
+	public void editInventory(int selectedRow) {
 		ic = new InventoryController(frame.getTitle(), frame.getWidth(), frame.getHeight());
 		
 		mainPnl = new JPanel();
