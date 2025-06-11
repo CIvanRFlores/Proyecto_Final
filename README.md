@@ -73,7 +73,55 @@ El sistema ahora permite descargar la información del cliente, así como su his
 
 # 🍤 Cuarta entrega (Entrega Final)
 
-Funcionalidades implementadas:
+🧾 Funcionalidades CRUD por Módulo
+
+El sistema implementa operaciones CRUD completas (Crear, Leer, Actualizar, Eliminar) en todos los módulos principales del restaurante, permitiendo una gestión eficiente y controlada de los datos.
+
+🍽️ Módulo de Platillos
+
+
+✅ Crear platillo: Registro de nuevos platillos al menú con nombre, precio, descripción e imagen.
+
+🔍 Leer platillos: Visualización de todos los platillos disponibles en formato de tarjetas.
+
+✏️ Editar platillo: Modificación de información existente (nombre, precio, imagen, etc.).
+
+❌ Eliminar platillo: Opción para eliminar un platillo del sistema con confirmación previa.
+
+🧾 Módulo de Órdenes
+
+
+✅ Crear orden: Registro de una nueva orden con los productos seleccionados por el cliente.
+
+🔍 Leer órdenes: Consulta de órdenes actuales y pasadas desde el panel de administración.
+
+✏️ Editar orden: Actualización de los productos o datos de una orden antes de su entrega.
+
+❌ Eliminar orden: Cancelación o eliminación de órdenes en caso necesario.
+
+
+
+👤 Módulo de Clientes
+
+✅ Registrar cliente: Añadir nuevos clientes al sistema con nombre, contacto y dirección.
+
+🔍 Consultar clientes: Listado completo con búsqueda y ordenamiento por nombre o ID.
+
+✏️ Editar cliente: Modificación de los datos del cliente de forma rápida y segura.
+
+❌ Eliminar cliente: Opción para remover registros obsoletos o duplicados.
+
+
+
+📦 Módulo de Inventario
+
+✅ Añadir ingrediente: Registro de nuevos insumos con nombre, unidad y cantidad.
+
+🔍 Visualizar inventario: Vista categorizada por estado (stock suficiente, bajo, o faltante).
+
+✏️ Actualizar stock: Edición de cantidades o detalles de un ingrediente.
+
+❌ Eliminar ingrediente: Eliminación de ingredientes no utilizados del sistema.
 
 
 🛠️ Tecnologías Utilizadas
