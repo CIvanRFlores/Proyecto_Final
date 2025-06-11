@@ -73,11 +73,13 @@ El sistema ahora permite descargar la información del cliente, así como su his
 
 # 🍤 Cuarta entrega (Entrega Final)
 
-🧾 Funcionalidades CRUD por Módulo
+##🧾 Funcionalidades CRUD por Módulo
 
 El sistema implementa operaciones CRUD completas (Crear, Leer, Actualizar, Eliminar) en todos los módulos principales del restaurante, permitiendo una gestión eficiente y controlada de los datos.
 
-🍽️ Módulo de Platillos
+
+
+##🍽️ Módulo de Platillos
 
 
 ✅ Crear platillo: Registro de nuevos platillos al menú con nombre, precio, descripción e imagen.
@@ -88,7 +90,9 @@ El sistema implementa operaciones CRUD completas (Crear, Leer, Actualizar, Elimi
 
 ❌ Eliminar platillo: Opción para eliminar un platillo del sistema con confirmación previa.
 
-🧾 Módulo de Órdenes
+
+
+##🧾 Módulo de Órdenes
 
 
 ✅ Crear orden: Registro de una nueva orden con los productos seleccionados por el cliente.
@@ -101,7 +105,7 @@ El sistema implementa operaciones CRUD completas (Crear, Leer, Actualizar, Elimi
 
 
 
-👤 Módulo de Clientes
+##👤 Módulo de Clientes
 
 ✅ Registrar cliente: Añadir nuevos clientes al sistema con nombre, contacto y dirección.
 
@@ -113,7 +117,7 @@ El sistema implementa operaciones CRUD completas (Crear, Leer, Actualizar, Elimi
 
 
 
-📦 Módulo de Inventario
+##📦 Módulo de Inventario
 
 ✅ Añadir ingrediente: Registro de nuevos insumos con nombre, unidad y cantidad.
 
@@ -124,7 +128,7 @@ El sistema implementa operaciones CRUD completas (Crear, Leer, Actualizar, Elimi
 ❌ Eliminar ingrediente: Eliminación de ingredientes no utilizados del sistema.
 
 
-🛠️ Tecnologías Utilizadas
+#🛠️ Tecnologías Utilizadas
 
 Lenguaje: Java
 
@@ -137,7 +141,7 @@ Base de datos: MySQL (remota)
 Librerías: Swing, JDBC
 
 
-🔐 Acceso al Sistema
+#🔐 Acceso al Sistema
 
 Login de prueba
 
@@ -158,7 +162,7 @@ Usuario: freedb_civanrflores
 Contraseña: Pm6kE#W!3sQyK5s
 
 
-⚙️ Instrucciones de instalación/ejecución
+#⚙️ Instrucciones de instalación/ejecución
 
 Asegúrate de tener instalado el Java Runtime Environment (JRE) en tu equipo. 
 
