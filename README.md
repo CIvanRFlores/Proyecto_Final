@@ -1,102 +1,121 @@
 # 🍤 Proyecto Final - Restaurante de Mariscos
-Programación III
+**Programación III**
 
-# Descripción General
-Este proyecto tiene como objetivo el diseño y desarrollo de una aplicacion para la gestión integral de un restaurante de mariscos, utilizando el lenguaje de programación Java. El sistema permitirá administrar funcionalidades clave del restaurante, tales como la visualización del menú, la toma de pedidos, la administracion de inventario y la gestión de clientes.
+---
 
-# 🖌️ Primera Etapa: Diseño de Interfaz (Prototipado en Figma)
-Durante esta fase inicial, se elaboró un prototipo interactivo utilizando Figma, con el propósito de planificar y estructurar visualmente la aplicación antes de su desarrollo.
+## 📖 Descripción General
 
-Funcionalidades diseñadas:
+Este proyecto tiene como objetivo el diseño y desarrollo de una aplicación para la gestión integral de un restaurante de mariscos, utilizando el lenguaje de programación **Java**. El sistema permite administrar funcionalidades clave como:
 
-Menú de productos (platillos y bebidas)
+- Visualización del menú  
+- Toma de pedidos  
+- Administración de inventario  
+- Gestión de clientes  
+- Control de usuarios
 
-Toma de pedidos
+---
 
-Administración de inventario
+## 🖌️ Primera Etapa: Diseño de Interfaz (Prototipado en Figma)
 
-Gestión de usuarios (login y control de acceso)
+Durante esta fase inicial se elaboró un prototipo interactivo con **Figma**, permitiendo planificar y estructurar visualmente la aplicación antes de su desarrollo.
 
-Gestion de clientes
+### 🔧 Funcionalidades diseñadas:
 
-Flujo de navegación entre pantallas
+- Menú de productos (platillos y bebidas)  
+- Toma de pedidos  
+- Administración de inventario  
+- Gestión de usuarios (login y control de acceso)  
+- Gestión de clientes  
+- Flujo de navegación entre pantallas
 
-Este prototipo actúa como una guía visual y funcional para la implementación en código, asegurando una interfaz coherente, moderna y amigable para el usuario final.
+Este prototipo actúa como una guía visual y funcional para la implementación en código, asegurando una interfaz coherente, moderna y amigable.
 
-# 💻 Segunda Etapa: Implementación en Java
-En esta fase se comenzó la construcción funcional de la aplicación con Java, replicando fielmente el diseño prototipado.
+---
 
-Características implementadas:
+## 💻 Segunda Etapa: Implementación en Java
 
-Maquetación visual del sistema de administración con componentes personalizados como botones y paneles con esquinas redondeadas.
+Se inició la construcción funcional de la aplicación utilizando **Java**, replicando fielmente el diseño realizado en Figma.
 
-Navegación fluida entre ventanas mediante eventos de botón.
+### ✨ Características implementadas:
 
-Gestión de tarjetas visuales para representar platillos y órdenes.
+- Maquetación visual del sistema con componentes personalizados (botones redondeados, paneles estilizados)  
+- Navegación fluida entre ventanas mediante eventos  
+- Gestión visual de tarjetas para representar platillos y órdenes  
+- Conexión a base de datos remota para autenticación de usuarios  
 
-Conexión a una base de datos remota para manejar la autenticación de inicio de sesión de usuarios.
+Este avance marcó una transición del diseño al desarrollo funcional con enfoque visual.
 
-Este avance marca una transición efectiva del diseño al desarrollo, enfocándose en una arquitectura funcional y visualmente atractiva.
+---
 
-# 📋 Tercera entrega - Sistema CRUD de Clientes
+## 📋 Tercera Entrega: Sistema CRUD de Clientes
 
-🧾 Descripción General
+Se integró un sistema CRUD para la administración de datos de clientes, desde una interfaz clara y funcional.
 
-Este proyecto corresponde a la tercera entrega del sistema de gestión de clientes mediante operaciones CRUD (Crear, Leer, Actualizar, Eliminar). 
-El sistema está diseñado para permitir al administrador gestionar eficientemente los datos de los clientes desde una interfaz amigable y funcional.
+### ✅ Funcionalidades implementadas:
 
-✅ Funcionalidades principales implementadas
-En esta entrega se trabajó en nuevas funcionalidades que fortalecen la administración y el control sobre los registros de los clientes:
+- 🔍 **Ordenamiento** de clientes (por nombre, ID u otro criterio)  
+- ✏️ **Edición** rápida con campos prellenados  
+- 🗑️ **Eliminación** segura con confirmación previa  
+- 📥 **Descarga de información** del cliente e historial de compras
 
-🔍 Ordenamiento de clientes:
-El sistema ahora permite al administrador ordenar los registros de clientes para facilitar su localización y análisis. Este orden puede ser por nombre, 
-ID u otro criterio establecido según las necesidades del sistema.
+---
 
-✏️ Edición de clientes:
-El administrador puede modificar los datos de cualquier cliente registrado, accediendo a una vista con los campos prellenados para su rápida edición.
+## 🍤 Cuarta Entrega (Entrega Final): Módulo de Inventario
 
-🗑️ Eliminación de clientes:
-Se habilitó la opción de eliminar clientes, incluyendo confirmaciones previas para evitar acciones accidentales.
+En esta etapa se desarrolló el módulo de gestión de inventario, enfocado en la administración de ingredientes y el control de existencias.
 
-📥 Descarga de información:
-El sistema ahora permite descargar la información del cliente, así como su historial de compras, generando un archivo con los datos relevantes para respaldo o revisión.
+### 📦 Funcionalidades implementadas:
 
-# 🍤 Cuarta entrega (Entrega Final)
-Funcionalidades implementadas:
-📦 Crear, editar y eliminar ingredientes del inventario
+- Crear, editar y eliminar ingredientes del inventario  
+- 🔍 Búsqueda por código desde un campo interactivo  
+- 📉 Detección automática de **stock bajo** y **faltantes**, mostrados en secciones separadas  
+- 📋 CRUD probado individualmente, con enfoque en creación y eliminación  
+- ✅ Conexión estable con base de datos remota para operaciones efectivas
 
-🔍 Búsqueda por código desde un campo interactivo
+### 🖼️ Interfaz:
 
-📉 Detección de stock bajo y faltantes, los cuales se muestran en secciones diferenciadas
+- Botones organizados de forma clara e intuitiva  
+  - **Buscar:** localiza productos por criterio  
+  - **Eliminar:** elimina ingrediente seleccionado con seguridad  
+  - **Editar:** carga datos del ingrediente para edición  
+  - **Nuevo:** formulario para agregar producto  
+- Tablas diferenciadas visualmente por colores, separando secciones como Inventario general, Stock bajo y Faltantes
 
-📋 Cada sección del CRUD fue probada individualmente, con énfasis en crear y eliminar
+---
 
-✅ Conexión estable con base de datos remota, funcional en operaciones de crear y añadir
+## 🛠️ Tecnologías Utilizadas
 
-Interfaz:
+- Lenguaje: **Java**  
+- IDE: **Eclipse**  
+- Diseño UI/UX: **Figma**  
+- Base de datos: **MySQL (remota)**  
+- Librerías: **Swing**, **JDBC**
 
+---
 
-🛠️ Tecnologías Utilizadas
-Lenguaje: Java
-IDE: Eclipse
-Diseño UI/UX: Figma
-Base de datos: MySQL (remota)
-Librerías: Swing, JDBC
+## 🔐 Acceso al Sistema
 
-🔐 Acceso al Sistema
-Login de prueba:
-Usuario: jonasoto
-Contraseña: 1234
-Base de Datos:
-Nombre: freedb_Restaurante_El_Manglar
-Host: sql.freedb.tech
-Puerto: 3306
-Usuario: freedb_civanrflores
-Contraseña: Pm6kE#W!3sQyK5s
+**Login de prueba:**  
+- Usuario: `jonasoto`  
+- Contraseña: `1234`
 
-⚙️ Instrucciones de instalación/ejecución
-Asegúrate de tener instalado el Java Runtime Environment (JRE) en tu equipo. 
-Puedes descargarlo desde: https://www.oracle.com/java/technologies/javase-downloads.html
-Descarga el archivo .jar del proyecto compilado.
-Ejecuta el proyecto haciendo clic derecho sobre el archivo .jar y posteriormente abrirlo dede
+**Base de Datos:**  
+- Nombre: `freedb_Restaurante_El_Manglar`  
+- Host: `sql.freedb.tech`  
+- Puerto: `3306`  
+- Usuario: `freedb_civanrflores`  
+- Contraseña: `Pm6kE#W!3sQyK5s`
 
+---
+
+## ⚙️ Instrucciones de Instalación / Ejecución
+
+1. Asegúrate de tener instalado el **Java Runtime Environment (JRE)** en tu equipo  
+   👉 Puedes descargarlo desde: [https://www.oracle.com/java/technologies/javase-downloads.html](https://www.oracle.com/java/technologies/javase-downloads.html)
+
+2. Descarga el archivo `.jar` compilado del proyecto.
+
+3. Ejecuta el archivo `.jar`:
+   - Opción 1: Haz **clic derecho** sobre el archivo y selecciona **"Abrir con Java"**  
+
+---
