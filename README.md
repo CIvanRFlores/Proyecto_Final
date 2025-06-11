@@ -1,8 +1,10 @@
 # 🍤 Proyecto Final - Restaurante de Mariscos
 Programación III
 
+
 # Descripción General
 Este proyecto tiene como objetivo el diseño y desarrollo de una aplicacion para la gestión integral de un restaurante de mariscos, utilizando el lenguaje de programación Java. El sistema permitirá administrar funcionalidades clave del restaurante, tales como la visualización del menú, la toma de pedidos, la administracion de inventario y la gestión de clientes.
+
 
 # 🖌️ Primera Etapa: Diseño de Interfaz (Prototipado en Figma)
 Durante esta fase inicial, se elaboró un prototipo interactivo utilizando Figma, con el propósito de planificar y estructurar visualmente la aplicación antes de su desarrollo.
@@ -23,6 +25,7 @@ Flujo de navegación entre pantallas
 
 Este prototipo actúa como una guía visual y funcional para la implementación en código, asegurando una interfaz coherente, moderna y amigable para el usuario final.
 
+
 # 💻 Segunda Etapa: Implementación en Java
 En esta fase se comenzó la construcción funcional de la aplicación con Java, replicando fielmente el diseño prototipado.
 
@@ -37,6 +40,7 @@ Gestión de tarjetas visuales para representar platillos y órdenes.
 Conexión a una base de datos remota para manejar la autenticación de inicio de sesión de usuarios.
 
 Este avance marca una transición efectiva del diseño al desarrollo, enfocándose en una arquitectura funcional y visualmente atractiva.
+
 
 # 📋 Tercera entrega - Sistema CRUD de Clientes
 
@@ -66,21 +70,10 @@ Se habilitó la opción de eliminar clientes, incluyendo confirmaciones previas 
 
 El sistema ahora permite descargar la información del cliente, así como su historial de compras, generando un archivo con los datos relevantes para respaldo o revisión.
 
+
 # 🍤 Cuarta entrega (Entrega Final)
 
 Funcionalidades implementadas:
-
-📦 Crear, editar y eliminar ingredientes del inventario
-
-🔍 Búsqueda por código desde un campo interactivo
-
-📉 Detección de stock bajo y faltantes, los cuales se muestran en secciones diferenciadas
-
-📋 Cada sección del CRUD fue probada individualmente, con énfasis en crear y eliminar
-
-✅ Conexión estable con base de datos remota, funcional en operaciones de crear y añadir
-
-Interfaz:
 
 
 🛠️ Tecnologías Utilizadas
@@ -95,7 +88,9 @@ Base de datos: MySQL (remota)
 
 Librerías: Swing, JDBC
 
+
 🔐 Acceso al Sistema
+
 Login de prueba
 
 Usuario: jonasoto
@@ -113,6 +108,7 @@ Puerto: 3306
 Usuario: freedb_civanrflores
 
 Contraseña: Pm6kE#W!3sQyK5s
+
 
 ⚙️ Instrucciones de instalación/ejecución
 
