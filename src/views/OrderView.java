@@ -3,11 +3,13 @@ package views;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
 import controllers.OrderController;
 import customClasses.*;
+import models.Order;
 
 public class OrderView {
 
@@ -61,7 +63,7 @@ public class OrderView {
         });
 	}
 	
-	public void orders() {
+	public void orders(ArrayList<Order> orders) {
 		oc = new OrderController(frame.getTitle(), frame.getWidth(), frame.getHeight());
 		
 		mainPnl = new JPanel();
@@ -184,20 +186,44 @@ public class OrderView {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.fill = GridBagConstraints.BOTH;	
 		
-		ordersArray = new ArrayList<>();
-        for(int i=1; i<=15; i++) {
-        	
-        	//simular que las ordenes son de tipos diferente
-        	if(i%2==0) {
-        		OrderCard orderCard = new OrderCard(30, i+"", "$1200.00 MXN", "Luis", 2, 25+"min", frame, mainPnl);
-        		RoundPanel order = orderCard.createCard();
-        		ordersArray.add(order);
-        	}else {
-        		OrderCard orderCard = new OrderCard(30, i+"", "$1200.00 MXN", "Luis", 1, 25+"min", frame, mainPnl);
-        		RoundPanel order = orderCard.createCard();
-        		ordersArray.add(order);
-        	}
-        }
+		ArrayList<RoundButton> ordersArray = new ArrayList<>();
+
+		for (Order order : orders) {
+			
+		    String radius = 30 + (order.ammount);
+		    int radio = Integer.parseInt(radius);
+		    
+		    RoundButton button = new RoundButton(radio);
+		    
+		    String buttonText = "Mesa: " + order.table_Number + 
+		                       "Platos: " + order.ammount + 
+		                       "Tipo: " + order.order_Type;
+		    
+		    button.setText(buttonText);
+		    
+		    switch(order.order_Type.toString().toLowerCase()) {
+		        case "urgente":
+		            button.setBackground(new Color(255, 100, 100));
+		            break;
+		        case "express":
+		            button.setBackground(new Color(255, 200, 100));
+		            break;
+		        default:
+		            button.setBackground(new Color(150, 220, 150));
+		    }
+		    
+		    String tooltip = "ID: " + order.id + 
+		                    " | Cliente: " + order.id_Client + 
+		                    " | Tiempo: " + order.estimated_Time + " min" +
+		                    " | Instrucciones: " + order.instructions;
+		    button.setToolTipText(tooltip);
+		    
+		    button.addActionListener(e -> {
+		        System.out.println("Pedido seleccionado: " + order.id);
+		    });
+		    
+		    ordersArray.add(button);
+		}
 		
 		for(int i=0; i<ordersArray.size(); i++) {
             int row = i/2; 
