@@ -20,8 +20,8 @@ public class InventoryController {
  		view.inventory(); 
  	}
  	
- 	public void searchIngredient() {
- 		view.searchIngredient(); 
+ 	public void searchIngredient(Object[][] ingredients) {
+ 		view.searchIngredient(ingredients); 
  	}
  	
  	public void newInventory() {
