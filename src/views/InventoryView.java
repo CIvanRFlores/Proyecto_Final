@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import controllers.InventoryController;
 import customClasses.*;
+import models.Ingredient;
 
 public class InventoryView {
 
@@ -268,10 +269,13 @@ public class InventoryView {
 		topleftPnl.add(inventoryTableLbl, BorderLayout.NORTH);
 		
 		String[] tableColumns =  {"Nombre", "Cantidad", "Código"};
-		Object[][] data = {{"José Eduardo Guereque", "Del Árbol 169, col. La fuente", "6128682392"},
-							{"José Guereque", "La fuente", "6128682392"}};
 		
-		DefaultTableModel invTableModel = new DefaultTableModel(data, tableColumns);
+		DefaultTableModel invTableModel = new DefaultTableModel(tableColumns, 0);
+
+		Object[][] data= ic.ingredientsTable();
+		for(Object[] row : data) {	//Inserta ingredientes de la base de datos a la tabla
+			invTableModel.addRow(row);
+		}
 		
 		InformationTable invTemplate = new InformationTable(frame, invTableModel, Color.decode("#555BF6"));
 		JScrollPane invScrollPane = invTemplate.createTable();
@@ -285,6 +289,7 @@ public class InventoryView {
 			public void mouseClicked(MouseEvent evt) {
 				selectedRow = inventoryTable.getSelectedRow();
 				selectedTable = "inventoryTable";
+				System.out.println(selectedRow);
 		    }
 		});
 		
@@ -307,7 +312,7 @@ public class InventoryView {
 		
 		InformationTable noStockTemplate = new InformationTable(frame, noStockTableModel, Color.decode("#EF2D2D"));
 		JScrollPane noStockScrollPane = noStockTemplate.createTable();
-		JTable noStockTable = invTemplate.getTable() ;
+		JTable noStockTable = noStockTemplate.getTable();
 				
 		noStockTable.getColumnModel().getColumn(0).setCellRenderer(new TextWrapCellRender());
 		noStockTable.getColumnModel().getColumn(1).setCellRenderer(new TextWrapCellRender());
@@ -322,8 +327,6 @@ public class InventoryView {
 		
 		bottomLeftPnl.add(noStockScrollPane, BorderLayout.CENTER);
 		
-		
-		
 		JPanel topRightPnl = new JPanel();
 		topRightPnl.setLayout(new BorderLayout(30, 20));
 		topRightPnl.setOpaque(false);	
@@ -337,6 +340,8 @@ public class InventoryView {
 		topRightPnl.add(lowStockTableLbl, BorderLayout.NORTH);
 	
 		DefaultTableModel lowStockTableModel = new DefaultTableModel(tableColumns, 0);
+		
+		
 		
 		InformationTable lowStockTemplate = new InformationTable(frame, lowStockTableModel, Color.decode("#C07A00"));
 		JScrollPane lowStockScrollPane = lowStockTemplate.createTable();
@@ -365,6 +370,22 @@ public class InventoryView {
 					if(opt==1) {
 						loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
 						loadingOptPn.loadingOptionPane(frame, 3000);
+						
+						ic.ingredientDelete(selectedRow);
+						System.out.println(selectedRow);
+						if(selectedTable.equals("inventoryTable"))
+						{
+							invTableModel.removeRow(selectedRow);
+						}
+						else if(selectedTable.equals("noStockTable"))
+						{
+							noStockTableModel.removeRow(selectedRow);
+						}
+						else 
+						{
+							lowStockTableModel.removeRow(selectedRow);
+						}
+						
 						System.out.println("Registro eliminado");
 					}
 				}else {
@@ -377,6 +398,7 @@ public class InventoryView {
 		editBttn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				if(selectedRow!=-1 && !selectedTable.equals("")) {
 					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);
@@ -479,6 +501,9 @@ public class InventoryView {
 					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);
 					
+					//Sentencia para crear nuevo cliente cuando se realize registro
+					ic.ingredientCreate(form.getCodeTxtFld(), form.getNameTxtFld(), Integer.parseInt(form.getQuantityTxtFld()));	//parseInt convierte un String en Int
+					
 					optionPane = new OptionPaneButton("Acción exitosa", "Inventario creado correctamente.");
 					optionPane.checkOptionPane();
 					
@@ -569,7 +594,12 @@ public class InventoryView {
 		InventoryFormPanel form = new InventoryFormPanel(frame);
 		JPanel formPanel = form.createInventoryForm();
 		mainPnl.add(formPanel, BorderLayout.CENTER); 
-		
+		System.out.println(selectedRow);
+		Ingredient i = ic.ingredientRead(selectedRow);
+		//Formulario lleno
+		form.setCodeTxtFld(i.code_Ingredient);
+		form.setNameTxtFld(i.name);
+		form.setQuantityTxtFld(String.valueOf(i.ammount));
 		
 		RoundButton saveBttn = new RoundButton(30);
 		saveBttn.setBackground(Color.decode("#555BF6"));
@@ -584,6 +614,9 @@ public class InventoryView {
 				if(!form.invFormEmptyFields()) {
 					loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);
+					
+					System.out.println(selectedRow);
+					ic.ingredientUpdate(selectedRow, form.getCodeTxtFld(), form.getNameTxtFld(), Integer.parseInt(form.getQuantityTxtFld()));
 					
 					optionPane = new OptionPaneButton("Acción exitosa", "Inventario actualizado correctamente.");
 	   				optionPane.checkOptionPane();
