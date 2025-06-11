@@ -175,38 +175,27 @@ Ejecuta el proyecto haciendo clic derecho sobre el archivo .jar y posteriormente
 # 📂 Estructura del proyecto
 
 📁 Proyecto_Final
-
-├── 📁 src
-
-│   ├── 📁 application          # Lógica principal de la aplicación (Main, inicializadores)
-
-│   ├── 📁 controllers          # Controladores que manejan la lógica entre vistas y modelos
-
-│   ├── 📁 customClasses        # Clases personalizadas (helpers, utilidades, etc.)
-
-│   ├── 📁 files                # Archivos de datos o configuraciones
-
-│   ├── 📁 images               # Imágenes utilizadas en la interfaz
-
-│   ├── 📁 libreries            # Librerías externas (JARs u otras dependencias)
-
-│   ├── 📁 models               # Modelos de datos (Platillos, Clientes, Inventario, etc.)
-
-│   └── 📁 views                # Interfaces gráficas (ventanas, paneles, etc.)
-
-├── 📦 ElManglar.jar            # Archivo ejecutable principal del proyecto
-
+├── 📁 src                           # Código fuente del proyecto
+│   ├── 📁 application              # Lógica principal y punto de entrada del programa (main)
+│   ├── 📁 controllers              # Controladores que gestionan la lógica entre vistas y modelos
+│   ├── 📁 customClasses            # Clases personalizadas de apoyo (utilidades, helpers, estilos)
+│   ├── 📁 files                    # Archivos de datos, configuraciones o reportes generados
+│   ├── 📁 images                   # Imágenes utilizadas en la interfaz gráfica (íconos, logos)
+│   ├── 📁 libreries                # Librerías externas necesarias para el funcionamiento
+│   ├── 📁 models                   # Clases modelo que representan los datos (Clientes, Platillos, etc.)
+│   └── 📁 views                    # Interfaces gráficas construidas con Java Swing
 │
-├── 📁 doc                     # Documentación adicional
+├── 📦 ElManglar.jar                # Archivo ejecutable principal de la aplicación
+│
+├── 📁 doc                          # Documentación adicional del proyecto
+│   ├── 📦 Manglar.jar              # Otra versión del ejecutable (alternativa)
+│   └── 📄 Reporte Restaurant.pdf   # Informe completo del proyecto en formato PDF
+│
+├── 📄 README.md                    # Documento principal con instrucciones e información del proyecto
+│
+├── 📁 JRE System Library [jre]     # Dependencias del entorno de ejecución de Java
+│
+└── 📁 Referenced Libraries         # Librerías externas referenciadas (como JDBC para base de datos)
 
-│   ├── 📦 Manglar.jar         # Otro ejecutable opcional o versión alternativa
-
-│   └── 📄 Reporte Restaurant.pdf  # Informe en PDF del proyecto
-
-├── 📄 README.md               # Documento principal con detalles del proyecto
-
-├── 📁 JRE System Library [jre]     # Librerías del entorno de ejecución de Java
-
-└── 📁 Referenced Libraries         # Librerías externas referenciadas (como JDBC)
 
 # 📸 Capturas de pantalla
