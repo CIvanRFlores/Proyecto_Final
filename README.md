@@ -175,43 +175,38 @@ Ejecuta el proyecto haciendo clic derecho sobre el archivo .jar y posteriormente
 # 📂 Estructura del proyecto
 
 📁 Proyecto_Final
-│
+
 ├── 📁 src
-│   │
+
 │   ├── 📁 application          # Lógica principal de la aplicación (Main, inicializadores)
-│   │
+
 │   ├── 📁 controllers          # Controladores que manejan la lógica entre vistas y modelos
-│   │
+
 │   ├── 📁 customClasses        # Clases personalizadas (helpers, utilidades, etc.)
-│   │
+
 │   ├── 📁 files                # Archivos de datos o configuraciones
-│   │
+
 │   ├── 📁 images               # Imágenes utilizadas en la interfaz
-│   │
+
 │   ├── 📁 libreries            # Librerías externas (JARs u otras dependencias)
-│   │
+
 │   ├── 📁 models               # Modelos de datos (Platillos, Clientes, Inventario, etc.)
-│   │
+
 │   └── 📁 views                # Interfaces gráficas (ventanas, paneles, etc.)
-│
-│
-│
+
 ├── 📦 ElManglar.jar            # Archivo ejecutable principal del proyecto
-│
-│
+
 │
 ├── 📁 doc                     # Documentación adicional
-│   │
+
 │   ├── 📦 Manglar.jar         # Otro ejecutable opcional o versión alternativa
-│   │
+
 │   └── 📄 Reporte Restaurant.pdf  # Informe en PDF del proyecto
-│
-│
-│
+
 ├── 📄 README.md               # Documento principal con detalles del proyecto
-│
+
 ├── 📁 JRE System Library [jre]     # Librerías del entorno de ejecución de Java
-│
+
 └── 📁 Referenced Libraries         # Librerías externas referenciadas (como JDBC)
 
 # 📸 Capturas de pantalla
