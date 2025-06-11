@@ -38,31 +38,6 @@ Conexión a una base de datos remota para manejar la autenticación de inicio de
 
 Este avance marca una transición efectiva del diseño al desarrollo, enfocándose en una arquitectura funcional y visualmente atractiva.
 
-# 📌 Tecnologías Utilizadas
-
-Lenguaje de programación: Java
-
-IDE: Eclipse
-
-Diseño UI/UX: Figma
-
-Base de datos: MySQL (remota)
-
-Librerías y herramientas adicionales: Swing, JDBC
-
-# Ingresar a Login / Base de datos
-
-Login//
-Usuario: jonasoto
-Contraseña: 1234
-
-BD//
-Nombre Base de datos: freedb_Restaurante_El_Manglar
-Host Base de datos: sql.freedb.tech
-Puerto: 3306
-Usuario: freedb_civanrflores
-Contraseña: Pm6kE#W!3sQyK5s
-
 # 📋 Tercera entrega - Sistema CRUD de Clientes
 
 🧾 Descripción General
@@ -85,3 +60,43 @@ Se habilitó la opción de eliminar clientes, incluyendo confirmaciones previas 
 
 📥 Descarga de información:
 El sistema ahora permite descargar la información del cliente, así como su historial de compras, generando un archivo con los datos relevantes para respaldo o revisión.
+
+# 🍤 Cuarta entrega (Entrega Final)
+Funcionalidades implementadas:
+📦 Crear, editar y eliminar ingredientes del inventario
+
+🔍 Búsqueda por código desde un campo interactivo
+
+📉 Detección de stock bajo y faltantes, los cuales se muestran en secciones diferenciadas
+
+📋 Cada sección del CRUD fue probada individualmente, con énfasis en crear y eliminar
+
+✅ Conexión estable con base de datos remota, funcional en operaciones de crear y añadir
+
+Interfaz:
+
+
+🛠️ Tecnologías Utilizadas
+Lenguaje: Java
+IDE: Eclipse
+Diseño UI/UX: Figma
+Base de datos: MySQL (remota)
+Librerías: Swing, JDBC
+
+🔐 Acceso al Sistema
+Login de prueba:
+Usuario: jonasoto
+Contraseña: 1234
+Base de Datos:
+Nombre: freedb_Restaurante_El_Manglar
+Host: sql.freedb.tech
+Puerto: 3306
+Usuario: freedb_civanrflores
+Contraseña: Pm6kE#W!3sQyK5s
+
+⚙️ Instrucciones de instalación/ejecución
+Asegúrate de tener instalado el Java Runtime Environment (JRE) en tu equipo. 
+Puedes descargarlo desde: https://www.oracle.com/java/technologies/javase-downloads.html
+Descarga el archivo .jar del proyecto compilado.
+Ejecuta el proyecto haciendo clic derecho sobre el archivo .jar y posteriormente abrirlo dede
+
