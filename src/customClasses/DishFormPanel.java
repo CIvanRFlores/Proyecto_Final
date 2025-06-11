@@ -251,9 +251,16 @@ public class DishFormPanel {
 		JPanel newDishPnl = new JPanel();
 		newDishPnl.setBackground(Color.white);
 		newDishPnl.setBorder(BorderFactory.createEmptyBorder(0, 0, 40, 0));
-		newDishPnl.setLayout(new GridLayout(2, 2, 30, 30));
+		newDishPnl.setLayout(new BorderLayout(0, 30));
 		
-		String ingredients[] = {"Ingredientes" ,"Maíz", "Camarón", "Papa", "Mantequilla", "Aceite", "Camote", "Tomate", "Agua"};
+		JLabel ingredientsLbl = new JLabel("Seleccione ingredientes");
+		ingredientsLbl.setFont(new Font("Caladea Regular", Font.PLAIN, 30));
+		ingredientsLbl.setForeground(Color.decode("#244E23")); 
+		ingredientsLbl.setHorizontalAlignment(SwingConstants.LEFT);
+		ingredientsLbl.setVerticalAlignment(SwingConstants.BOTTOM); 
+		newDishPnl.add(ingredientsLbl, BorderLayout.NORTH);
+		
+		String ingredients[] = {"Maíz", "Camarón", "Papa", "Mantequilla", "Aceite", "Camote", "Tomate", "Agua"};
 	
 		RoundPanel cmbBxPanel = new RoundPanel(30);  
 		cmbBxPanel.setBackground(Color.white);
@@ -308,6 +315,7 @@ public class DishFormPanel {
             	relativeXSize = (int) (frame.getHeight()*0.03);
             	font = new Font("Caladea Regular", Font.PLAIN, relativeXSize);
             	ingredientsCmbBx.setFont(font);
+            	ingredientsLbl.setFont(font);
             	
             	relativeXSize = (int) (frame.getHeight()*0.01);
        			Border border = BorderFactory.createEmptyBorder(relativeXSize, relativeXSize, relativeXSize, relativeXSize);
