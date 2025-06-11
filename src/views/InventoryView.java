@@ -264,7 +264,7 @@ public class InventoryView {
 		inventoryTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
 		inventoryPnl.add(inventoryTableLbl, BorderLayout.NORTH);
 		
-		String[] tableColumns = {"Nombre", "Cantidad", "Código"};
+		String[] tableColumns = {"ID", "Nombre", "Cantidad", "Código"};
 		
 		DefaultTableModel invTableModel = new DefaultTableModel(tableColumns, 0);
 
@@ -279,7 +279,8 @@ public class InventoryView {
 		
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-				
+		
+		inventoryTable.removeColumn(inventoryTable.getColumnModel().getColumn(0));//Esconder la columna de id
 		inventoryTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 		inventoryTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 		inventoryTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
@@ -305,8 +306,8 @@ public class InventoryView {
 					if(opt==1) {
 						loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
 						loadingOptPn.loadingOptionPane(frame, 3000);
-						
-						ic.ingredientDelete(selectedRow);
+						int id = (int) inventoryTable.getModel().getValueAt(selectedRow, 0);
+			            ic.ingredientDelete(id);
 						System.out.println(selectedRow);
 						invTableModel.removeRow(selectedRow);
 						System.out.println("Registro eliminado");
@@ -326,7 +327,9 @@ public class InventoryView {
 					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
-					ic.editInventory(selectedRow);
+					int id = (int) inventoryTable.getModel().getValueAt(selectedRow, 0);
+
+					ic.editInventory(id);
 				}else {
 					optionPane = new OptionPaneButton("Fila sin seleccionar", "Seleccione la fila de una tabla.");
 					optionPane.warningOptionPane();
@@ -540,7 +543,7 @@ public class InventoryView {
 		inventoryTableLbl.setVerticalAlignment(JLabel.BOTTOM); 
 		inventoryPnl.add(inventoryTableLbl, BorderLayout.NORTH);
 		
-		String[] tableColumns = {"Nombre", "Cantidad", "Código"};
+		String[] tableColumns = {"ID", "Nombre", "Cantidad", "Código"};
 		
 		DefaultTableModel invTableModel = new DefaultTableModel(tableColumns, 0);
 
@@ -555,6 +558,7 @@ public class InventoryView {
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 				
+		inventoryTable.removeColumn(inventoryTable.getColumnModel().getColumn(0));
 		inventoryTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 		inventoryTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
 		inventoryTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
@@ -563,8 +567,6 @@ public class InventoryView {
 			if(!e.getValueIsAdjusting())
 			{
 				selectedRow = inventoryTable.getSelectedRow();
-				
-				System.out.println(selectedRow);
 			}
 		});
 		
@@ -580,9 +582,9 @@ public class InventoryView {
 					if(opt==1) {
 						loadingOptPn = new OptionPaneButton("Cargando información...", "Por favor espere.");
 						loadingOptPn.loadingOptionPane(frame, 3000);
-						
-						ic.ingredientDelete(selectedRow);
-						System.out.println(selectedRow);
+						int id = (int) inventoryTable.getModel().getValueAt(selectedRow, 0);
+			            ic.ingredientDelete(id);
+						ic.ingredientDelete(id);
 						invTableModel.removeRow(selectedRow);
 						System.out.println("Registro eliminado");
 					}
@@ -601,7 +603,8 @@ public class InventoryView {
 					loadingOptPn = new OptionPaneButton("Cargando ventana...", "Por favor espere.");
 					loadingOptPn.loadingOptionPane(frame, 3000);
 					frame.dispose();
-					ic.editInventory(selectedRow);
+					int id = (int) inventoryTable.getModel().getValueAt(selectedRow, 0);
+					ic.editInventory(id);
 				}else {
 					optionPane = new OptionPaneButton("Fila sin seleccionar", "Seleccione la fila de una tabla.");
 					optionPane.warningOptionPane();
